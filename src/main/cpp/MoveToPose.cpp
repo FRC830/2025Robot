@@ -1,36 +1,61 @@
 // TODO: this should be in a header file under include/... functions are implemented in the cpp file
 // TODO: what do all header files start with?
 
-#include <frc/geometry/Pose2d.h>
-#include <cmath>
+#include <MoveToPose.h>
 
 // TODO: look at these files to understand how to setup and use a trapezoid move using switch statements
          - https://github.com/FRC830/2024Robot/blob/master/src/main/include/subsystems/IntakeHAL.h (trapezoid move member variable init)
          - https://github.com/FRC830/2024Robot/blob/master/src/main/cpp/subsystems/IntakeHAL.cpp (ProfiledMoveToAngle function)
-
-
 // TODO: don't worry about doing anything with the drive base for now
-class MoveToPose
-{
-    private:
+
+MoveToPose::MoveToPose() {
+
+};
+
+void MoveToPose::move(frc::Pose2d desired) {
+     // TODO: query swerve drive for current pose
+     frc::Pose2d current = frc::Pose2d(0, 0, frc::Rotation2d(0));
+     move(current, desired);
+};
+
+void MoveToPose::move(frc::Pose2d desired, frc::Pose2d current) {
+    angularRotation(desired.getRotation(), current.getRotation());
+    linearTranslatinon(current, desired);   
+};
+
+double MoveToPose::angularRotation(frc::Pose2d desired, frc::Pose2d current) {
+    switch (m_MoveToState)
+    {
+    case 0:
+        m_timer.Restart();
+        // todo get the angle
+        m_MoveToState++;
+        break;
+    case 1:
+        m_Profile.Calculate(
+            m_timer.Get(),
+            frc::TrapezoidProfile<units::degrees>::State{desired, 0},
+            frc::TrapezoidProfile<units::degrees>::State{current, 0}           
+        );
+
+        // todo set a variable for line 35 and rotate the robot
+
+        if (m_Profile.IsFinished(m_timer.Get())) {
+            m_MoveToState++;
+        }
+
+        break;
     
-    public:
-        MoveToPose() = default;
-        ~MoveToPose() = default;
+    case 2:
+        m_timer.Stop();
+        m_MoveToState++;
+        break;
 
-        // TODO: Create a top level function that takes in a SINGLE frc::Pose2d called 'desired'
+    default:
+        break;
+    }
+};
 
-        // TODO: create a function that takes a TWO frc::Pose2d called 'initial' and 'desired'
-        //       - this function gets called by the first one and we will use swerve odometry to generate the 'initial'
-        //       - this function will call two functions to handle the linear translation, and the angular rotation of the drive base
-
-        // TODO: create a function to handle the angular translation of the drivebase (this will implement a trapezoid move)
-        //       - should return the desired degrees_per_second_t the drive base should rotate by
-
-        // TODO: create a function to handle the linear translation of the drivebase (this will implement a trapezoid move)
-        //       - this uses the math we did using the distance formula and then splitting it up into th vx and vy component
-        //       - should return vx and vy as feet_per_second_t
-
-        // TODO: create helper functions as needed
-         
-}
+double linearTranslatinon(frc::Pose2d initial,frc::Pose2d desired) {
+    double distance=sqrt(pow(desired.x-initial.x,2)+pow(desired.y-initial.y,2))
+};
