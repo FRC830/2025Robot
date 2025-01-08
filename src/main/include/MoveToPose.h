@@ -1,3 +1,5 @@
+// TODO: what do all header files NEED to start with?
+
 #include <frc/geometry/Pose2d.h>
 #include <cmath>
 #include <frc/trajectory/TrapezoidProfile.h>
@@ -18,19 +20,20 @@ class MoveToPose
         MoveToPose() = default;
         ~MoveToPose() = default;
 
-        // TODO: Create a top level function that takes in a SINGLE frc::Pose2d called 'desired'
+        // Uses swerve odometry to generate the 'initial' pose
         void move(frc::Pose2d desired);
-        // TODO: create a function that takes a TWO frc::Pose2d called 'initial' and 'desired'
-        //       - this function gets called by the first one and we will use swerve odometry to generate the 'initial'
-        //       - this function will call two functions to handle the linear translation, and the angular rotation of the drive base
+
+        // TODO: all functions below should be private
+
+        // Moves robot from initial to desired
         void move(frc::Pose2d initial,frc::Pose2d desired);
-        // TODO: create a function to handle the angular translation of the drivebase (this will implement a trapezoid move)
-        //       - should return the desired degrees_per_second_t the drive base should rotate by
+        
+        // Trapezoid move to handle angular rotation to desired pose
         double angularRotation(frc::Pose2d desired, frc::Pose2d current);
-        // TODO: create a function to handle the linear translation of the drivebase (this will implement a trapezoid move)
-        //       - this uses the math we did using the distance formula and then splitting it up into th vx and vy component
-        //       - should return vx and vy as feet_per_second_t
+        
+        // Trapezoid move to handle linear translation to desired pose
         frc::Pose2d linearTranslation(frc::Pose2d initial,frc::Pose2d desired);
+
         // TODO: create helper functions as needed
          
 };

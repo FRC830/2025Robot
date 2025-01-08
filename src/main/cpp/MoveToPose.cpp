@@ -1,6 +1,4 @@
-// TODO: this should be in a header file under include/... functions are implemented in the cpp file
-// TODO: what do all header files start with?
-
+// TODO: classes we define should have "" instead of <> for their include statement
 #include <MoveToPose.h>
 
 // TODO: look at these files to understand how to setup and use a trapezoid move using switch statements
@@ -8,11 +6,10 @@
          - https://github.com/FRC830/2024Robot/blob/master/src/main/cpp/subsystems/IntakeHAL.cpp (ProfiledMoveToAngle function)
 // TODO: don't worry about doing anything with the drive base for now
 
-MoveToPose::MoveToPose() {
-
-};
-
 void MoveToPose::move(frc::Pose2d desired) {
+    // TODO: this should be in a switch statement:
+    //       - case 0: query swerve for current position and save to member variable
+    //       - case 1: call move(current, desired)
      // TODO: query swerve drive for current pose
      frc::Pose2d current = frc::Pose2d(0, 0, frc::Rotation2d(0));
      move(current, desired);
