@@ -6,9 +6,13 @@
 
 #include <frc2/command/CommandScheduler.h>
 
-Robot::Robot() {}
+Robot::Robot() {
+  SwerveInit();
+}
 
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  PrintSwerveInfo();
+}
 
 void Robot::DisabledInit() {}
 
