@@ -3,6 +3,7 @@
 #include <rev/SparkMax.h>
 #include "Interfaces/SwerveDriveMotor.h"
 #include "units/velocity.h"
+#include <rev/config/SparkMaxConfig.h>
 
 struct SwerveDriveMotorConfig {
     int motorID;
@@ -10,7 +11,7 @@ struct SwerveDriveMotorConfig {
     rev::spark::SparkMax *motor;
     rev::spark::SparkRelativeEncoder *encoder;
     rev::spark::SparkClosedLoopController *PID;
-    rev::spark::SparkBaseConfig::IdleMode idleMode; 
+    rev::spark::SparkMaxConfig::IdleMode idleMode; 
     double p;
     double i;
     double d;

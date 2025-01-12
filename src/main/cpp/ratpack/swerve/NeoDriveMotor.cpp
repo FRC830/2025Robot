@@ -12,16 +12,14 @@ void NeoDriveMotor::Configure(SwerveDriveMotorConfig &config){
 
     mtr_config.closedLoop.SetFeedbackSensor(rev::spark::ClosedLoopConfig::FeedbackSensor::kPrimaryEncoder);
     mtr_config.closedLoop.Pidf(config.p, config.i, config.d, config.ff);
-    mtr_config.encoder
-        .PositionConversionFactor(config.ratio)
-        .VelocityConversionFactor(config.ratio*60);
-    mtr_config
-        .Inverted(config.inverted)
-        .SetIdleMode(config.idleMode);
+    mtr_config.encoder.PositionConversionFactor(config.ratio);
+    mtr_config.encoder.VelocityConversionFactor((config.ratio*60));
+    mtr_config.Inverted(config.inverted);
+    mtr_config.SetIdleMode(config.idleMode);
     mtr_config.SmartCurrentLimit(config.drive_motor_current_limit);
     mtr_config.VoltageCompensation(config.swerve_voltage_compensation);
 
-    START_RETRYING(NEO_TURN_MTR_CONFIGURE)
+    START_RETRYING(NEO_DRIVE_MTR_CONFIGURE)
     m_motor->Configure(mtr_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
     END_RETRYING
 
