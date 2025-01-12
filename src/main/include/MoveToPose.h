@@ -38,6 +38,12 @@ class MoveToPose
 
         // Uses swerve odometry to generate the 'initial' pose
         void move(frc::Pose2d desired);
+
+        // TODO: all functions below should be private
+        //       all functions should have (current, desired)... instead of (initial, desired) or (desired, current)
+
+        // Moves robot from initial to desired
+        void move(frc::Pose2d initial,frc::Pose2d desired);
         
         // TODO: create helper functions as needed
          
