@@ -8,6 +8,7 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
+#include "PhotonVisionCamera.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -28,4 +29,10 @@ class Robot : public frc::TimedRobot {
 
  private:
   std::optional<frc2::CommandPtr> m_autonomousCommand;
+  frc::Transform3d RobotToCama;
 };
+
+namespace
+{
+  PhotonVisionCamera cam("photonvision", RobotToCama);
+}

@@ -5,6 +5,8 @@
 #include "Robot.h"
 
 #include <frc2/command/CommandScheduler.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/DriverStation.h>
 
 Robot::Robot() {}
 
@@ -24,7 +26,13 @@ void Robot::AutonomousExit() {}
 
 void Robot::TeleopInit() {}
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+  auto data = cam.GetPose();
+  auto pose = data.value().estimatedPose;
+  frc::SmartDashboard::PutNumber("Data.x", pose.X().value());
+  frc::SmartDashboard::PutNumber("Data.y", pose.Y().value());
+
+}
 
 void Robot::TeleopExit() {}
 
