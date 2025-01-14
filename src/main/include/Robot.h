@@ -16,6 +16,11 @@
 #include "ratpack/swerve/WPISwerveModule.h"
 #include "ratpack/swerve/WPISwerveDrive.h"
 
+
+#include "ControllerInterface.h"
+#include "RobotControlData.h"
+
+
 class Robot : public frc::TimedRobot {
  public:
   Robot();
@@ -47,4 +52,6 @@ class Robot : public frc::TimedRobot {
   WPISwerveDrive _swerve;
 
   NavXGyro _gyro;
+  ControllerInterface _controller_interface;
+  RobotControlData _robot_control_data;
 };

@@ -28,7 +28,10 @@ void Robot::AutonomousExit() {}
 
 void Robot::TeleopInit() {}
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+  _controller_interface.UpdateRobotControlData(_robot_control_data);
+  _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
+}
 
 void Robot::TeleopExit() {}
 
