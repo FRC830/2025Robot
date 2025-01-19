@@ -8,7 +8,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DriverStation.h>
 
-Robot::Robot() {}
+Robot::Robot() {
+  m_cam = PhotonVisionCamera("photonvision", m_robotToCamera);
+}
 
 void Robot::RobotPeriodic() {}
 
@@ -27,7 +29,7 @@ void Robot::AutonomousExit() {}
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
-  auto data = cam.GetPose();
+  auto data = m_cam.GetPose();
   auto pose = data.value().estimatedPose;
   frc::SmartDashboard::PutNumber("Data.x", pose.X().value());
   frc::SmartDashboard::PutNumber("Data.y", pose.Y().value());

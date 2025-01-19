@@ -29,10 +29,6 @@ class Robot : public frc::TimedRobot {
 
  private:
   std::optional<frc2::CommandPtr> m_autonomousCommand;
-  frc::Transform3d RobotToCama;
+  frc::Transform3d m_robotToCamera;
+  PhotonVisionCamera m_cam;
 };
-
-namespace
-{
-  PhotonVisionCamera cam("photonvision", RobotToCama);
-}
