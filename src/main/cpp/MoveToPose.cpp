@@ -5,19 +5,21 @@
        //  - https://github.com/FRC830/2024Robot/blob/master/src/main/cpp/subsystems/IntakeHAL.cpp (ProfiledMoveToAngle function)
 // TODO: don't worry about doing anything with the drive base for now
 
-void MoveToPose::move(frc::Pose2d desired) {
-    frc::Pose2d current;    
+frc::ChassisSpeeds MoveToPose::move(frc::Pose2d current, frc::Pose2d desired) {
     switch(m_MoveToState){
         case 0:
         {
-            // query swerve for current position when that function exists later
-            current = frc::Pose2d{0_m, 0_m, frc::Rotation2d(0_deg)};
+            m_current = current;
             m_MoveToState++;
+            m_rotation = 0_deg_per_s;
+            m_translation.first = 0_fps;
+            m_translation.second = 0_fps;
             break;
         }
         case 1:
         {
-            move(current, desired);
+            m_rotation = angularRotation(desired.Rotation());
+            m_translation = linearTranslation(desired);
             m_MoveToState++;
             break;
         }
@@ -26,22 +28,35 @@ void MoveToPose::move(frc::Pose2d desired) {
             break;
         }
     }
-    
+    return frc::ChassisSpeeds{m_translation.first, m_translation.second, m_rotation}; //vx, vy, omega
 };
 
-void MoveToPose::move(frc::Pose2d current, frc::Pose2d desired) {
-    angularRotation(current.Rotation(), desired.Rotation());
-    linearTranslation(current, desired);  
-};
 
-void MoveToPose::angularRotation(frc::Rotation2d current, frc::Rotation2d desired) {
+
+units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d desired) {
     switch (m_MoveAngleToState)
     {
         case 0:
         {
+
+
+            
+            double start = m_current.Rotation().Degrees().value();
+            double end = desired.Degrees().value();
+
+            m_turn = end - start;
+            if (m_turn > 180.0)
+            {
+                m_turn = m_turn - 360.0;
+            }
+            else if (m_turn < -180.0)
+            {
+                m_turn = m_turn + 360.0;
+            }
+
+
+            m_angularVelocity = 0_deg_per_s;
             m_timer.Restart();
-            
-            
             m_MoveAngleToState++;
             break;
         }
@@ -49,11 +64,11 @@ void MoveToPose::angularRotation(frc::Rotation2d current, frc::Rotation2d desire
         {
             auto setPoint = m_Profile.Calculate(
                 m_timer.Get(),
-                frc::TrapezoidProfile<units::degrees>::State{current.Degrees(), 0_deg_per_s},
-                frc::TrapezoidProfile<units::degrees>::State{desired.Degrees(), 0_deg_per_s}           
+                frc::TrapezoidProfile<units::degrees>::State{units::degree_t{0.0f}, 0_deg_per_s},
+                frc::TrapezoidProfile<units::degrees>::State{units::degree_t{m_turn}, 0_deg_per_s}    // insert the better end state here       
             );
 
-            // todo rotate robot with setpoint when that function exists later
+            m_angularVelocity = setPoint.velocity;
 
             if (m_Profile.IsFinished(m_timer.Get())) {
                 m_MoveAngleToState++;
@@ -72,20 +87,80 @@ void MoveToPose::angularRotation(frc::Rotation2d current, frc::Rotation2d desire
             break;
         }
     }
+    return m_angularVelocity;
 };
 
-double MoveToPose::linearTranslation(frc::Pose2d current, frc::Pose2d desired) {
+std::pair<units::feet_per_second_t, units::feet_per_second_t> MoveToPose::linearTranslation(frc::Pose2d desired) {
     // double distance = sqrt(pow((double)desired.X() - current.X(), 2.0) + pow(0.0 + desired.Y() - current.Y(), 2.0));
-    double desiredx = desired.X().value();
-    double currentx = current.X().value();
-    double desiredy = desired.Y().value();
-    double currenty = current.Y().value();
+    switch (m_MoveTranslationToState)
+    {
+    case 0:
+    {
+        
+        double desiredx = desired.X().value();
+        double currentx = m_current.X().value();
+        double desiredy = desired.Y().value();
+        double currenty = m_current.Y().value();
 
-    
-    
-    double x = (desiredx - currentx) * (desiredx - currentx);
-    double y = (desiredy - currenty) * (desiredy - currenty);
-    
-    double distance = sqrt(x + y);
-    return distance;
+        m_vx = 0;
+        m_vy = 0;
+        
+        double x = (desiredx - currentx) * (desiredx - currentx);
+        double y = (desiredy - currenty) * (desiredy - currenty);
+        
+        m_distance = sqrt(x + y);
+        double theta =  atan2(desiredy - currenty, desiredx - currentx);
+        m_vxCoeff = cos(theta);
+        m_vyCoeff = sin(theta);
+
+        m_timerLin.Restart();
+        m_MoveTranslationToState++;
+    }
+    case 1:
+    {
+        auto setDistance = m_ProfileLin.Calculate(
+            m_timerLin.Get(),
+            frc::TrapezoidProfile<units::foot>::State{units::foot_t{0.0f}, 0_fps},
+            frc::TrapezoidProfile<units::foot>::State{units::foot_t{m_distance}, 0_fps}       
+        );
+
+
+        m_vx = setDistance.velocity.to<double>() * m_vxCoeff;
+        m_vy = setDistance.velocity.to<double>() * m_vyCoeff;
+
+        // make the robot move with vx vy
+
+
+        if (m_ProfileLin.IsFinished(m_timerLin.Get())) {
+                m_MoveTranslationToState++;
+            }
+
+        break;
+    }
+    case 2:
+    {
+        m_timerLin.Stop();
+        m_MoveTranslationToState++;
+        break;
+    }
+    default:
+        break;
+    }
+    auto vx = units::feet_per_second_t{m_vx};
+    auto vy = units::feet_per_second_t{m_vy};
+    std::pair<units::feet_per_second_t, units::feet_per_second_t> velocity = {vx, vy};
+    return velocity; //pair of vx and vy
 };
+
+void MoveToPose::reset()
+{
+
+    m_MoveAngleToState = 0;
+    m_MoveTranslationToState = 0;
+    m_MoveToState = 0;
+}
+
+bool MoveToPose::isDone()
+{
+    return (m_MoveAngleToState > 2 && m_MoveTranslationToState > 2);
+}
