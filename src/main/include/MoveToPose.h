@@ -43,7 +43,6 @@ class MoveToPose
         //       all functions should have (current, desired)... instead of (initial, desired) or (desired, current)
 
         // Moves robot from initial to desired
-        void move(frc::Pose2d initial,frc::Pose2d desired);
         
         // TODO: create helper functions as needed
          
