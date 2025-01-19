@@ -12,8 +12,8 @@ void NeoDriveMotor::Configure(SwerveDriveMotorConfig &config){
 
     mtr_config.closedLoop.SetFeedbackSensor(rev::spark::ClosedLoopConfig::FeedbackSensor::kPrimaryEncoder);
     mtr_config.closedLoop.Pidf(config.p, config.i, config.d, config.ff);
-    mtr_config.encoder.PositionConversionFactor(config.ratio);
-    mtr_config.encoder.VelocityConversionFactor((config.ratio*60));
+    mtr_config.encoder.VelocityConversionFactor(config.ratio);
+    mtr_config.encoder.PositionConversionFactor((config.ratio*60));
     mtr_config.Inverted(config.inverted);
     mtr_config.SetIdleMode(config.idleMode);
     mtr_config.SmartCurrentLimit(config.drive_motor_current_limit);
@@ -37,7 +37,7 @@ void NeoDriveMotor::SetVelocity(units::velocity::feet_per_second_t v) {
 
 
     // TODO - return PID to not need a scaling factor to get to desired setpoint
-    m_PID->SetReference(1.6666667 * v.to<double>(), rev::spark::SparkMax::ControlType::kVelocity);
+    m_PID->SetReference(1.6666667 * v.to<double>(), rev::spark::SparkLowLevel::ControlType::kVelocity);
 
 };
 
