@@ -29,6 +29,6 @@ class Robot : public frc::TimedRobot {
 
  private:
   std::optional<frc2::CommandPtr> m_autonomousCommand;
-  frc::Transform3d m_robotToCamera;
-  PhotonVisionCamera m_cam;
+  frc::Transform3d m_robotToCamera = frc::Transform3d(frc::Translation3d(5_m, 0_m, 0.5_m), frc::Rotation3d(0_rad, 0_rad, 0_rad));
+  std::shared_ptr<PhotonVisionCamera> m_cam;
 };

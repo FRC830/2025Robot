@@ -17,10 +17,10 @@ struct PosAndTime {
 class PhotonVisionCamera
 {
     private:
-       std::shared_ptr<photon::PhotonCamera> camera;
-       frc::AprilTagFieldLayout aprilTagFieldLayout = frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::kDefaultField);
-       frc::Transform3d robotToCam;
-       std::shared_ptr<photon::PhotonPoseEstimator> poseEstimator;
+       std::shared_ptr<photon::PhotonCamera> m_camera;
+       frc::AprilTagFieldLayout m_aprilTagFieldLayout = frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::kDefaultField);
+       frc::Transform3d m_robotToCam;
+       std::shared_ptr<photon::PhotonPoseEstimator> m_poseEstimator;
 
     public:    
         PhotonVisionCamera() = default;

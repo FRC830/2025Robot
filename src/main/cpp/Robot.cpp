@@ -9,8 +9,8 @@
 #include <frc/DriverStation.h>
 
 Robot::Robot() {
-  m_cam = PhotonVisionCamera("photonvision", m_robotToCamera);
-}
+  m_cam = std::make_shared<PhotonVisionCamera>("FRC_830-CAM", m_robotToCamera);
+}  
 
 void Robot::RobotPeriodic() {}
 
@@ -29,10 +29,19 @@ void Robot::AutonomousExit() {}
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
-  auto data = m_cam.GetPose();
-  auto pose = data.value().estimatedPose;
-  frc::SmartDashboard::PutNumber("Data.x", pose.X().value());
-  frc::SmartDashboard::PutNumber("Data.y", pose.Y().value());
+  auto data = m_cam->GetPose();
+  double x = 0.0f;
+  double y = 0.0f;
+
+  if (data.has_value())
+  {
+    auto pose = data.value().estimatedPose;
+    x = pose.X().value();
+    y = pose.Y().value();
+  }
+
+  frc::SmartDashboard::PutNumber("Data.x", x);
+  frc::SmartDashboard::PutNumber("Data.y", y);
 
 }
 
