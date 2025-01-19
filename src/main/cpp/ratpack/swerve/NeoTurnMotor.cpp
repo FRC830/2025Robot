@@ -43,7 +43,7 @@ void NeoTurnMotor::SetRotation(frc::Rotation2d deg){
         }
     
         double targetPos = m_relative_Encoder->GetPosition() + realTurn.Degrees().to<double>();
-        m_PID->SetReference(targetPos, rev::spark::SparkMax::ControlType::kPosition);
+        m_PID->SetReference(targetPos, rev::spark::SparkLowLevel::ControlType::kPosition);
         m_pastCommandAngle = deg.Degrees().to<double>();
     }
 }; 
