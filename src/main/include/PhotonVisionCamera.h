@@ -21,9 +21,14 @@ class PhotonVisionCamera
        frc::AprilTagFieldLayout m_aprilTagFieldLayout = frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::kDefaultField);
        frc::Transform3d m_robotToCam;
        std::shared_ptr<photon::PhotonPoseEstimator> m_poseEstimator;
+       photon::PhotonPipelineResult m_lastResult;
+       bool m_LastResultIsEmpty;
 
     public:    
         PhotonVisionCamera() = default;
         PhotonVisionCamera(std::string name, frc::Transform3d robotToCamera);
         std::optional<photon::EstimatedRobotPose> GetPose();
+        void SaveResult();
+        int GetAprilTagID();
+        
 };

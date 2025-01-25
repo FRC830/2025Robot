@@ -12,21 +12,40 @@ PhotonVisionCamera::PhotonVisionCamera(std::string name, frc::Transform3d robotT
 }
 std::optional<photon::EstimatedRobotPose> PhotonVisionCamera::GetPose()
 {
-    // Get the latest result from the camera
-    // auto results = m_camera->GetAllUnreadResults();
-    // photon::PhotonPipelineResult pipeline_result;
-    // // if (!results.empty()) {
-    //     pipeline_result = results.back();
-    // //}
-    // auto result = m_poseEstimator->Update(pipeline_result);
-    // return result;
 
-    auto result = m_camera->GetLatestResult();
-    // if(result.MultiTagResult().result.isPresent){
-    //     frc::Transform3d fieldToCamera = result.MultiTagResult().result.best;
-    // }
-    auto estimate = m_poseEstimator->Update(result);
+    std::optional<photon::EstimatedRobotPose> estimate;
+
+    if (!m_LastResultIsEmpty)
+    {
+        estimate = m_poseEstimator->Update(m_lastResult);
+    }
 
     return estimate;
 
 }
+
+void PhotonVisionCamera::SaveResult()
+{
+    auto results = m_camera->GetAllUnreadResults();
+    if (!results.empty())
+    {
+        m_lastResult = results.back();
+        m_LastResultIsEmpty = false;
+    }
+    else
+    {
+        m_LastResultIsEmpty = true;
+    }
+}
+
+int PhotonVisionCamera::GetAprilTagID()
+{
+    int id = -1;
+    if (!m_LastResultIsEmpty && m_lastResult.HasTargets())
+    {
+        photon::PhotonTrackedTarget target = m_lastResult.GetBestTarget();
+        id = target.GetFiducialId();
+    }
+    return id;
+}
+
