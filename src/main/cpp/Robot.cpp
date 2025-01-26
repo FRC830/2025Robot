@@ -30,7 +30,28 @@ void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
   _controller_interface.UpdateRobotControlData(_robot_control_data);
-  _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
+
+  if (_robot_control_data.swerveInput.rotation > GetSwerveDeadZone() || _robot_control_data.swerveInput.rotation < -GetSwerveDeadZone())
+  {
+    _robot_control_data.swerveInput.targetLeftFeederAngle = false;
+    _robot_control_data.swerveInput.targetRightFeederAngle = false;
+  }
+  if(_robot_control_data.swerveInput.targetLeftFeederAngle)
+  {
+    auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(ROTATION_TO_FEEDER)));
+    _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
+  }
+  else if(_robot_control_data.swerveInput.targetRightFeederAngle)
+  {
+    auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(-ROTATION_TO_FEEDER)));
+    _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
+    
+  }
+  else
+  {
+    m_rotateToFeeder.reset();
+    _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
+  }
 }
 
 void Robot::TeleopExit() {}

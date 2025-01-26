@@ -43,7 +43,7 @@ class MoveToPose
         std::pair<units::feet_per_second_t, units::feet_per_second_t> m_translation;
         
         // Trapezoid move to handle angular rotation to desired pose
-        units::degrees_per_second_t angularRotation(frc::Rotation2d desired);
+        units::degrees_per_second_t angularRotation(frc::Rotation2d current, frc::Rotation2d desired);
         
         // Trapezoid move to handle linear translation to desired pose
         std::pair<units::feet_per_second_t, units::feet_per_second_t> linearTranslation(frc::Pose2d desired);

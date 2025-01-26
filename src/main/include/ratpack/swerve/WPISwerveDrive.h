@@ -36,6 +36,7 @@ class WPISwerveDrive : public SwerveDrive
         virtual bool GetEbrake() override;
         virtual void SetEbrake(bool ebrake) override;
         virtual void Drive(double x_position, double y_position, double rotation);
+        void Drive(double x_position, double y_position, units::degrees_per_second_t omega);
         virtual void Drive(units::feet_per_second_t vx, units::feet_per_second_t vy, units::degrees_per_second_t omega) override;
         virtual void Drive(frc::ChassisSpeeds speed) override;
         virtual void Drive(std::vector<frc::SwerveModuleState> &state) override;

@@ -175,3 +175,8 @@ void Robot::PrintSwerveInfo()
   frc::SmartDashboard::PutNumber("BR Velocity", br_drive_enc.GetVelocity());
 
 }
+
+double Robot::GetSwerveDeadZone()
+{
+  return CONTROLLER_DEADZONE;
+}
