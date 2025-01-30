@@ -10,6 +10,18 @@
 #include <frc2/command/CommandPtr.h>
 #include "PhotonVisionCamera.h"
 
+#include "ratpack/swerve/AnalogAbsoluteEncoder.h"
+#include "ratpack/swerve/NavXGyro.h"
+#include "ratpack/swerve/NeoDriveMotor.h"
+#include "ratpack/swerve/NeoTurnMotor.h"
+#include "ratpack/swerve/WPISwerveModule.h"
+#include "ratpack/swerve/WPISwerveDrive.h"
+
+
+#include "ControllerInterface.h"
+#include "RobotControlData.h"
+#include "MoveToPose.h"
+
 class Robot : public frc::TimedRobot {
  public:
   Robot();
@@ -26,9 +38,28 @@ class Robot : public frc::TimedRobot {
   void TestInit() override;
   void TestPeriodic() override;
   void TestExit() override;
+  void SwerveInit();
+  void PrintSwerveInfo();
 
  private:
+  double GetSwerveDeadZone();
+
   std::optional<frc2::CommandPtr> m_autonomousCommand;
+
+  static const int NUM_MODULES = 4;
+
+  std::array<AnalogAbsoluteEncoder, NUM_MODULES> _abs_encoders;
+  std::array<NeoTurnMotor, NUM_MODULES> _turn_motors;
+  std::array<NeoDriveMotor, NUM_MODULES> _drive_motors;
+  std::array<WPISwerveModule, NUM_MODULES> _modules;
+  WPISwerveDrive _swerve;
+
+  NavXGyro _gyro;
+  ControllerInterface _controller_interface;
+  RobotControlData _robot_control_data;
+  MoveToPose m_rotateToFeeder;
+
+  frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{90.0});
   frc::Transform3d m_robotToCamera = frc::Transform3d(frc::Translation3d(5_m, 0_m, 0.5_m), frc::Rotation3d(0_rad, 0_rad, 0_rad));
   std::shared_ptr<PhotonVisionCamera> m_cam;
 };

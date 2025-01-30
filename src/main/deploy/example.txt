@@ -1,4 +1,40 @@
-Files placed in this directory will be deployed to the RoboRIO into the
-  'deploy' directory in the home folder. Use the 'frc::filesystem::GetDeployDirectory'
-  function from the 'frc/Filesystem.h' header to get a proper path relative to the deploy
-  directory.
+Driver Station reported IP: 10.8.30.2
+
+> Task :discoverroborio
+Discovering Target roborio
+Using admin@10.8.30.2:22 for target roborio
+
+> Task :deployprogramKillroborioroborio
+    -C-> md5sum /usr/local/frc/bin/frcKillRobot.sh @ /home/lvuser
+      -[0]-> 001696b0412c36f7be0c868ad493d16a  /usr/local/frc/bin/frcKillRobot.sh
+
+  Skipping redeploy of frcKillRobot script
+    -C-> . /etc/profile.d/natinst-path.sh; /usr/local/frc/bin/frcKillRobot.sh -t 2> /dev/null @ /home/lvuser
+
+> Task :deployfrcStaticFileDeployroborio
+    -C-> mkdir -p  @ /home/lvuser/deploy
+      -[1]
+    1 file(s) are up-to-date and were not deployed
+
+> Task :deployrobotCommandfrcCpproborio
+    -C-> echo '"/home/lvuser/frcUserProgram" ' > /home/lvuser/robotCommand @ /home/lvuser
+    -C-> chmod +x /home/lvuser/robotCommand; chown lvuser /home/lvuser/robotCommand @ /home/lvuser
+
+> Task :deployfrcCpproborio
+    -F-> C:\workspace\2025Robot\build\exe\frcUserProgram\release\frcUserProgram -> frcUserProgram @ /home/lvuser
+      36 file(s) are up-to-date and were not deployed
+    -C-> chmod -R 777 "/usr/local/frc/third-party/lib" || true; chown -R lvuser:ni "/usr/local/frc/third-party/lib" @ /home/lvuser
+    -C-> ldconfig @ /home/lvuser
+    -C-> chmod +x "/home/lvuser/frcUserProgram"; chown lvuser "/home/lvuser/frcUserProgram" @ /home/lvuser                                                                                                      
+    -C-> setcap cap_sys_nice+eip "/home/lvuser/frcUserProgram" @ /home/lvuser                                                                                                                                   
+
+> Task :deployprogramStartfrcCpproborio                                                                                                                                                                         
+    -C-> sync @ /home/lvuser
+    -C-> /usr/local/natinst/bin/nirtcfg --file=/etc/natinst/share/ni-rt.ini --get section=systemsettings,token=NoApp.enabled,value=unknown @ /home/lvuser
+      -[0]-> False
+
+    -C-> . /etc/profile.d/natinst-path.sh; /usr/local/frc/bin/frcKillRobot.sh -t -r 2> /dev/null @ /home/lvuser
+
+BUILD SUCCESSFUL in 13s
+11 actionable tasks: 11 executed
+ *  Terminal will be reused by tasks, press any key to close it. 
