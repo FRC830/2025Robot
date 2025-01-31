@@ -32,6 +32,9 @@ void Robot::AutonomousExit() {}
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
+
+  m_cam->SaveResult();
+  frc::SmartDashboard::PutNumber("April Tag ID", m_cam->GetAprilTagID());
   auto data = m_cam->GetPose();
   double x = 0.0f;
   double y = 0.0f;
