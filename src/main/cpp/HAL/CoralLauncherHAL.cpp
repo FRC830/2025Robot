@@ -1,21 +1,27 @@
 #include "HAL/CoralLauncherHAL.h"
+
 void CoralLauncher::SetRightWheelSpeed(double speed)
 {
-   // todo 
+    // todo
+    m_RightWheelSpeed = speed;
+    rightMotor.Set(m_RightWheelSpeed);
 }
 void CoralLauncher::SetLeftWheelSpeed(double speed)
 {
     // todo
+    m_LeftWheelSpeed = speed;
+    leftMotor.Set(m_LeftWheelSpeed);
 }
 void CoralLauncher::SetIndexerSpeed(double speed)
 {
-    // todo
+    //todo idk what indexer is check CAD
+
 }
 double CoralLauncher::GetRightWheelSpeed()
 {
-    // todo
+    return m_RightWheelSpeed;
 }
 double CoralLauncher::GetLeftWheelSpeed()
 {
-    // todo
+    return m_LeftWheelSpeed;
 }
