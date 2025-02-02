@@ -15,6 +15,8 @@ void CoralLauncher::SetLeftWheelSpeed(double speed)
 void CoralLauncher::SetIndexerSpeed(double speed)
 {
     //todo idk what indexer is check CAD
+    indexerSpeed = speed;
+    indexer.Set(indexerSpeed);
 
 }
 double CoralLauncher::GetRightWheelSpeed()
