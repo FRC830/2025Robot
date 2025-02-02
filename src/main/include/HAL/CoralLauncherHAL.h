@@ -2,7 +2,7 @@
 #include "RobotControlData.h"
 #include "rev/SparkMax.h"
 #include <frc/Timer.h>
-#include <frc/SmartDashboard/SmartDashboard.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DigitalInput.h>
 
 class CoralLauncher
