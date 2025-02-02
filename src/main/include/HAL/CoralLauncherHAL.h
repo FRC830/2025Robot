@@ -12,11 +12,12 @@ class CoralLauncher
         void SetIndexerSpeed(double speed);
         double GetRightWheelSpeed();
         double GetLeftWheelSpeed();
-       
 
     private:
         rev::spark::SparkMax rightMotor{0, rev::spark::SparkMax::MotorType::kBrushless};
         rev::spark::SparkMax leftMotor{0, rev::spark::SparkMax::MotorType::kBrushless};
+        rev::spark::SparkMax indexer{0, rev::spark::SparkMax::MotorType::kBrushless};
         double m_RightWheelSpeed;
         double m_LeftWheelSpeed;
+        double indexerSpeed;
 };
