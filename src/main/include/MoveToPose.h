@@ -24,7 +24,7 @@ class MoveToPose
             frc::TrapezoidProfile<units::degrees>::Constraints{180_deg_per_s, 90_deg_per_s_sq}   
         };
         frc::TrapezoidProfile<units::foot> m_ProfileLin{
-            frc::TrapezoidProfile<units::foot>::Constraints{1_fps, 0.5_fps_sq}   
+            frc::TrapezoidProfile<units::foot>::Constraints{10_fps, 5_fps_sq}   
         };  
         int m_MoveAngleToState = 0;
         int m_MoveTranslationToState = 0;
@@ -43,7 +43,7 @@ class MoveToPose
         std::pair<units::feet_per_second_t, units::feet_per_second_t> m_translation;
         
         // Trapezoid move to handle angular rotation to desired pose
-        units::degrees_per_second_t angularRotation(frc::Rotation2d desired);
+        units::degrees_per_second_t angularRotation(frc::Rotation2d current, frc::Rotation2d desired);
         
         // Trapezoid move to handle linear translation to desired pose
         std::pair<units::feet_per_second_t, units::feet_per_second_t> linearTranslation(frc::Pose2d desired);

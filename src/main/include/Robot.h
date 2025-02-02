@@ -19,7 +19,7 @@
 
 #include "ControllerInterface.h"
 #include "RobotControlData.h"
-
+#include "MoveToPose.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -41,6 +41,8 @@ class Robot : public frc::TimedRobot {
   void PrintSwerveInfo();
 
  private:
+  double GetSwerveDeadZone();
+
   std::optional<frc2::CommandPtr> m_autonomousCommand;
 
   static const int NUM_MODULES = 4;
@@ -54,4 +56,7 @@ class Robot : public frc::TimedRobot {
   NavXGyro _gyro;
   ControllerInterface _controller_interface;
   RobotControlData _robot_control_data;
+  MoveToPose m_rotateToFeeder;
+
+  frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{90.0});
 };

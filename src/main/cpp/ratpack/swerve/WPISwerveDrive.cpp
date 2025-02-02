@@ -32,9 +32,8 @@ void WPISwerveDrive::SetEbrake(bool ebrake) {
     m_ebrake = ebrake;
 }
 void WPISwerveDrive::Drive(double x_position, double y_position, double rotation) {
-    auto val = ApplyCylindricalDeadzone(x_position, y_position);
-    x_position = val.first;
-    y_position = val.second;
+    x_position = ApplyDeadzone(x_position);
+    y_position = ApplyDeadzone(y_position);
     rotation = ApplyDeadzone(rotation);
     
      Drive(
@@ -42,6 +41,16 @@ void WPISwerveDrive::Drive(double x_position, double y_position, double rotation
      (units::feet_per_second_t)y_position * m_maxDriveSpeed, 
      (units::degrees_per_second_t)rotation * m_maxTurnSpeed);
 
+}
+
+void WPISwerveDrive::Drive(double x_position, double y_position, units::degrees_per_second_t omega) {
+    x_position = ApplyDeadzone(x_position);
+    y_position = ApplyDeadzone(y_position);
+
+    Drive(
+     (units::feet_per_second_t)x_position * m_maxDriveSpeed, 
+     (units::feet_per_second_t)y_position * m_maxDriveSpeed, 
+     omega);
 }
 
 void WPISwerveDrive::Drive(units::feet_per_second_t vx, units::feet_per_second_t vy, units::degrees_per_second_t omega) {
