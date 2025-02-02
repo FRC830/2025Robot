@@ -48,6 +48,14 @@ void CoralLauncher::L1Launch()
             SetLeftWheelSpeed(0);
             break;
         }
+
+        default:
+        {
+            SetLeftWheelSpeed(0);
+            SetRightWheelSpeed(0);
+            SetIndexerSpeed(0);
+            break;
+        }
     }
 }
 void CoralLauncher::L2Launch()
@@ -96,6 +104,14 @@ void CoralLauncher::L2Launch()
         {
             SetRightWheelSpeed(0);
             SetLeftWheelSpeed(0);
+            break;
+        }
+
+        default:
+        {
+            SetLeftWheelSpeed(0);
+            SetRightWheelSpeed(0);
+            SetIndexerSpeed(0);
             break;
         }
     }
