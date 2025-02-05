@@ -15,7 +15,7 @@
 #include <units/angular_velocity.h>
 #include <units/angular_acceleration.h>
 #include <frc/trajectory/TrapezoidProfile.h>
-#include <frc/SmartDashboard/SmartDashboard.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DigitalInput.h>
 
 class AlgaeRemover
