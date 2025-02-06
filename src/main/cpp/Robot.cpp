@@ -9,7 +9,7 @@
 #include <frc/DriverStation.h>
 
 Robot::Robot() {
-  m_cam = std::make_shared<PhotonVisionCamera>("FRC_830-CAM", m_robotToCamera);
+  m_cam = std::make_shared<PhotonVisionCamera>("FRC_830-CAM", ROBOT_TO_CAMERA );
   SwerveInit();
 }
 
@@ -34,7 +34,7 @@ void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
 
   m_cam->SaveResult();
-  frc::SmartDashboard::PutNumber("April Tag ID", m_cam->GetAprilTagID());
+  // frc::SmartDashboard::PutNumber("April Tag ID", m_cam->GetAprilTagID());
   auto data = m_cam->GetPose();
   double x = 0.0f;
   double y = 0.0f;

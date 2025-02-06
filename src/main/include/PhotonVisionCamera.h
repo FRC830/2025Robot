@@ -8,12 +8,6 @@
 #include <frc/geometry/Pose3d.h>
 #include <memory>
 
-struct PosAndTime {
-    frc::Transform3d position;
-    double timestamp;
-    bool isValid;
-};
-
 class PhotonVisionCamera
 {
     private:
@@ -23,9 +17,9 @@ class PhotonVisionCamera
        std::shared_ptr<photon::PhotonPoseEstimator> m_poseEstimator;
        photon::PhotonPipelineResult m_lastResult;
        bool m_LastResultIsEmpty;
+       PhotonVisionCamera() = default;
 
     public:    
-        PhotonVisionCamera() = default;
         PhotonVisionCamera(std::string name, frc::Transform3d robotToCamera);
         std::optional<photon::EstimatedRobotPose> GetPose();
         void SaveResult();
