@@ -1,6 +1,5 @@
 #pragma once
 
-#include <frc/XboxController.h>
 #include "RobotControlData.h"
 #include "RobotControlData.h"
 #include "rev/SparkMax.h"
