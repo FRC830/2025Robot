@@ -6,10 +6,6 @@ void CoralLauncherManager::L1Launch()
     {
         case 0:
         {
-            m_Timer.Stop();
-            m_Timer.Reset();
-            m_Timer.Start();
-
             m_l1LaunchState++;
             break;
         }
@@ -22,6 +18,7 @@ void CoralLauncherManager::L1Launch()
                 break;
             }
             m_CoralLauncher.SetIndexerSpeed(1.0);
+            break;
         }
 
         case 2:
@@ -38,7 +35,7 @@ void CoralLauncherManager::L1Launch()
                 m_l1LaunchState++;
                 break;
             }
-            m_CoralLauncher.SetWheelSpeeds(-m_l1LaunchSpeed, m_l1LaunchSpeed);
+            m_CoralLauncher.SetWheelSpeeds(-m_l1LaunchSpeed*multiplier, m_l1LaunchSpeed); //shouldn't one launch speed be more than the other? to turn the coral
         }
 
         case 4:
@@ -48,16 +45,13 @@ void CoralLauncherManager::L1Launch()
         }
     }
 }
+
 void CoralLauncherManager::L2Launch()
 {
     switch(m_l2LaunchState)
     {
         case 0:
         {
-            m_Timer.Stop();
-            m_Timer.Reset();
-            m_Timer.Start();
-
             m_l2LaunchState++;
             break;
         }
@@ -70,6 +64,7 @@ void CoralLauncherManager::L2Launch()
                 break;
             }
             m_CoralLauncher.SetIndexerSpeed(1.0);
+            break;
         }
 
         case 2:
@@ -86,7 +81,7 @@ void CoralLauncherManager::L2Launch()
                 m_l2LaunchState++;
                 break;
             }
-            m_CoralLauncher.SetWheelSpeeds(m_l2LaunchSpeed, m_l2LaunchSpeed);
+            m_CoralLauncher.SetWheelSpeeds(-m_l2LaunchSpeed, m_l2LaunchSpeed);
         }
 
         case 4:

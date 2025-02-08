@@ -6,24 +6,38 @@ CoralLauncher::CoralLauncher()
 }
 void CoralLauncher::SetWheelSpeeds(double rightSpeed, double leftSpeed)
 {
-    // todo
-    m_RightWheelSpeed = rightSpeed;
-    rightMotor.Set(m_RightWheelSpeed);
-    // todo
-    m_LeftWheelSpeed = leftSpeed;
-    leftMotor.Set(m_LeftWheelSpeed);
+    desiredRightSpeed = rightSpeed;
+    desiredLeftSpeed = leftSpeed;
+    rightMotor.Set(rightSpeed);
+    leftMotor.Set(leftSpeed);
 }
 void CoralLauncher::SetIndexerSpeed(double indexerSpeed)
 {
-    //todo idk what indexer is check CAD | indexer is the thing that moves the coral into the shooter btw
     m_IndexerSpeed = indexerSpeed;
     indexer.Set(indexerSpeed);
 }
 double CoralLauncher::GetRightWheelSpeed()
 {
+    m_RightWheelSpeed = rightMotor.GetEncoder().GetVelocity();
     return m_RightWheelSpeed;
+
 }
 double CoralLauncher::GetLeftWheelSpeed()
 {
+    m_LeftWheelSpeed = leftMotor.GetEncoder().GetVelocity();
     return m_LeftWheelSpeed;
+}
+bool CoralLauncher::AreFlywheelsAtDesiredSpeed()
+{
+    if((abs(m_RightWheelSpeed - desiredRightSpeed)<=num)&&(abs(m_LeftWheelSpeed - desiredLeftSpeed)<=num)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+bool CoralLauncher::BeamBreakStatus()
+{
+    //todo: implement beam break status code
+    return m_beam_break.Get();
 }
