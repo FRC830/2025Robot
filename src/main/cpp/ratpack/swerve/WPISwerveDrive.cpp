@@ -182,7 +182,7 @@ std::pair<double, double> WPISwerveDrive::ApplyCylindricalDeadzone(double x, dou
     }
     else
     {
-        double angle = atan(y/x);
+        double angle = atan2(y,x);
         double r = ((d-m_deadzone)/(1.0-m_deadzone));
         x = r*(cos(angle));
         y = r*(sin(angle));
