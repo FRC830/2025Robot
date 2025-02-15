@@ -3,6 +3,7 @@
 void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
 {
     UpdateSwerveInput(controlData);
+    UpdateLauncherInput(controlData);
 };
 
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
@@ -28,4 +29,9 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 
     m_prevLeftFeederButtonValue = tempTargetLeftFeeder;
     m_prevRightFeederButtonValue = tempTargetRightFeeder;
+}
+
+void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
+    controlData.launcherInput.goToL1 = m_pilot.GetAButton();
+    controlData.launcherInput.goToL2 = m_pilot.GetAButton();
 }

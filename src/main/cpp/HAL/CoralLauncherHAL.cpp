@@ -5,7 +5,6 @@
 
 CoralLauncher::CoralLauncher()
 {
-    //todo: implement CoralLauncher constructor
     rev::spark::SparkMaxConfig flywheel_config{};
     rev::spark::SparkMaxConfig indexer_config{};
 

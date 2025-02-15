@@ -1,5 +1,7 @@
 #pragma once
 
+#include "inputManager/CoralLauncherManager.h"
+
 struct SwerveInput{
     double xTranslation;
     double yTranslation;
@@ -11,5 +13,7 @@ struct SwerveInput{
 
 struct RobotControlData {
     SwerveInput swerveInput;
+    CoralInput launcherInput;
+
 };
 

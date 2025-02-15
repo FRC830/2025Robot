@@ -1,5 +1,6 @@
 #include "InputManager/CoralLauncherManager.h"
 
+
 void CoralLauncherManager::L1Launch()
 {
     switch(m_l1LaunchState)
