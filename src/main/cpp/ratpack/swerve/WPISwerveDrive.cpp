@@ -3,6 +3,8 @@
 #include <frc/geometry/Pose2d.h>
 #include <frc/kinematics/ChassisSpeeds.h>
 #include <math.h>
+#include <frc/DriverStation.h>
+#include <pathplanner/lib/config/RobotConfig.h>
 
 void WPISwerveDrive::Configure(SwerveConfig &config){
     frc::SmartDashboard::PutData("Field", &m_field);
@@ -22,7 +24,22 @@ void WPISwerveDrive::Configure(SwerveConfig &config){
     //Last parameter in constuer must be relative the actual robot for it to wrok some what correctly
     //REMEMEBR TO FLIP DIRECTION DURING AUTON MAKING
     m_estimator = new frc::SwerveDrivePoseEstimator<4>(*m_kinematics, m_gyro->GetRawHeading(), {m_modules[0]->GetPosition(), m_modules[1]->GetPosition(), m_modules[2]->GetPosition(), m_modules[3]->GetPosition()}, frc::Pose2d(frc::Translation2d(), m_gyro->GetHeading()));
-    
+    pathplanner::RobotConfig pathplanner_config = pathplanner::RobotConfig::fromGUISettings();
+
+    pathplanner::AutoBuilder::configure(
+        [this]() {return GetPose();},
+        [this](frc::Pose2d InitPose)  {ResetPose(InitPose);},
+        [this](){return GetRobotRelativeSpeeds(); },
+        [this](frc::ChassisSpeeds speeds) {Drive(speeds);},
+        std::make_shared<pathplanner::PPHolonomicDriveController>( 
+            pathplanner::PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
+            pathplanner::PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+        ),
+        pathplanner_config,
+        []() { return false;},
+        {nullptr}
+    );
+
 }
 
 bool WPISwerveDrive::GetEbrake() {
