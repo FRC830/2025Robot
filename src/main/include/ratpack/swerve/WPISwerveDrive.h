@@ -10,6 +10,10 @@
 #include <frc/kinematics/ChassisSpeeds.h>
 #include <frc/DriverStation.h>
 #include <utility>
+#include <pathplanner/lib/auto/AutoBuilder.h>
+#include <pathplanner/lib/controllers/PPHolonomicDriveController.h>
+#include <pathplanner/lib/config/PIDConstants.h>
+#include <pathplanner/lib/controllers/PathFollowingController.h>
 
 struct SwerveConfig{
     bool idle_mode;
