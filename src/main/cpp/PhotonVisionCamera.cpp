@@ -15,7 +15,7 @@ std::optional<photon::EstimatedRobotPose> PhotonVisionCamera::GetPose()
 
     std::optional<photon::EstimatedRobotPose> estimate;
 
-    if (!m_LastResultIsEmpty && m_lastresult!=-1)
+    if (!m_LastResultIsEmpty && id != -1)
     {
         estimate = m_poseEstimator->Update(m_lastResult);
     }
@@ -40,7 +40,7 @@ void PhotonVisionCamera::SaveResult()
 
 int PhotonVisionCamera::GetAprilTagID()
 {
-    int id = -1;
+    id = -1;
     if (!m_LastResultIsEmpty && m_lastResult.HasTargets())
     {
         photon::PhotonTrackedTarget target = m_lastResult.GetBestTarget();

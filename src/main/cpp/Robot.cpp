@@ -33,21 +33,21 @@ void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
 
-  m_cam->SaveResult();
+  // m_cam->SaveResult();
   // frc::SmartDashboard::PutNumber("April Tag ID", m_cam->GetAprilTagID());
-  auto data = m_cam->GetPose();
-  double x = 0.0f;
-  double y = 0.0f;
+  // auto data = m_cam->GetPose();
+  // double x = 0.0f;
+  // double y = 0.0f;
 
-  if (data.has_value())
-  {
-    auto pose = data.value().estimatedPose;
-    x = pose.X().value();
-    y = pose.Y().value();
-  }
+  // if (data.has_value())
+  // {
+  //   auto pose = data.value().estimatedPose;
+  //   x = pose.X().value();
+  //   y = pose.Y().value();
+  // }
 
-  frc::SmartDashboard::PutNumber("Data.x", x);
-  frc::SmartDashboard::PutNumber("Data.y", y);
+  // frc::SmartDashboard::PutNumber("Data.x", x);
+  // frc::SmartDashboard::PutNumber("Data.y", y);
   _controller_interface.UpdateRobotControlData(_robot_control_data);
 
   if (_robot_control_data.swerveInput.rotation > GetSwerveDeadZone() || _robot_control_data.swerveInput.rotation < -GetSwerveDeadZone())
