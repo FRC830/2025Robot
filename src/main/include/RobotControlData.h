@@ -1,7 +1,5 @@
 #pragma once
 
-#include "inputManager/CoralLauncherManager.h"
-
 struct SwerveInput{
     double xTranslation;
     double yTranslation;
@@ -11,9 +9,24 @@ struct SwerveInput{
     bool targetRightFeederAngle;
 };
 
+struct CoralInput{
+    double indexSpeed;
+    bool setFlywheelToL1Speed;
+    bool setFlywheelToL2Speed;
+};
+
+struct CoralOutput{
+    bool isBeamBroken;
+    double leftSpeed;
+    double rightSpeed;
+};
+
 struct RobotControlData {
     SwerveInput swerveInput;
-    CoralInput launcherInput;
+    CoralInput coralInput;
+    CoralOutput coralOutput;
 
 };
+
+
 
