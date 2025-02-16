@@ -24,6 +24,7 @@ void WPISwerveDrive::Configure(SwerveConfig &config){
     //Last parameter in constuer must be relative the actual robot for it to wrok some what correctly
     //REMEMEBR TO FLIP DIRECTION DURING AUTON MAKING
     m_estimator = new frc::SwerveDrivePoseEstimator<4>(*m_kinematics, m_gyro->GetRawHeading(), {m_modules[0]->GetPosition(), m_modules[1]->GetPosition(), m_modules[2]->GetPosition(), m_modules[3]->GetPosition()}, frc::Pose2d(frc::Translation2d(), m_gyro->GetHeading()));
+    
     pathplanner::RobotConfig pathplanner_config = pathplanner::RobotConfig::fromGUISettings();
 
     pathplanner::AutoBuilder::configure(
@@ -39,6 +40,7 @@ void WPISwerveDrive::Configure(SwerveConfig &config){
         []() { return false;},
         {nullptr}
     );
+    
 
 }
 
@@ -49,10 +51,11 @@ void WPISwerveDrive::SetEbrake(bool ebrake) {
     m_ebrake = ebrake;
 }
 void WPISwerveDrive::Drive(double x_position, double y_position, double rotation) {
-    x_position = ApplyDeadzone(x_position);
-    y_position = ApplyDeadzone(y_position);
+    auto val = ApplyCylindricalDeadzone(x_position, y_position);
+    x_position = val.first;
+    y_position = val.second;
     rotation = ApplyDeadzone(rotation);
-    
+
      Drive(
      (units::feet_per_second_t)x_position * m_maxDriveSpeed, 
      (units::feet_per_second_t)y_position * m_maxDriveSpeed, 
@@ -61,8 +64,9 @@ void WPISwerveDrive::Drive(double x_position, double y_position, double rotation
 }
 
 void WPISwerveDrive::Drive(double x_position, double y_position, units::degrees_per_second_t omega) {
-    x_position = ApplyDeadzone(x_position);
-    y_position = ApplyDeadzone(y_position);
+    auto val = ApplyCylindricalDeadzone(x_position, y_position);
+    x_position = val.first;
+    y_position = val.second;
 
     Drive(
      (units::feet_per_second_t)x_position * m_maxDriveSpeed, 
