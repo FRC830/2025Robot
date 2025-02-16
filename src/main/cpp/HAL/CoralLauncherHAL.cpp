@@ -30,7 +30,10 @@ CoralLauncher::CoralLauncher()
     m_leftMotor.Configure(flywheel_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
     END_RETRYING
     START_RETRYING(INDEXER_CONFIG)
-    m_indexer.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+    m_indexer1.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+    END_RETRYING
+    START_RETRYING(INDEXER_CONFIG)
+    m_indexer2.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
     END_RETRYING
 
 }
@@ -41,9 +44,10 @@ void CoralLauncher::SetWheelSpeeds(double rightSpeed, double leftSpeed)
     m_rightMotor.GetClosedLoopController().SetReference(rightSpeed, rev::spark::SparkLowLevel::ControlType::kVelocity);
     m_leftMotor.GetClosedLoopController().SetReference(leftSpeed, rev::spark::SparkLowLevel::ControlType::kVelocity);
 }
-void CoralLauncher::SetIndexerSpeed(double indexerSpeed)
+void CoralLauncher::SetIndexerSpeeds(double indexerSpeed)
 {
-    m_indexer.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kVelocity);
+    m_indexer1.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kVelocity);
+    m_indexer2.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kVelocity);
 }
 double CoralLauncher::GetRightWheelSpeed()
 {

@@ -16,7 +16,7 @@ void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     if(m_setFlywheelToL2Speed){
         m_CoralLauncher.SetWheelSpeeds(1.0,1.0); //config speeds
     }
-    m_CoralLauncher.SetIndexerSpeed(robotControlData.coralInput.indexSpeed);
+    m_CoralLauncher.SetIndexerSpeeds(robotControlData.coralInput.indexerSpeeds);
     if(m_CoralLauncher.BeamBreakStatus()){
         m_CoralLauncher.SetWheelSpeeds(0,0);
     }

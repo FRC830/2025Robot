@@ -10,7 +10,7 @@ struct SwerveInput{
 };
 
 struct CoralInput{
-    double indexSpeed;
+    double indexerSpeeds;
     bool setFlywheelToL1Speed;
     bool setFlywheelToL2Speed;
 };

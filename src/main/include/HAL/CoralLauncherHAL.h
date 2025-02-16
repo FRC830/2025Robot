@@ -14,7 +14,7 @@ class CoralLauncher
         void L2Launch();
         void IndexerLaunch();
         void SetWheelSpeeds(double rightSpeed, double leftSpeed);
-        void SetIndexerSpeed(double indexerSpeed);
+        void SetIndexerSpeeds(double indexerSpeed);
         double GetRightWheelSpeed();
         double GetLeftWheelSpeed();
         bool AreFlywheelsAtDesiredSpeed();
@@ -22,7 +22,8 @@ class CoralLauncher
     private:
         rev::spark::SparkMax m_rightMotor{0, rev::spark::SparkMax::MotorType::kBrushless};
         rev::spark::SparkMax m_leftMotor{0, rev::spark::SparkMax::MotorType::kBrushless};
-        rev::spark::SparkMax m_indexer{0, rev::spark::SparkMax::MotorType::kBrushless};
+        rev::spark::SparkMax m_indexer1{0, rev::spark::SparkMax::MotorType::kBrushless};
+        rev::spark::SparkMax m_indexer2{0, rev::spark::SparkMax::MotorType::kBrushless};
         frc::DigitalInput m_beam_break{9}; //moved from CoralLauncherManager; move back if needed
         double m_desiredRightSpeed;
         double m_desiredLeftSpeed; 
