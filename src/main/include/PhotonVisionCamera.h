@@ -18,7 +18,6 @@ class PhotonVisionCamera
        photon::PhotonPipelineResult m_lastResult;
        bool m_LastResultIsEmpty;
        PhotonVisionCamera() = default;
-       int id;
 
     public:    
         PhotonVisionCamera(std::string name, frc::Transform3d robotToCamera);
