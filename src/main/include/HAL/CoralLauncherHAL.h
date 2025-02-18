@@ -10,9 +10,6 @@ class CoralLauncher
     public:
         CoralLauncher();
         ~CoralLauncher() = default; 
-        void L1Launch();
-        void L2Launch();
-        void IndexerLaunch();
         void SetWheelSpeeds(double rightSpeed, double leftSpeed);
         void SetIndexerSpeeds(double indexerSpeed);
         double GetRightWheelSpeed();

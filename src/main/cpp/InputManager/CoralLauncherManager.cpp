@@ -25,6 +25,12 @@ void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     robotControlData.coralOutput.rightSpeed = m_CoralLauncher.GetRightWheelSpeed();
 }
 
+void CoralLauncherManager::ResetState(){
+    m_l1LaunchState = 0;
+    m_l2LaunchState = 0;
+    m_setFlywheelToL1Speed = false;
+    m_setFlywheelToL2Speed = false;
+}
 //void CoralLauncherManager::IndexerLaunch()
 // {
 //     switch(m_indexerState)
