@@ -47,8 +47,8 @@ void CoralLauncher::SetWheelSpeeds(double rightSpeed, double leftSpeed)
 }
 void CoralLauncher::SetIndexerSpeeds(double indexerSpeed)
 {
-    m_indexer1.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kVoltage);
-    m_indexer2.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kVoltage);
+    m_indexer1.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
+    m_indexer2.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
 }
 double CoralLauncher::GetRightWheelSpeed()
 {
