@@ -15,7 +15,7 @@ std::optional<photon::EstimatedRobotPose> PhotonVisionCamera::GetPose()
 
     std::optional<photon::EstimatedRobotPose> estimate;
 
-    if (!m_LastResultIsEmpty && GetAprilTagID != -1)
+    if (!m_LastResultIsEmpty && GetAprilTagID() != -1)
     {
         estimate = m_poseEstimator->Update(m_lastResult);
     }
