@@ -141,6 +141,7 @@ std::pair<units::feet_per_second_t, units::feet_per_second_t> MoveToPose::linear
 
         m_timerLin.Restart();
         m_MoveTranslationToState++;
+        // FIXME: switch statement fall-through, is this intentional?
     }
     case 1:
     {

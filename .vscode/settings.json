@@ -94,5 +94,9 @@
     "typeinfo": "cpp",
     "valarray": "cpp",
     "variant": "cpp"
+  },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "frc830",
+    "projectKey": "FRC830_2025Robot"
   }
 }

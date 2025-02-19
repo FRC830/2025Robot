@@ -53,10 +53,10 @@ frc::Rotation2d NeoTurnMotor::GetRotation(){
 }; 
 
 bool NeoTurnMotor::GetInverted(){
-    return m_turn_motor->GetInverted();
+    return m_turn_motor->GetInverted(); // FIXME: Deprecated
 }; 
 void NeoTurnMotor::SetInverted(bool invert){
-    m_turn_motor->SetInverted(invert);
+    m_turn_motor->SetInverted(invert); // FIXME: Deprecated
 }; 
 void NeoTurnMotor::ForceTurnDirectionCW(){
 };
