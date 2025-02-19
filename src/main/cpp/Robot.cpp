@@ -3,11 +3,38 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-
+#include <fmt/core.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
+#include <iostream>
 
 Robot::Robot() {
   SwerveInit();
+
+
+  m_autos_directory = frc::filesystem::GetDeployDirectory();
+  
+   //"C:\workspace\2025Robot\vendordeps\deploy\pathplanner\autos"
+  m_autos_directory = m_autos_directory / "pathplanner" / "autos";
+  m_auto_chooser.SetDefaultOption("New Auto", "New Auto");
+
+  int fileExtensionChar;
+
+  for (auto i : std::filesystem::directory_iterator(m_autos_directory))
+  {
+    std::string filename = std::filesystem::path(i.path().string()).filename().string();
+    fileExtensionChar = filename.rfind('.');
+
+    if (fileExtensionChar != -1)
+    {
+      filename.erase(fileExtensionChar, 5);
+      m_auto_chooser.AddOption(filename, filename);
+    }
+  }
+
+  
+  frc::SmartDashboard::PutData("Pathplanner Autos", &m_auto_chooser);
+
 }
 
 void Robot::RobotPeriodic() {
