@@ -3,7 +3,9 @@
 #include <frc/geometry/Pose2d.h>
 #include <frc/kinematics/ChassisSpeeds.h>
 #include <math.h>
-#include <cmath>
+#include <frc/DriverStation.h>
+#include <pathplanner/lib/config/RobotConfig.h>
+
 void WPISwerveDrive::Configure(SwerveConfig &config){
     frc::SmartDashboard::PutData("Field", &m_field);
     m_ebrake = config.ebrake;
@@ -23,6 +25,24 @@ void WPISwerveDrive::Configure(SwerveConfig &config){
     //REMEMEBR TO FLIP DIRECTION DURING AUTON MAKING
     m_estimator = new frc::SwerveDrivePoseEstimator<4>(*m_kinematics, m_gyro->GetRawHeading(), {m_modules[0]->GetPosition(), m_modules[1]->GetPosition(), m_modules[2]->GetPosition(), m_modules[3]->GetPosition()}, frc::Pose2d(frc::Translation2d(), m_gyro->GetHeading()));
     
+    // TODO - uncomment when we can get this from the gui
+    pathplanner::RobotConfig pathplanner_config;// = pathplanner::RobotConfig::fromGUISettings();
+
+    pathplanner::AutoBuilder::configure(
+        [this]() {return GetPose();},
+        [this](frc::Pose2d InitPose)  {ResetPose(InitPose);},
+        [this](){return GetRobotRelativeSpeeds(); },
+        [this](frc::ChassisSpeeds speeds) {Drive(speeds);},
+        std::make_shared<pathplanner::PPHolonomicDriveController>( 
+            pathplanner::PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
+            pathplanner::PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+        ),
+        pathplanner_config,
+        []() { return false;},
+        {nullptr}
+    );
+    
+
 }
 
 bool WPISwerveDrive::GetEbrake() {
@@ -32,10 +52,11 @@ void WPISwerveDrive::SetEbrake(bool ebrake) {
     m_ebrake = ebrake;
 }
 void WPISwerveDrive::Drive(double x_position, double y_position, double rotation) {
-    x_position = ApplyDeadzone(x_position);
-    y_position = ApplyDeadzone(y_position);
+    auto val = ApplyCylindricalDeadzone(x_position, y_position);
+    x_position = val.first;
+    y_position = val.second;
     rotation = ApplyDeadzone(rotation);
-    
+
      Drive(
      (units::feet_per_second_t)x_position * m_maxDriveSpeed, 
      (units::feet_per_second_t)y_position * m_maxDriveSpeed, 
@@ -44,8 +65,9 @@ void WPISwerveDrive::Drive(double x_position, double y_position, double rotation
 }
 
 void WPISwerveDrive::Drive(double x_position, double y_position, units::degrees_per_second_t omega) {
-    x_position = ApplyDeadzone(x_position);
-    y_position = ApplyDeadzone(y_position);
+    auto val = ApplyCylindricalDeadzone(x_position, y_position);
+    x_position = val.first;
+    y_position = val.second;
 
     Drive(
      (units::feet_per_second_t)x_position * m_maxDriveSpeed, 
@@ -183,12 +205,7 @@ std::pair<double, double> WPISwerveDrive::ApplyCylindricalDeadzone(double x, dou
     }
     else
     {
-        if(x <0){
-            angle = M_PI-atan(y/x)
-        }
-        else{
-            angle = atan(y/x);
-        }
+        double angle = atan2(y,x);
         double r = ((d-m_deadzone)/(1.0-m_deadzone));
         x = r*(cos(angle));
         y = r*(sin(angle));
