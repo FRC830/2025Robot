@@ -19,7 +19,7 @@ void WPISwerveDrive::Configure(SwerveConfig &config){
     SetIdleMode(config.idle_mode);
     //m_modules = config.modules;
     m_kinematics = new frc::SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
-    m_deadzone = config.deadzone;a
+    m_deadzone = config.deadzone;
     m_gyro = config.gyro;
     //Last parameter in constuer must be relative the actual robot for it to wrok some what correctly
     //REMEMEBR TO FLIP DIRECTION DURING AUTON MAKING
@@ -197,7 +197,6 @@ double WPISwerveDrive::ApplyDeadzone(double input)
 std::pair<double, double> WPISwerveDrive::ApplyCylindricalDeadzone(double x, double y)
 {
     double d =sqrt(pow(x,2)+pow(y,2));
-    double angle;
     if((d)<= m_deadzone)
     {
         x=0.0;
