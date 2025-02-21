@@ -8,6 +8,9 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
+#include <filesystem>
+#include <frc/Filesystem.h>
+#include <pathplanner/lib/commands/PathPlannerAuto.h>
 
 #include "ratpack/swerve/AnalogAbsoluteEncoder.h"
 #include "ratpack/swerve/NavXGyro.h"
@@ -57,6 +60,11 @@ class Robot : public frc::TimedRobot {
   ControllerInterface _controller_interface;
   RobotControlData _robot_control_data;
   MoveToPose m_rotateToFeeder;
+
+  int m_state;
+  std::unique_ptr<frc2::CommandPtr> m_auto;
+  std::filesystem::path m_autos_directory;
+  frc::SendableChooser<std::string> m_auto_chooser;
 
   frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{90.0});
 };
