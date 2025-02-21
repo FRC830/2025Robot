@@ -32,7 +32,7 @@ CoralLauncher::CoralLauncher()
     START_RETRYING(INDEXER1_CONFIG)
     m_indexer1.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
     END_RETRYING
-    indexer_config.Inverted(!ratbot::CoralLauncherConfig::Flywheel::INVERTED);
+    indexer_config.Inverted(!ratbot::CoralLauncherConfig::Indexer::INVERTED);
     START_RETRYING(INDEXER2_CONFIG)
     m_indexer2.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
     END_RETRYING
