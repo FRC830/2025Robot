@@ -8,6 +8,7 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
+#include "PhotonVisionCamera.h"
 
 #include "ratpack/swerve/AnalogAbsoluteEncoder.h"
 #include "ratpack/swerve/NavXGyro.h"
@@ -59,4 +60,6 @@ class Robot : public frc::TimedRobot {
   MoveToPose m_rotateToFeeder;
 
   frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{90.0});
+  frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(5_m, 0_m, 0.5_m), frc::Rotation3d(0_rad, 0_rad, 0_rad));
+  std::shared_ptr<PhotonVisionCamera> m_cam;
 };
