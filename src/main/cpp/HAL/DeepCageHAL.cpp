@@ -1,28 +1,28 @@
 #include "ratpack/SparkMaxDebugMacro.h"
 
-NeoTurnMotor :: SwerveTurnMotor {
-}
+// NeoTurnMotor :: SwerveTurnMotor {
+// }
 
-     NeoTurnMotor() = default;
-{
+//      NeoTurnMotor() = default;
+// {
       
-    default = SetPosition
-}
-         void Configure(SwerveTurnMotorConfig &config) override;
-{
+//     default = SetPosition
+// }
+//          void Configure(SwerveTurnMotorConfig &config) override;
+// {
 
 
-}
-         void SetRotation(frc::Rotation2d deg) override; 
-{
+// }
+//          void SetRotation(frc::Rotation2d deg) override; 
+// {
 
 
-}
-         frc::Rotation2d GetRotation() override; 
-{
+// }
+//          frc::Rotation2d GetRotation() override; 
+// {
 
 
-}
+// }
 
 
 
