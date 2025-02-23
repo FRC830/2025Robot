@@ -58,8 +58,6 @@ class Robot : public frc::TimedRobot {
   ControllerInterface _controller_interface;
   RobotControlData _robot_control_data;
   MoveToPose m_rotateToFeeder;
-
-  frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{90.0});
-  frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(5_m, 0_m, 0.5_m), frc::Rotation3d(0_rad, 0_rad, 0_rad));
+  
   std::shared_ptr<PhotonVisionCamera> m_cam;
 };
