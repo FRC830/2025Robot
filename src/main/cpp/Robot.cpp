@@ -10,25 +10,9 @@
 #include <iostream>
 
 Robot::Robot() {
-  SwerveInit();
-
-
-  m_autos_directory = frc::filesystem::GetDeployDirectory();
-  
-  m_autos_directory = m_autos_directory / "pathplanner" / "autos";
-  m_auto_chooser.SetDefaultOption("New Auto", "New Auto");
-
-  bool isCompetition = true;
-
-  auto autoChooser = pathplanner::AutoBuilder::buildAutoChooserFilter(
-    [&isCompetition](const pathplanner::PathPlannerAuto& autoCommand)
-    {
-      return isCompetition ? autoCommand.GetName().starts_with("comp") : true;
-    }
-  );
-  frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
-
-
+    SwerveInit();
+    m_autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
+    frc::SmartDashboard::PutData("Auto Chooser", &m_autoChooser);
 }
 
 void Robot::RobotPeriodic() {

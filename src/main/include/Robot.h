@@ -60,8 +60,7 @@ class Robot : public frc::TimedRobot {
   RobotControlData _robot_control_data;
   MoveToPose m_rotateToFeeder;
 
-  std::filesystem::path m_autos_directory;
-  frc::SendableChooser<std::string> m_auto_chooser;
+  frc::SendableChooser<frc2::Command*> m_autoChooser;
 
   frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{90.0});
 };
