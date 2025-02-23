@@ -8,8 +8,8 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
-#include <frc/Filesystem.h>
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
+#include "PhotonVisionCamera.h"
 
 #include "ratpack/swerve/AnalogAbsoluteEncoder.h"
 #include "ratpack/swerve/NavXGyro.h"
@@ -63,4 +63,7 @@ class Robot : public frc::TimedRobot {
   frc::SendableChooser<frc2::Command*> m_autoChooser;
 
   frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{90.0});
+  
+  std::shared_ptr<PhotonVisionCamera> m_cam;
+
 };

@@ -7,12 +7,17 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
 #include <frc2/command/CommandScheduler.h>
-#include <iostream>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/DriverStation.h>
+
+#include "MechanismConfig.h"
 
 Robot::Robot() {
-    SwerveInit();
-    m_autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
-    frc::SmartDashboard::PutData("Auto Chooser", &m_autoChooser);
+  m_cam = std::make_shared<PhotonVisionCamera>("FRC_830-CAM", ratbot::VisionConfig::ROBOT_TO_CAMERA);
+  SwerveInit();
+  
+  m_autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
+  frc::SmartDashboard::PutData("Auto Chooser", &m_autoChooser);
 }
 
 void Robot::RobotPeriodic() {
@@ -34,6 +39,22 @@ void Robot::AutonomousExit() {}
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
+
+  // m_cam->SaveResult();
+  // frc::SmartDashboard::PutNumber("April Tag ID", m_cam->GetAprilTagID());
+  // auto data = m_cam->GetPose();
+  // double x = 0.0f;
+  // double y = 0.0f;
+
+  // if (data.has_value())
+  // {
+  //   auto pose = data.value().estimatedPose;
+  //   x = pose.X().value();
+  //   y = pose.Y().value();
+  // }
+
+  // frc::SmartDashboard::PutNumber("Data.x", x);
+  // frc::SmartDashboard::PutNumber("Data.y", y);
   _controller_interface.UpdateRobotControlData(_robot_control_data);
 
   if (_robot_control_data.swerveInput.rotation > GetSwerveDeadZone() || _robot_control_data.swerveInput.rotation < -GetSwerveDeadZone())
@@ -43,12 +64,12 @@ void Robot::TeleopPeriodic() {
   }
   if(_robot_control_data.swerveInput.targetLeftFeederAngle)
   {
-    auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(ROTATION_TO_FEEDER)));
+    auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
     _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
   }
   else if(_robot_control_data.swerveInput.targetRightFeederAngle)
   {
-    auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(-ROTATION_TO_FEEDER)));
+    auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(-ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
     _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
     
   }
