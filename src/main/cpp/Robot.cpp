@@ -30,9 +30,46 @@ void Robot::DisabledPeriodic() {}
 
 void Robot::DisabledExit() {}
 
-void Robot::AutonomousInit() {}
+void Robot::AutonomousInit() {
+  m_state = 0;
+  m_auto = m_autoChooser.GetSelected();
+}
 
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic() {
+
+  switch(m_state)
+  {
+    case 0:
+      {
+        m_auto->Initialize();
+        m_state++;
+      }
+      break;
+    case 1:
+      {
+        m_auto->Execute();
+        if (m_auto->IsFinished())
+        {
+          m_state++;
+        }
+      }
+      break;
+    case 2:
+      {
+        m_auto->End(false);
+        m_state++;
+      }
+      break;
+    case 3:
+      {
+        _swerve.Drive(0.0, 0.0, 0.0);
+      }
+    
+      break;
+    default:
+      break;
+  }
+}
 
 void Robot::AutonomousExit() {}
 
