@@ -1,7 +1,9 @@
 #pragma once
 
 #include <rev/config/SparkMaxConfig.h>
+#include "PhotonVisionCamera.h"
 
+namespace {
 namespace ratbot
 {
 
@@ -28,4 +30,13 @@ namespace ratbot
             rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
         } 
     }
+    namespace IntakeConfig
+    {
+        frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{90.0});
+    }
+    namespace VisionConfig
+    {
+        frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(5_m, 0_m, 0.5_m), frc::Rotation3d(0_rad, 0_rad, 0_rad));
+    }
+}
 }
