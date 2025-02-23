@@ -63,8 +63,6 @@ class Robot : public frc::TimedRobot {
   frc2::Command* m_auto;
 
   frc::SendableChooser<frc2::Command*> m_autoChooser;
-
-  frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{90.0});
   
   std::shared_ptr<PhotonVisionCamera> m_cam;
 
