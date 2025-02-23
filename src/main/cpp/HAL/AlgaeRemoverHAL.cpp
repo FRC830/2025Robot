@@ -1,21 +1,22 @@
 #include "HAL/AlgaeRemoverHAL.h"
 
 void AlgaeRemover::SetPivotAngle(double angle)
-{  
-    
+{ 
+   m_armMotorPID.SetReference(angle, rev::spark::SparkLowLevel::ControlType::kPosition);
 }
 void AlgaeRemover::SetWheelSpeed(double speed)
 {
-    
+    m_armMotor.GetClosedLoopController().SetReference(speed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
 }
 double AlgaeRemover::GetPivotAngle()
 {
-    return pivotAngle;
+    return m_ArmMotorAbsEncoder.GetPosition();
 }
 double AlgaeRemover::GetWheelSpeed()
 {
-    return wheelSpeed;
+    return m_armMotor.GetEncoder().GetVelocity();
 }
+
 void AlgaeRemover::ProfileMoveToAngle(double angle)
 {
     switch(m_algaeRemoverState)
