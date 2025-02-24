@@ -39,6 +39,19 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
         case 1:
         {
             //Get target pose
+            enum ScoringLocation loc;
+            if (data.plannerInput.Left_L1) {loc = ScoringLocation::L1_LEFT;}
+            else if (data.plannerInput.Left_L2) {loc = ScoringLocation::L2_LEFT;}
+            else if (data.plannerInput.Right_L1) {loc = ScoringLocation::L1_RIGHT;}
+            else if (data.plannerInput.Right_L2) {loc = ScoringLocation::L2_RIGHT;}
+            
+            std::array<double,3> poseArray = m_positionMap.getPosition(m_tagId, loc);
+            units::meter_t x{poseArray[0]};
+            units::meter_t y{poseArray[1]};
+            units::degree_t angle{poseArray[2]};
+            frc::Rotation2d rot{angle};
+
+            m_targetPose = frc::Pose2d{x, y, rot};
 
 
             m_startPose = m_Swerve.GetPose();
