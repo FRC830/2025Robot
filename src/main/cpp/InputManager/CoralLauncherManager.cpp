@@ -23,6 +23,8 @@ void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     robotControlData.coralOutput.isBeamBroken = m_CoralLauncher.BeamBreakStatus();
     robotControlData.coralOutput.leftSpeed = m_CoralLauncher.GetLeftWheelSpeed();
     robotControlData.coralOutput.rightSpeed = m_CoralLauncher.GetRightWheelSpeed();
+    robotControlData.coralOutput.flywheelsAtSpeed = m_CoralLauncher.AreFlywheelsAtDesiredSpeed();
+
 }
 
 void CoralLauncherManager::ResetState(){
