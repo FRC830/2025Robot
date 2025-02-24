@@ -1,18 +1,5 @@
 #include "SmartPlanner.h"
 
-void SmartPlanner::RunPlanner(){
-    switch(m_state){
-        case 0:
-            //reset state
-        case 1:
-            //
-        case 2:
-            //photon vision
-        case 3:
-            //
-
-    }
-}
 
 SmartPlanner::SmartPlanner(PhotonVisionCamera &cam, WPISwerveDrive &swerve)
     : m_Cam(cam)
@@ -52,7 +39,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
         case 1:
         {
             //Get target pose
-            
+
 
             m_startPose = m_Swerve.GetPose();
             break;
