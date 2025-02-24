@@ -2,19 +2,29 @@
 
 #include "MoveToPose.h"
 #include "PhotonVisionCamera.h"
+#include "ratpack/swerve/WPISwerveDrive.h"
+#include "RobotControlData.h"
+#include <frc/geometry/Pose2d.h>
+#include "ScoringPositionMap.h"
 
 class SmartPlanner{
     public:
-        SmartPlanner();
+        SmartPlanner(PhotonVisionCamera &cam, WPISwerveDrive &swerve);
         ~SmartPlanner() = default;
 
-        void RunPlanner();
+        void HandleInput(RobotControlData &data);
 
     private:
-        PhotonVisionCamera m_Cam;
-        MoveToPose m_MoveToPose;
+        SmartPlanner() = default;
+        void SmartPlan(RobotControlData &data);
+
+        PhotonVisionCamera &m_Cam;
+        MoveToPose m_moveToPose;
+        WPISwerveDrive &m_Swerve;
         int m_state;
+        frc::Pose2d m_targetPose;
+        frc::Pose2d m_startPose;
+        int m_tagId;
 
-
-
+        ScoringPositionMap m_positionMap;
 };
