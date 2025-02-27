@@ -1,13 +1,5 @@
 #include "HAL/AlgaeRemoverHAL.h"
 
-void AlgaeRemover::SetPivotAngle(double angle)
-{ 
-   m_armMotorPID.SetReference(angle, rev::spark::SparkLowLevel::ControlType::kPosition);
-}
-void AlgaeRemover::SetWheelSpeed(double speed)
-{
-    m_armMotor.GetClosedLoopController().SetReference(speed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
-}
 double AlgaeRemover::GetPivotAngle()
 {
     return m_ArmMotorAbsEncoder.GetPosition();
@@ -17,13 +9,18 @@ double AlgaeRemover::GetWheelSpeed()
     return m_armMotor.GetEncoder().GetVelocity();
 }
 
-void AlgaeRemover::ProfileMoveToAngle(double angle)
+void AlgaeRemover::ProfiledMoveToAngle(double angle)
 {
+    if (std::abs(angle - m_ProfileStartPos) > 0.0001)
+    {
+        m_algaeRemoverState = 0;
+    }
+
     switch(m_algaeRemoverState)
     {
      case 0: 
         {
-            m_ProfileStartPos = GetAngle();
+            m_ProfileStartPos = GetPivotAngle();
 
             m_Timer.Stop();
             m_Timer.Reset();
@@ -33,7 +30,6 @@ void AlgaeRemover::ProfileMoveToAngle(double angle)
 
             break;
         }
-            
 
         case 1:
         {
@@ -83,16 +79,6 @@ void AlgaeRemover::SetAngle(double angle)
     }
 
     m_armMotorPID.SetReference(angle, rev::spark::SparkMax::ControlType::kPosition);
-}
-
-void AlgaeRemover::ResetAlgaeRemoverState()
-{
-    m_algaeRemoverState = 0;
-}
-
-double AlgaeRemover::GetAngle()
-{
-    return m_ArmMotorAbsEncoder.GetPosition();
 }
 
 void AlgaeRemover::SetRemoverSpeed(double speed)
