@@ -16,6 +16,7 @@ class ControllerInterface
         frc::XboxController m_pilot{0};
         frc::Timer m_timer;
         double m_slowmodefactor = 0.25;
+        double globalDuration = 0.0;
         bool variable = false;
         bool m_prevLeftFeederButtonValue = false;
         bool m_prevRightFeederButtonValue = false;
