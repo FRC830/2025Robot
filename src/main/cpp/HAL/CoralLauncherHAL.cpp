@@ -1,188 +1,70 @@
 #include "HAL/CoralLauncherHAL.h"
-/**/
-void CoralLauncher::L1Launch()
+#include <rev/config/SparkMaxConfig.h>
+#include "ratpack/SparkMaxDebugMacro.h"
+#include "MechanismConfig.h"
+
+CoralLauncher::CoralLauncher()
 {
-    switch(m_l1LaunchState)
-    {
-        case 0:
-        {
-            m_Timer.Stop();
-            m_Timer.Reset();
-            m_Timer.Start();
+    rev::spark::SparkMaxConfig flywheel_config{};
+    rev::spark::SparkMaxConfig indexer_config{};
 
-            m_l1LaunchState++;
-            break;
-        }
+    flywheel_config.closedLoop.SetFeedbackSensor(rev::spark::ClosedLoopConfig::FeedbackSensor::kPrimaryEncoder);
+    flywheel_config.closedLoop.Pidf(ratbot::CoralLauncherConfig::Flywheel::P,ratbot::CoralLauncherConfig::Flywheel::I,ratbot::CoralLauncherConfig::Flywheel::D,ratbot::CoralLauncherConfig::Flywheel::F);
+    flywheel_config.encoder.VelocityConversionFactor(ratbot::CoralLauncherConfig::Flywheel::VEL_CONV_FACTOR);
+    flywheel_config.Inverted(ratbot::CoralLauncherConfig::Flywheel::INVERTED);
+    flywheel_config.SetIdleMode(ratbot::CoralLauncherConfig::Flywheel::IDLE_MODE);
+    flywheel_config.SmartCurrentLimit(ratbot::CoralLauncherConfig::Flywheel::CURRENT_LIM); 
+    flywheel_config.VoltageCompensation(ratbot::VOLTAGE_COMPENSATION); 
 
-        case 1:
-        {
-            if(!m_beam_break.Get())
-            {
-                m_l1LaunchState++;
-                break;
-            }
-            SetIndexerSpeed(1.0);
-        }
+    indexer_config.closedLoop.SetFeedbackSensor(rev::spark::ClosedLoopConfig::FeedbackSensor::kPrimaryEncoder);
+    indexer_config.Inverted(ratbot::CoralLauncherConfig::Indexer::INVERTED);
+    indexer_config.SetIdleMode(ratbot::CoralLauncherConfig::Indexer::IDLE_MODE);
+    indexer_config.SmartCurrentLimit(ratbot::CoralLauncherConfig::Indexer::CURRENT_LIM);
+    indexer_config.VoltageCompensation(ratbot::VOLTAGE_COMPENSATION);
 
-        case 2:
-        {
-            SetIndexerSpeed(0);
-            m_l1LaunchState++;
-            break;
-        }
-        
-        case 3:
-        {
-            if(m_beam_break.Get()) 
-            {
-                m_l1LaunchState++;
-                break;
-            }
-            SetRightWheelSpeed(-m_l1LaunchSpeed);
-            SetLeftWheelSpeed(m_l1LaunchSpeed);
-        }
+    START_RETRYING(RIGHT_FLYWHEEL_CONFIG)
+    m_rightMotor.Configure(flywheel_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+    END_RETRYING
+    flywheel_config.Inverted(!ratbot::CoralLauncherConfig::Flywheel::INVERTED);
+    START_RETRYING(LEFT_FLYWHEEL_CONFIG)
+    m_leftMotor.Configure(flywheel_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+    END_RETRYING
+    START_RETRYING(INDEXER1_CONFIG)
+    m_indexer1.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+    END_RETRYING
+    indexer_config.Inverted(!ratbot::CoralLauncherConfig::Indexer::INVERTED);
+    START_RETRYING(INDEXER2_CONFIG)
+    m_indexer2.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+    END_RETRYING
 
-        case 4:
-        {
-            SetRightWheelSpeed(0);
-            SetLeftWheelSpeed(0);
-            break;
-        }
-
-        default:
-        {
-            SetLeftWheelSpeed(0);
-            SetRightWheelSpeed(0);
-            SetIndexerSpeed(0);
-            break;
-        }
-    }
 }
-void CoralLauncher::L2Launch()
+void CoralLauncher::SetWheelSpeeds(double rightSpeed, double leftSpeed)
 {
-    switch(m_l2LaunchState)
-    {
-        case 0:
-        {
-            m_Timer.Stop();
-            m_Timer.Reset();
-            m_Timer.Start();
-
-            m_l2LaunchState++;
-            break;
-        }
-
-        case 1:
-        {
-            if(!m_beam_break.Get())
-            {
-                m_l2LaunchState++;
-                break;
-            }
-            SetIndexerSpeed(1.0);
-        }
-
-        case 2:
-        {
-            SetIndexerSpeed(0);
-            m_l2LaunchState++;
-            break;
-        }
-
-        case 3:
-        {
-            if(m_beam_break.Get())
-            {
-                m_l2LaunchState++;
-                break;
-            }
-            SetRightWheelSpeed(m_l2LaunchSpeed);
-            SetLeftWheelSpeed(m_l2LaunchSpeed);
-        }
-
-        case 4:
-        {
-            SetRightWheelSpeed(0);
-            SetLeftWheelSpeed(0);
-            break;
-        }
-
-        default:
-        {
-            SetLeftWheelSpeed(0);
-            SetRightWheelSpeed(0);
-            SetIndexerSpeed(0);
-            break;
-        }
-    }
+    m_desiredRightSpeed = rightSpeed;
+    m_desiredLeftSpeed = leftSpeed;
+    m_rightMotor.GetClosedLoopController().SetReference(rightSpeed, rev::spark::SparkLowLevel::ControlType::kVelocity);
+    m_leftMotor.GetClosedLoopController().SetReference(leftSpeed, rev::spark::SparkLowLevel::ControlType::kVelocity);
 }
-
-//void CoralLauncher::IndexerLaunch()
-// {
-//     switch(m_indexerState)
-//     {
-//         case 0:
-//         {
-//             m_Timer.Stop();
-//             m_Timer.Reset();
-//             m_Timer.Start();
-
-//             m_indexerState++;
-//             break;
-//         }
-
-//         case 1:
-//         {
-//             if(!m_beam_break.Get())
-//             {
-//                 m_indexerState++;
-//                 break;
-//             }
-//             SetIndexerSpeed(1.0);
-//         }
-
-//         case 2:
-//         {
-//             SetIndexerSpeed(0);
-//             break;
-//         }
-//     }
-// }
-
-void CoralLauncher::SetRightWheelSpeed(double speed)
+void CoralLauncher::SetIndexerSpeeds(double indexerSpeed)
 {
-    // todo
-    m_RightWheelSpeed = speed;
-    rightMotor.Set(m_RightWheelSpeed);
-}
-void CoralLauncher::SetLeftWheelSpeed(double speed)
-{
-    // todo
-    m_LeftWheelSpeed = speed;
-    leftMotor.Set(m_LeftWheelSpeed);
-}
-void CoralLauncher::SetIndexerSpeed(double speed)
-{
-    //todo idk what indexer is check CAD
-    indexerSpeed = speed;
-    indexer.Set(indexerSpeed);
-
+    m_indexer1.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
+    m_indexer2.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
 }
 double CoralLauncher::GetRightWheelSpeed()
 {
-    return m_RightWheelSpeed;
+    return m_rightMotor.GetEncoder().GetVelocity();
 }
 double CoralLauncher::GetLeftWheelSpeed()
 {
-    return m_LeftWheelSpeed;
+    return m_leftMotor.GetEncoder().GetVelocity();
+}
+bool CoralLauncher::AreFlywheelsAtDesiredSpeed()
+{
+    return ((abs(GetRightWheelSpeed() - m_desiredRightSpeed)<=SMALL_NUM)&&(abs(GetLeftWheelSpeed() - m_desiredLeftSpeed)<=SMALL_NUM));
 }
 
-void CoralLauncher::ResetL1LaunchState()
+bool CoralLauncher::BeamBreakStatus()
 {
-    m_l1LaunchState = 0;
-}
-
-void CoralLauncher::ResetL2LaunchState()
-{
-    m_l2LaunchState = 0;
+    //todo: implement beam break status code
+    return m_beam_break.Get();
 }
