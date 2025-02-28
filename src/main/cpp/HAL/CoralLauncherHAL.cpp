@@ -29,13 +29,13 @@ CoralLauncher::CoralLauncher()
     START_RETRYING(LEFT_FLYWHEEL_CONFIG)
     m_leftMotor.Configure(flywheel_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
     END_RETRYING
-    START_RETRYING(INDEXER1_CONFIG)
-    m_indexer1.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
-    END_RETRYING
-    indexer_config.Inverted(!ratbot::CoralLauncherConfig::Indexer::INVERTED);
-    START_RETRYING(INDEXER2_CONFIG)
-    m_indexer2.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
-    END_RETRYING
+    // START_RETRYING(INDEXER1_CONFIG)
+    // m_indexer1.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+    // END_RETRYING
+    // indexer_config.Inverted(!ratbot::CoralLauncherConfig::Indexer::INVERTED);
+    // START_RETRYING(INDEXER2_CONFIG)
+    // m_indexer2.Configure(indexer_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+    // END_RETRYING
 
 }
 void CoralLauncher::SetWheelSpeeds(double rightSpeed, double leftSpeed)
@@ -47,8 +47,8 @@ void CoralLauncher::SetWheelSpeeds(double rightSpeed, double leftSpeed)
 }
 void CoralLauncher::SetIndexerSpeeds(double indexerSpeed)
 {
-    m_indexer1.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
-    m_indexer2.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
+    //m_indexer1.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
+    //m_indexer2.GetClosedLoopController().SetReference(indexerSpeed, rev::spark::SparkLowLevel::ControlType::kDutyCycle);
 }
 double CoralLauncher::GetRightWheelSpeed()
 {

@@ -22,6 +22,7 @@
 #include "ControllerInterface.h"
 #include "RobotControlData.h"
 #include "MoveToPose.h"
+#include "InputManager/CoralLauncherManager.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -65,5 +66,7 @@ class Robot : public frc::TimedRobot {
   frc::SendableChooser<frc2::Command*> m_autoChooser;
   
   std::shared_ptr<PhotonVisionCamera> m_cam;
+
+  //CoralLauncherManager m_launcherManager;
 
 };

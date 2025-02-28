@@ -8,7 +8,7 @@
 class CoralLauncherManager
 {
 public:
-    CoralLauncherManager();
+    CoralLauncherManager() = default;
     ~CoralLauncherManager() = default;
 
     void ResetState();
