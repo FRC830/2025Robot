@@ -4,6 +4,7 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
 {
     UpdateSwerveInput(controlData);
     UpdateLauncherInput(controlData);
+    UpdateSmartplannerInput(controlData);
 };
 
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
