@@ -177,6 +177,12 @@ frc::ChassisSpeeds WPISwerveDrive::GetRobotRelativeSpeeds()
     return m_kinematics->ToChassisSpeeds({m_modules[0]->GetState(), m_modules[1]->GetState(), m_modules[2]->GetState(), m_modules[3]->GetState()});
 }
 
+void WPISwerveDrive::UpdatePoseWithVision(frc::Pose3d pose3d, units::second_t timestamp)
+{
+    frc::Pose2d pose{frc::Translation2d{pose3d.X(), pose3d.Y()}, m_gyro->GetHeading()};
+    m_estimator->AddVisionMeasurement(pose, timestamp);
+}
+
 double WPISwerveDrive::ApplyDeadzone(double input)
 {
     double output = 0;
