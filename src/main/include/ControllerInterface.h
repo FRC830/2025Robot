@@ -11,7 +11,7 @@ class ControllerInterface
     private:
         void UpdateSwerveInput(RobotControlData &controlData);
         void UpdateLauncherInput(RobotControlData &controlData);
-
+    
         frc::XboxController m_pilot{0};
         double m_slowmodefactor = 0.25;
 

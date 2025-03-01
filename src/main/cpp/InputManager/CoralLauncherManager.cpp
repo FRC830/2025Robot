@@ -29,3 +29,8 @@ void CoralLauncherManager::ResetState(){
     m_setFlywheelToL1Speed = false;
     m_setFlywheelToL2Speed = false;
 }
+
+void CoralLauncherManager::DisableFlywheels(RobotControlData &robotControlData){
+    if (robotControlData.coralInput.disableFlywheels)  
+        m_CoralLauncher.SetWheelSpeeds(0,0);
+}

@@ -4,6 +4,7 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
 {
     UpdateSwerveInput(controlData);
     UpdateLauncherInput(controlData);
+    
 };
 
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
@@ -34,4 +35,5 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
     controlData.coralInput.setFlywheelToL1Speed = m_pilot.GetAButton();
     controlData.coralInput.setFlywheelToL2Speed = m_pilot.GetBButton();
+    controlData.coralInput.disableFlywheels = m_pilot.GetYButton();
 }

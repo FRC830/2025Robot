@@ -13,6 +13,7 @@ public:
 
     void ResetState();
     void HandleInput(RobotControlData &robotControlData);
+    void DisableFlywheels(RobotControlData &robotControlData);
 private:
     CoralLauncher m_CoralLauncher;
     bool m_setFlywheelToL1Speed = false;
