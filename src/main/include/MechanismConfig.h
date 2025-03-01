@@ -38,6 +38,19 @@ namespace ratbot
     {
         frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(5_m, 0_m, 0.5_m), frc::Rotation3d(0_rad, 0_rad, 0_rad));
     }
+  
+    namespace AlgaeRemoverConfig
+    {
+        namespace Pivot
+        {
+
+        }
+
+        namespace Remover
+        {
+            
+        }
+    }
 
     namespace MoveToPoseConfig
     {
