@@ -13,6 +13,7 @@ struct CoralInput{
     double indexerSpeeds;
     bool setFlywheelToL1Speed;
     bool setFlywheelToL2Speed;
+    bool disableFlywheels;
 };
 
 struct CoralOutput{

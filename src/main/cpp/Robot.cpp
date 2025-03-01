@@ -10,6 +10,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DriverStation.h>
 
+#include "InputManager/CoralLauncherManager.h"
+#include "PhotonVisionCamera.h"
+
 #include "MechanismConfig.h"
 
 Robot::Robot() {
