@@ -24,7 +24,7 @@ void WPISwerveDrive::Configure(SwerveConfig &config){
     //Last parameter in constuer must be relative the actual robot for it to wrok some what correctly
     //REMEMEBR TO FLIP DIRECTION DURING AUTON MAKING
     m_estimator = new frc::SwerveDrivePoseEstimator<4>(*m_kinematics, m_gyro->GetRawHeading(), {m_modules[0]->GetPosition(), m_modules[1]->GetPosition(), m_modules[2]->GetPosition(), m_modules[3]->GetPosition()}, frc::Pose2d(frc::Translation2d(), m_gyro->GetHeading()));
-    
+
     pathplanner::RobotConfig pathplanner_config = pathplanner::RobotConfig::fromGUISettings();
 
     pathplanner::AutoBuilder::configure(
@@ -40,7 +40,6 @@ void WPISwerveDrive::Configure(SwerveConfig &config){
         []() { return false;},
         {nullptr}
     );
-    
 
 }
 
