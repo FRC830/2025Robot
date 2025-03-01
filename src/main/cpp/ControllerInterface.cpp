@@ -4,6 +4,7 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
 {
     UpdateSwerveInput(controlData);
     UpdateLauncherInput(controlData);
+    UpdateSmartplannerInput(controlData);
 };
 
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
@@ -34,4 +35,20 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
     controlData.coralInput.setFlywheelToL1Speed = m_pilot.GetAButton();
     controlData.coralInput.setFlywheelToL2Speed = m_pilot.GetBButton();
+}
+
+void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)
+{
+    if (m_copilot.GetLeftTriggerAxis() > 0.1) {controlData.plannerInput.Left_L1 = true;}
+    else if (m_copilot.GetRightTriggerAxis() > 0.1) {controlData.plannerInput.Right_L1 = true;}
+    else if (m_copilot.GetLeftBumperButtonPressed()) {controlData.plannerInput.Left_L2 = true;}
+    else if (m_copilot.GetRightBumperButtonPressed()) {controlData.plannerInput.Right_L2 = true;}
+    else 
+    {
+        controlData.plannerInput.Left_L1 = false;
+        controlData.plannerInput.Left_L2 = false;
+        controlData.plannerInput.Right_L1 = false;
+        controlData.plannerInput.Right_L2 = false;
+    }
+
 }

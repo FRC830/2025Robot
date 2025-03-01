@@ -7,6 +7,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <array>
 #include <frc/geometry/Pose2d.h>
+#include <frc/geometry/Pose3d.h>
 #include <frc/kinematics/ChassisSpeeds.h>
 #include <frc/DriverStation.h>
 #include <utility>
@@ -52,6 +53,7 @@ class WPISwerveDrive : public SwerveDrive
         virtual frc::Pose2d GetPose() override;
         virtual void ResetPose(frc::Pose2d pose) override;
         virtual frc::ChassisSpeeds GetRobotRelativeSpeeds() override;
+        void UpdatePoseWithVision(frc::Pose3d pose3d, units::second_t timestamp);
 
         inline std::array<SwerveModule*, 4>* GetModules()
         {
