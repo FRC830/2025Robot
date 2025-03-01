@@ -29,8 +29,8 @@ class AlgaeRemover
     private:
         void SetAngle(double angle);
 
-        rev::spark::SparkMax m_armMotor{0, rev::spark::SparkMax::MotorType::kBrushless};
-        rev::spark::SparkMax m_removerMotor{0, rev::spark::SparkMax::MotorType::kBrushless};
+        rev::spark::SparkMax m_armMotor{0, rev::spark::SparkMax::MotorType::kBrushless};//set this !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        rev::spark::SparkMax m_removerMotor{0, rev::spark::SparkMax::MotorType::kBrushless};// this too !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         double m_removerSpeed;
         frc::Timer m_Timer = frc::Timer(); 
         int m_algaeRemoverState = 0;
@@ -43,6 +43,6 @@ class AlgaeRemover
         rev::spark::SparkAbsoluteEncoder m_ArmMotorAbsEncoder = m_armMotor.GetAbsoluteEncoder();
         double m_ProfileStartPos;
 
-        double MAX_PIVOT_ANGLE = 90.0;
-        double MIN_PIVOT_ANGLE = 0.0;
+        const double MAX_PIVOT_ANGLE = 90.0;
+        const double MIN_PIVOT_ANGLE = 0.0;
 };
