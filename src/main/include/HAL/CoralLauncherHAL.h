@@ -8,7 +8,6 @@
 class CoralLauncher
 {
     public:
-
         CoralLauncher();
         ~CoralLauncher() = default; 
         void SetWheelSpeeds(double rightSpeed, double leftSpeed);
@@ -25,5 +24,5 @@ class CoralLauncher
         frc::DigitalInput m_beam_break{16}; //moved from CoralLauncherManager; move back if needed
         double m_desiredRightSpeed;
         double m_desiredLeftSpeed; 
-        const double SMALL_NUM = 0.001; //change variable name accordingly; make a more suitable name
+        const double SMALL_NUM = 0.001; //change variable name accordingly; make a more suitable name                            
 };
