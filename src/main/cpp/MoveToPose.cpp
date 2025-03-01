@@ -1,4 +1,5 @@
 #include "MoveToPose.h"
+#include "MechanismConfig.h"
 
 // TODO: look at these files to understand how to setup and use a trapezoid move using switch statements
         // - https://github.com/FRC830/2024Robot/blob/master/src/main/include/subsystems/IntakeHAL.h (trapezoid move member variable init)
@@ -45,7 +46,7 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
         m_turn = m_turn + 360.0;
     }
 
-    auto val = ((std::abs(m_turn) / 180.0f) + 0.1) * 120.0f;
+    auto val = ((std::abs(m_turn) / 180.0f) * ratbot::MoveToPoseConfig::MAX_TURN_SPEED_DEG_PER_SEC) + ratbot::MoveToPoseConfig::TURN_FEED_FORWARD_DEG_PER_SEC;
     
     if (m_turn <= 0.0f)
     {

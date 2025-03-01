@@ -38,5 +38,12 @@ namespace ratbot
     {
         frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(5_m, 0_m, 0.5_m), frc::Rotation3d(0_rad, 0_rad, 0_rad));
     }
+
+    namespace MoveToPoseConfig
+    {
+        // TODO: tune values on carpet
+        const double MAX_TURN_SPEED_DEG_PER_SEC = 120.0f;
+        const double TURN_FEED_FORWARD_DEG_PER_SEC = 10.0f;
+    }
 }
 }
