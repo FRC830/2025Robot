@@ -30,13 +30,24 @@ struct SmartPlannerInput
     bool Right_L2;
 };
 
+struct AlgaeInput {
+    bool RunRemoverTop; 
+    bool RunRemoverBottom;
+};
+
+struct AlgaeOutput {
+    double RemoverSpeed;
+    double PivotAngle;
+};
+
 struct RobotControlData {
     SwerveInput swerveInput;
     CoralInput coralInput;
     CoralOutput coralOutput;
     SmartPlannerInput plannerInput;
+    AlgaeInput algaeInput;
+    AlgaeOutput algaeOutput;
 
 };
-
 
 

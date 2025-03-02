@@ -42,7 +42,4 @@ class AlgaeRemover
         rev::spark::SparkClosedLoopController m_armMotorPID = m_armMotor.GetClosedLoopController();
         rev::spark::SparkAbsoluteEncoder m_ArmMotorAbsEncoder = m_armMotor.GetAbsoluteEncoder();
         double m_ProfileStartPos;
-
-        const double MAX_PIVOT_ANGLE = 90.0;
-        const double MIN_PIVOT_ANGLE = 0.0;
 };
