@@ -44,7 +44,7 @@ const frc::Rotation2d FR_ZERO_HEADING{units::degree_t{270.61f}};
 ctre::phoenix6::hardware::CANcoder fr_abs_enc{FR_ABS_ENC_PORT};
 
 // -----------------------Turn Motor--------------------------
-const int FR_TURN_MTR_ID = 19;
+const int FR_TURN_MTR_ID = 17;
 const bool FR_TURN_MTR_INVERTED = true;
 
 rev::spark::SparkMax fr_turn_mtr{FR_TURN_MTR_ID, rev::spark::SparkMax::MotorType::kBrushless};
@@ -52,7 +52,7 @@ rev::spark::SparkRelativeEncoder fr_turn_enc = fr_turn_mtr.GetEncoder();
 rev::spark::SparkClosedLoopController fr_turn_pid = fr_turn_mtr.GetClosedLoopController();
 
 // -----------------------Drive Motor-------------------------
-const int FR_DRIVE_MTR_ID = 17;
+const int FR_DRIVE_MTR_ID = 19;
 const double FR_POSITION_CORRECTION_FACTOR = 1.0;
 
 rev::spark::SparkMax fr_drive_mtr{FR_DRIVE_MTR_ID, rev::spark::SparkMax::MotorType::kBrushless};
