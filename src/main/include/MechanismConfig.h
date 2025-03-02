@@ -42,7 +42,7 @@ namespace ratbot
         const double VEL_CONV_FACTOR = 1.0;
         const double CURRENT_LIM = 30.0;
         const bool INVERTED = false;
-        rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
+        rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kBrake;
     }
 
     namespace IntakeConfig
