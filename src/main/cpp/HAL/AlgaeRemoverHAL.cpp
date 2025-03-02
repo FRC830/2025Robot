@@ -38,7 +38,7 @@ double AlgaeRemover::GetPivotAngle()
 
 double AlgaeRemover::GetWheelSpeed()
 {
-    return m_armMotor.GetEncoder().GetVelocity();
+    return m_removerMotor.GetEncoder().GetVelocity();
 }
 
 void AlgaeRemover::ProfiledMoveToAngle(double angle)
