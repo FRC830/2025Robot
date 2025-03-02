@@ -22,6 +22,14 @@ struct CoralOutput{
     bool flywheelsAtSpeed;
 };
 
+struct ClimberInput{
+    bool run;
+};
+
+struct ClimberOutput{
+    double ClimberSpeed;
+};
+
 struct SmartPlannerInput
 {
     bool Left_L1;
@@ -34,6 +42,8 @@ struct RobotControlData {
     SwerveInput swerveInput;
     CoralInput coralInput;
     CoralOutput coralOutput;
+    ClimberInput climberInput;
+    ClimberOutput climberOutput;
     SmartPlannerInput plannerInput;
 
 };
