@@ -60,7 +60,7 @@ double CoralLauncher::GetLeftWheelSpeed()
 }
 bool CoralLauncher::AreFlywheelsAtDesiredSpeed()
 {
-    return ((abs(GetRightWheelSpeed() - m_desiredRightSpeed)<=SMALL_NUM)&&(abs(GetLeftWheelSpeed() - m_desiredLeftSpeed)<=SMALL_NUM));
+    return ((fabs(GetRightWheelSpeed() - m_desiredRightSpeed)<=FLYWHEEL_ERROR)&&(fabs(GetLeftWheelSpeed() - m_desiredLeftSpeed)<=FLYWHEEL_ERROR));
 }
 
 bool CoralLauncher::BeamBreakStatus()
