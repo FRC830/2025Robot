@@ -9,8 +9,8 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
 
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 {  
-    controlData.swerveInput.xTranslation = -m_pilot.GetLeftY();
-    controlData.swerveInput.yTranslation = -m_pilot.GetLeftX();
+    controlData.swerveInput.xTranslation = m_pilot.GetLeftY();
+    controlData.swerveInput.yTranslation = m_pilot.GetLeftX();
     controlData.swerveInput.rotation = -m_pilot.GetRightX();
 
     auto tempTargetLeftFeeder = m_pilot.GetLeftTriggerAxis() > 0.1;
