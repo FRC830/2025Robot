@@ -39,4 +39,6 @@ private:
     double m_RemoverSpeed = 0.0;
     units::second_t m_RemoverTime = 2.0_s;
     frc::Timer m_removerTimer;
+    bool m_prevAngleToBottom;
+    bool m_prevAngleToTop;
 };
