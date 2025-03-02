@@ -24,15 +24,13 @@ void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     robotControlData.coralOutput.leftSpeed = m_CoralLauncher.GetLeftWheelSpeed();
     robotControlData.coralOutput.rightSpeed = m_CoralLauncher.GetRightWheelSpeed();
     robotControlData.coralOutput.flywheelsAtSpeed = m_CoralLauncher.AreFlywheelsAtDesiredSpeed();
+    if(robotControlData.coralInput.disableFlywheels){
+        m_CoralLauncher.SetWheelSpeeds(0,0);
+    }
 
 }
 
 void CoralLauncherManager::ResetState(){
     m_setFlywheelToL1Speed = false;
     m_setFlywheelToL2Speed = false;
-}
-
-void CoralLauncherManager::DisableFlywheels(RobotControlData &robotControlData){
-    if (robotControlData.coralInput.disableFlywheels)  
-        m_CoralLauncher.SetWheelSpeeds(0,0);
 }

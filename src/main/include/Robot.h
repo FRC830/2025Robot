@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <optional>
+#include <optional> 
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
@@ -18,6 +18,8 @@
 #include "ratpack/swerve/WPISwerveModule.h"
 #include "ratpack/swerve/WPISwerveDrive.h"
 
+  #include "InputManager/CoralLauncherManager.h"
+#include "PhotonVisionCamera.h"
 
 #include "ControllerInterface.h"
 #include "RobotControlData.h"
