@@ -4,14 +4,14 @@
 void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
     if(robotControlData.algaeInput.RunRemoverTop && robotControlData.algaeInput.RunRemoverTop != m_prevAngleToTop){
         m_removerTimer.Reset();
+        m_prevAngleToTop = m_pivotAngleToTop; 
         m_pivotAngleToTop = true;
-        m_prevAngleToTop != m_prevAngleToTop; 
         m_pivotAngleToBottom = false;
     }else if (robotControlData.algaeInput.RunRemoverBottom && robotControlData.algaeInput.RunRemoverBottom != m_prevAngleToBottom){
         m_removerTimer.Reset();
+        m_prevAngleToBottom = m_pivotAngleToBottom; 
         m_pivotAngleToTop = false;
         m_pivotAngleToBottom = true;
-        m_prevAngleToBottom != m_prevAngleToBottom; 
     }
 
     if(m_pivotAngleToTop){
@@ -19,6 +19,7 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
         if (m_removerTimer.GetTimestamp() > m_RemoverTime)
         {
             m_AlgaeRemover.SetRemoverSpeed(0.0);
+            return;
         }
         m_AlgaeRemover.SetRemoverSpeed(m_RemoverSpeed);
     }
@@ -27,6 +28,7 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
         if (m_removerTimer.GetTimestamp() > m_RemoverTime)
         {
             m_AlgaeRemover.SetRemoverSpeed(0.0);
+            return;
         }
         m_AlgaeRemover.SetRemoverSpeed(-m_RemoverSpeed);
     }
