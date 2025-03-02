@@ -17,10 +17,8 @@
 #include "ratpack/swerve/NeoTurnMotor.h"
 #include "ratpack/swerve/WPISwerveModule.h"
 #include "ratpack/swerve/WPISwerveDrive.h"
-
-  #include "InputManager/CoralLauncherManager.h"
+#include "InputManager/CoralLauncherManager.h"
 #include "PhotonVisionCamera.h"
-
 #include "ControllerInterface.h"
 #include "RobotControlData.h"
 #include "MoveToPose.h"

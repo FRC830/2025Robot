@@ -60,11 +60,13 @@ double CoralLauncher::GetLeftWheelSpeed()
 }
 bool CoralLauncher::AreFlywheelsAtDesiredSpeed()
 {
+    // FIXME: Type conversion truncation
+    // CoPilot: To fix the problem, you should use the floating-point absolute value function `fabs` instead of `abs`
     return ((abs(GetRightWheelSpeed() - m_desiredRightSpeed)<=SMALL_NUM)&&(abs(GetLeftWheelSpeed() - m_desiredLeftSpeed)<=SMALL_NUM));
 }
 
 bool CoralLauncher::BeamBreakStatus()
 {
-    //todo: implement beam break status code
+    // TODO: Is there any additional code required here?
     return m_beam_break.Get();
 }

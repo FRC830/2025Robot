@@ -4,7 +4,6 @@
 #include "RobotControlData.h"
 #include <frc/DigitalInput.h>
 
-
 class CoralLauncherManager
 {
 public:

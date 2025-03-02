@@ -1,6 +1,5 @@
 #include "InputManager/CoralLauncherManager.h"
 
-
 void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     if(robotControlData.coralInput.setFlywheelToL1Speed){
         m_setFlywheelToL1Speed = true;
@@ -11,10 +10,10 @@ void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     }
 
     if(m_setFlywheelToL1Speed){
-        m_CoralLauncher.SetWheelSpeeds(1.0,1.0); //configure speeds
+        m_CoralLauncher.SetWheelSpeeds(1.0,1.0); // TODO: Tune speeds
     }
     if(m_setFlywheelToL2Speed){
-        m_CoralLauncher.SetWheelSpeeds(1.0,1.0); //config speeds
+        m_CoralLauncher.SetWheelSpeeds(1.0,1.0); // TODO: Tune speeds
     }
     m_CoralLauncher.SetIndexerSpeeds(robotControlData.coralInput.indexerSpeeds);
     if(m_CoralLauncher.BeamBreakStatus()){
@@ -27,7 +26,6 @@ void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     if(robotControlData.coralInput.disableFlywheels){
         m_CoralLauncher.SetWheelSpeeds(0,0);
     }
-
 }
 
 void CoralLauncherManager::ResetState(){

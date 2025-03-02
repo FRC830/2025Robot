@@ -6,7 +6,6 @@
 namespace {
 namespace ratbot
 {
-
     const double VOLTAGE_COMPENSATION = 10.5f;
 
     namespace CoralLauncherConfig
@@ -65,7 +64,7 @@ namespace ratbot
 
     namespace MoveToPoseConfig
     {
-        // TODO: tune values on carpet
+        // TODO: We need to tune these values for field carpet
         const double MAX_TURN_SPEED_DEG_PER_SEC = 120.0f;
         const double TURN_FEED_FORWARD_DEG_PER_SEC = 10.0f;
     }

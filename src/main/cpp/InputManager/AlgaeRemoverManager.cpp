@@ -1,6 +1,5 @@
 #include "InputManager/AlgaeRemoverManager.h"
 
-
 void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
     if(robotControlData.algaeInput.RunRemoverTop){
         m_pivotAngleToTop = true;
@@ -10,6 +9,7 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
         m_pivotAngleToBottom = true;
     }
 
+    // TODO: Can these conditionals be separate functions?
     if(m_pivotAngleToTop){
         m_AlgaeRemover.ProfiledMoveToAngle(m_pivotAngleToRemoveTop); 
         m_removerTimer.Reset();

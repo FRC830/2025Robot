@@ -23,6 +23,5 @@ class PhotonVisionCamera
         PhotonVisionCamera(std::string name, frc::Transform3d robotToCamera);
         std::optional<photon::EstimatedRobotPose> GetPose();
         void SaveResult();
-        int GetAprilTagID();
-        
+        int GetAprilTagID();        
 };
