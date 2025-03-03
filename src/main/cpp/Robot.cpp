@@ -9,11 +9,11 @@
 #include <frc2/command/CommandScheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DriverStation.h>
-
 #include "MechanismConfig.h"
 
 Robot::Robot() {
   m_cam = std::make_shared<PhotonVisionCamera>("FRC_830-CAM", ratbot::VisionConfig::ROBOT_TO_CAMERA);
+  
   SwerveInit();
   
   m_autoChooser = pathplanner::AutoBuilder::buildAutoChooser();

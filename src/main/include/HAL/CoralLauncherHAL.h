@@ -17,11 +17,11 @@ class CoralLauncher
         bool AreFlywheelsAtDesiredSpeed();
         bool BeamBreakStatus();
     private:
-        rev::spark::SparkMax m_rightMotor{4, rev::spark::SparkMax::MotorType::kBrushless};
-        rev::spark::SparkMax m_leftMotor{5, rev::spark::SparkMax::MotorType::kBrushless};
-        rev::spark::SparkMax m_indexer1{10, rev::spark::SparkMax::MotorType::kBrushless};
-        rev::spark::SparkMax m_indexer2{11, rev::spark::SparkMax::MotorType::kBrushless};
-        frc::DigitalInput m_beam_break{16}; //moved from CoralLauncherManager; move back if needed
+        rev::spark::SparkMax m_rightMotor{30, rev::spark::SparkMax::MotorType::kBrushless};
+        rev::spark::SparkMax m_leftMotor{31, rev::spark::SparkMax::MotorType::kBrushless};
+        rev::spark::SparkMax m_indexer1{32, rev::spark::SparkMax::MotorType::kBrushless};
+        rev::spark::SparkMax m_indexer2{33, rev::spark::SparkMax::MotorType::kBrushless};
+        frc::DigitalInput m_beam_break{34}; //moved from CoralLauncherManager; move back if needed
         double m_desiredRightSpeed;
         double m_desiredLeftSpeed; 
         const double SMALL_NUM = 0.001; //change variable name accordingly; make a more suitable name                            

@@ -13,6 +13,7 @@ struct CoralInput{
     double indexerSpeeds;
     bool setFlywheelToL1Speed;
     bool setFlywheelToL2Speed;
+    bool disableFlywheels;
 };
 
 struct CoralOutput{
@@ -38,6 +39,16 @@ struct SmartPlannerInput
     bool Right_L2;
 };
 
+struct AlgaeInput {
+    bool RunRemoverTop; 
+    bool RunRemoverBottom;
+};
+
+struct AlgaeOutput {
+    double RemoverSpeed;
+    double PivotAngle;
+};
+
 struct RobotControlData {
     SwerveInput swerveInput;
     CoralInput coralInput;
@@ -45,8 +56,9 @@ struct RobotControlData {
     ClimberInput climberInput;
     ClimberOutput climberOutput;
     SmartPlannerInput plannerInput;
+    AlgaeInput algaeInput;
+    AlgaeOutput algaeOutput;
 
 };
-
 
 

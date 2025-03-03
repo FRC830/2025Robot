@@ -24,6 +24,9 @@ void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     robotControlData.coralOutput.leftSpeed = m_CoralLauncher.GetLeftWheelSpeed();
     robotControlData.coralOutput.rightSpeed = m_CoralLauncher.GetRightWheelSpeed();
     robotControlData.coralOutput.flywheelsAtSpeed = m_CoralLauncher.AreFlywheelsAtDesiredSpeed();
+    if(robotControlData.coralInput.disableFlywheels){
+        m_CoralLauncher.SetWheelSpeeds(0,0);
+    }
 
 }
 

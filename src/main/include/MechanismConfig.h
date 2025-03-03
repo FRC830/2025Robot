@@ -53,6 +53,30 @@ namespace ratbot
     {
         frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(5_m, 0_m, 0.5_m), frc::Rotation3d(0_rad, 0_rad, 0_rad));
     }
+  
+    namespace AlgaeRemoverConfig
+    {
+        namespace Pivot
+        {
+            const double MAX_PIVOT_ANGLE = 90.0;
+            const double MIN_PIVOT_ANGLE = 0.0;
+            const double P = 0.00025;
+            const double I = 0.0;
+            const double D = 0.35;
+            const double F = 0.0;
+            const double VEL_CONV_FACTOR = 1.0;
+            const double CURRENT_LIM = 30.0;
+            const bool INVERTED = false;
+            rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
+        }
+
+        namespace Remover
+        {
+            const double CURRENT_LIM = 20.0;
+            const bool INVERTED = false;
+            rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
+        }
+    }
 
     namespace MoveToPoseConfig
     {

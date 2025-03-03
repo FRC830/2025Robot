@@ -1,16 +1,23 @@
 #include "ControllerInterface.h"
+#include <iostream>
 
 void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
 {
     UpdateSwerveInput(controlData);
     UpdateLauncherInput(controlData);
     UpdateSmartplannerInput(controlData);
+    // code for the VibrateController function
+    if (m_timer.Get().value()>=m_globalDuration)
+    {
+        m_pilot.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 0.0);
+        m_pilot.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0.0);
+    }
 };
 
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 {  
-    controlData.swerveInput.xTranslation = -m_pilot.GetLeftY();
-    controlData.swerveInput.yTranslation = -m_pilot.GetLeftX();
+    controlData.swerveInput.xTranslation = m_pilot.GetLeftY();
+    controlData.swerveInput.yTranslation = m_pilot.GetLeftX();
     controlData.swerveInput.rotation = -m_pilot.GetRightX();
 
     auto tempTargetLeftFeeder = m_pilot.GetLeftTriggerAxis() > 0.1;
@@ -35,6 +42,7 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
     controlData.coralInput.setFlywheelToL1Speed = m_pilot.GetAButton();
     controlData.coralInput.setFlywheelToL2Speed = m_pilot.GetBButton();
+    controlData.coralInput.disableFlywheels = m_pilot.GetYButton();
 }
 
 void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)
@@ -51,4 +59,12 @@ void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)
         controlData.plannerInput.Right_L2 = false;
     }
 
+}
+
+void ControllerInterface::VibrateController(double intensity, double duration)
+{
+    m_globalDuration = duration;
+    m_timer.Restart();
+    m_pilot.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, intensity);
+    m_pilot.SetRumble(frc::GenericHID::RumbleType::kRightRumble, intensity);
 }
