@@ -25,5 +25,5 @@ class CoralLauncher
         frc::DigitalInput m_beam_break{34};
         double m_desiredRightSpeed;
         double m_desiredLeftSpeed; 
-        const double SMALL_NUM = 0.001; //TODO: Improve variable name to explain purpose
+        const double FLYWHEEL_ERROR = 0.001;                          
 };

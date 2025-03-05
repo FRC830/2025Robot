@@ -60,65 +60,9 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
     }
 
     return units::angular_velocity::degrees_per_second_t{val};
-    
-    // switch (m_MoveAngleToState)
-    // {
-    //     case 0:
-    //     {
-
-
-            
-    //         double start = m_current.Rotation().Degrees().value();
-    //         double end = desired.Degrees().value();
-
-    //         m_turn = end - start;
-    //         if (m_turn > 180.0)
-    //         {
-    //             m_turn = m_turn - 360.0;
-    //         }
-    //         else if (m_turn < -180.0)
-    //         {
-    //             m_turn = m_turn + 360.0;
-    //         }
-
-
-    //         m_angularVelocity = 0_deg_per_s;
-    //         m_timer.Restart();
-    //         m_MoveAngleToState++;
-    //         break;
-    //     }
-    //     case 1:
-    //     {
-    //         auto setPoint = m_Profile.Calculate(
-    //             m_timer.Get(),
-    //             frc::TrapezoidProfile<units::degrees>::State{units::degree_t{0.0f}, 0_deg_per_s},
-    //             frc::TrapezoidProfile<units::degrees>::State{units::degree_t{m_turn}, 0_deg_per_s}    // insert the better end state here       
-    //         );
-
-    //         m_angularVelocity = setPoint.velocity;
-
-    //         if (m_Profile.IsFinished(m_timer.Get())) {
-    //             m_MoveAngleToState++;
-    //         }
-
-    //         break;
-    //     }
-    //     case 2:
-    //     {
-    //         m_timer.Stop();
-    //         m_MoveAngleToState++;
-    //         break;
-    //     }
-    //     default:
-    //     {
-    //         break;
-    //     }
-    // }
-    // return m_angularVelocity;
 };
 
 std::pair<units::feet_per_second_t, units::feet_per_second_t> MoveToPose::linearTranslation(frc::Pose2d desired) {
-    // double distance = sqrt(pow((double)desired.X() - current.X(), 2.0) + pow(0.0 + desired.Y() - current.Y(), 2.0));
     switch (m_MoveTranslationToState)
     {
     case 0:
@@ -142,7 +86,7 @@ std::pair<units::feet_per_second_t, units::feet_per_second_t> MoveToPose::linear
 
         m_timerLin.Restart();
         m_MoveTranslationToState++;
-        // FIXME: switch statement fall-through
+        break;
     }
     case 1:
     {
