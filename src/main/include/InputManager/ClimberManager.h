@@ -2,7 +2,7 @@
 
 #include "HAL/ClimberHAL.h"
 #include "RobotControlData.h"
-#include <frc/DigitalInput.h>
+// #include <frc/DigitalInput.h>
 
 
 class ClimberManager
@@ -14,6 +14,8 @@ public:
     void HandleInput(RobotControlData &robotControlData);
 private:
     Climber m_Climber;
+    frc::Timer m_matchTimer;
+    bool m_isFirstIteration = true;
     bool m_prevClimberRun;
     bool m_climberRun;
     frc::Timer m_climberTimer;
