@@ -45,10 +45,12 @@ namespace ratbot
         {
             const double MAX_PIVOT_ANGLE = 90.0;
             const double MIN_PIVOT_ANGLE = 0.0;
-            const double P = 0.00025;
+            // TODO: tune these values
+            const double P = 0.0;
             const double I = 0.0;
-            const double D = 0.35;
+            const double D = 0.0;
             const double F = 0.0;
+            // TODO: change this to pos_conv_factor
             const double VEL_CONV_FACTOR = 1.0;
             const double CURRENT_LIM = 30.0;
             const bool INVERTED = false;

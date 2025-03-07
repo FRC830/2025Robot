@@ -10,6 +10,7 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
         m_pivotAngleToBottom = true;
     }
 
+    // TODO: no need to do a timed run of the remover wheel... just blindly run it
     if(m_pivotAngleToTop){
         m_AlgaeRemover.ProfiledMoveToAngle(m_pivotAngleToRemoveTop); 
         m_removerTimer.Reset();
@@ -37,5 +38,6 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
 void AlgaeRemoverManager::ResetState(){
     m_pivotAngleToBottom = false;
     m_pivotAngleToTop = false;
+    // TODO: get rid of this
     m_removerTimer.Reset();
 }
