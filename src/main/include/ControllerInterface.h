@@ -14,6 +14,7 @@ class ControllerInterface
         void UpdateSwerveInput(RobotControlData &controlData);
         void UpdateLauncherInput(RobotControlData &controlData);
         void UpdateSmartplannerInput(RobotControlData &controlData);
+        void UpdateClimberInput(RobotControlData &controlData);
 
         frc::XboxController m_pilot{0};
         frc::XboxController m_copilot{1};

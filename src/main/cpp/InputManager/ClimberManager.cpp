@@ -28,17 +28,20 @@
 
 void ClimberManager::HandleInput(RobotControlData &robotControlData)
 {
-    if (/*controler says left*/)
-    {
-        m_Climber.SetClimberSpeed(1)
-    }
-    else if (/*controller says right*/)
-    {
-        m_Climber.SetClimberSpeed(-1)
-    }
-    else
-    {
-        // stop
+    // if (robotControlData.climberInput.Unspool)
+    // {
+    //     m_Climber.SetClimberSpeed(1);
+    // }
+    // else if (robotControlData.climberInput.Respool)
+    // {
+    //     m_Climber.SetClimberSpeed(-1);
+    // }
+    // else
+    // {
+    //     m_Climber.SetClimberSpeed(0);
+    // }
+    if(m_matchTimer.HasElapsed(120_s)){
+    m_Climber.SetClimberSpeed(robotControlData.climberInput.ClimberSpeed);
     }
 }
 

@@ -24,7 +24,9 @@ struct CoralOutput{
 };
 
 struct ClimberInput{
-    bool run;
+    // bool Unspool;
+    // bool Respool;
+    double ClimberSpeed;
 };
 
 struct ClimberOutput{
