@@ -44,6 +44,7 @@ struct SmartPlannerInput
 struct AlgaeInput {
     bool RunRemoverTop; 
     bool RunRemoverBottom;
+    bool RunRemoverStow;
 };
 
 struct AlgaeOutput {

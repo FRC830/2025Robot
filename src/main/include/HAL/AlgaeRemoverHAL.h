@@ -28,10 +28,9 @@ class AlgaeRemover
 
     private:
         void SetAngle(double angle);
-
-        rev::spark::SparkMax m_armMotor{100, rev::spark::SparkMax::MotorType::kBrushless};
-        rev::spark::SparkMax m_removerMotor{101, rev::spark::SparkMax::MotorType::kBrushless};
-        double m_removerSpeed;
+  
+        rev::spark::SparkMax m_armMotor{51, rev::spark::SparkMax::MotorType::kBrushless};
+        rev::spark::SparkMax m_removerMotor{50, rev::spark::SparkMax::MotorType::kBrushless};
         frc::Timer m_Timer = frc::Timer(); 
         int m_algaeRemoverState = 0;
         frc::TrapezoidProfile<units::degrees> m_Profile

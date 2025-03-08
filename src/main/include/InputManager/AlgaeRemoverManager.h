@@ -24,7 +24,7 @@
 class AlgaeRemoverManager
 {
 public:
-    AlgaeRemoverManager();
+    AlgaeRemoverManager() = default;
     ~AlgaeRemoverManager() = default;
 
     void ResetState();
@@ -32,11 +32,7 @@ public:
 private:
     AlgaeRemover m_AlgaeRemover;
     bool m_pivotAngleToTop = false;
+    bool m_pivotAngleToStow = false;
     bool m_pivotAngleToBottom = false;
-    double m_pivotAngle;
-    double m_pivotAngleToRemoveTop = 45.0; //this will probably change later depending on arm design. this is just for default
-    double m_pivotAngleToRemoveBottom = 45.0; //this will probably change later depending on arm design. this is just for default
-    double m_RemoverSpeed = 0.0;
-    units::second_t m_RemoverTime = 2.0_s;
-    frc::Timer m_removerTimer;
+
 };
