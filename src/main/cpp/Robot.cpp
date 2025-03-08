@@ -74,6 +74,7 @@ void Robot::AutonomousPeriodic() {
 void Robot::AutonomousExit() {}
 
 void Robot::TeleopInit() {
+  m_coralLauncherManager.ResetState();
   m_ClimberManager.ResetState();
 }
 
@@ -117,6 +118,8 @@ void Robot::TeleopPeriodic() {
     m_rotateToFeeder.reset();
     _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
   }
+  
+  m_coralLauncherManager.HandleInput(_robot_control_data);  
   m_ClimberManager.HandleInput(_robot_control_data);
 }
 

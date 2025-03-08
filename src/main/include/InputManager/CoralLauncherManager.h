@@ -8,7 +8,7 @@
 class CoralLauncherManager
 {
 public:
-    CoralLauncherManager();
+    CoralLauncherManager() = default;
     ~CoralLauncherManager() = default;
 
     void ResetState();
@@ -17,4 +17,5 @@ private:
     CoralLauncher m_CoralLauncher;
     bool m_setFlywheelToL1Speed = false;
     bool m_setFlywheelToL2Speed = false;
+    bool m_setFlywheelToZeroSpeed = false;
 };

@@ -19,14 +19,14 @@ namespace ratbot
             const double F = 0.0;
             const double VEL_CONV_FACTOR = 1.0;
             const double CURRENT_LIM = 30.0;
-            const bool INVERTED = false;
+            const bool INVERTED = true;
             rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
         }
 
         namespace Indexer
         {
             const double CURRENT_LIM = 20.0;
-            const bool INVERTED = false;
+            const bool INVERTED = true;
             rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
         } 
     }
