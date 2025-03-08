@@ -1,5 +1,5 @@
 #include "InputManager/AlgaeRemoverManager.h"
-
+#include "MechanismConfig.h"
 
 void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
     if(robotControlData.algaeInput.RunRemoverTop){
@@ -10,24 +10,13 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
         m_pivotAngleToBottom = true;
     }
 
-    // TODO: no need to do a timed run of the remover wheel... just blindly run it
     if(m_pivotAngleToTop){
-        m_AlgaeRemover.ProfiledMoveToAngle(m_pivotAngleToRemoveTop); 
-        m_removerTimer.Reset();
-        if (m_removerTimer.GetTimestamp() > m_RemoverTime)
-        {
-            m_AlgaeRemover.SetRemoverSpeed(0.0);
-        }
-        m_AlgaeRemover.SetRemoverSpeed(m_RemoverSpeed);
+        m_AlgaeRemover.ProfiledMoveToAngle(ratbot::AlgaeRemoverConfig::Pivot::m_pivotAngleToRemoveTop); ;
+        m_AlgaeRemover.SetRemoverSpeed(ratbot::AlgaeRemoverConfig::Remover::REMOVER_SPEED);
     }
     if(m_pivotAngleToBottom){
-        m_AlgaeRemover.ProfiledMoveToAngle(m_pivotAngleToRemoveBottom);
-        m_removerTimer.Reset();
-        if (m_removerTimer.GetTimestamp() > m_RemoverTime)
-        {
-            m_AlgaeRemover.SetRemoverSpeed(0.0);
-        }
-        m_AlgaeRemover.SetRemoverSpeed(-m_RemoverSpeed);
+        m_AlgaeRemover.ProfiledMoveToAngle(ratbot::AlgaeRemoverConfig::Pivot::m_pivotAngleToRemoveBottom);
+        m_AlgaeRemover.SetRemoverSpeed(-ratbot::AlgaeRemoverConfig::Remover::REMOVER_SPEED);
     }
     
     robotControlData.algaeOutput.RemoverSpeed = m_AlgaeRemover.GetWheelSpeed();
@@ -38,6 +27,4 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
 void AlgaeRemoverManager::ResetState(){
     m_pivotAngleToBottom = false;
     m_pivotAngleToTop = false;
-    // TODO: get rid of this
-    m_removerTimer.Reset();
 }

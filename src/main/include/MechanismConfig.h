@@ -45,15 +45,16 @@ namespace ratbot
         {
             const double MAX_PIVOT_ANGLE = 90.0;
             const double MIN_PIVOT_ANGLE = 0.0;
+            const double m_pivotAngleToRemoveTop = 45.0; //this will probably change later depending on arm design. this is just for default
+            const double m_pivotAngleToRemoveBottom = 45.0; //this will probably change later depending on arm design. this is just for default
             // TODO: tune these values
             const double P = 0.0;
             const double I = 0.0;
             const double D = 0.0;
             const double F = 0.0;
-            // TODO: change this to pos_conv_factor
-            const double VEL_CONV_FACTOR = 1.0;
+            const double POS_CONV_FACTOR = 1.0;
             const double CURRENT_LIM = 30.0;
-            const bool INVERTED = false;
+            const bool INVERTED = false; 
             rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
         }
 
@@ -61,6 +62,7 @@ namespace ratbot
         {
             const double CURRENT_LIM = 20.0;
             const bool INVERTED = false;
+            const double REMOVER_SPEED;
             rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
         }
     }

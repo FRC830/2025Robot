@@ -10,8 +10,7 @@ AlgaeRemover::AlgaeRemover()
 
     pivot_config.closedLoop.SetFeedbackSensor(rev::spark::ClosedLoopConfig::FeedbackSensor::kPrimaryEncoder);
     pivot_config.closedLoop.Pidf(ratbot::AlgaeRemoverConfig::Pivot::P,ratbot::AlgaeRemoverConfig::Pivot::I,ratbot::AlgaeRemoverConfig::Pivot::D,ratbot::AlgaeRemoverConfig::Pivot::F);
-    // TODO: change this to position conversion factor
-    pivot_config.encoder.VelocityConversionFactor(ratbot::AlgaeRemoverConfig::Pivot::VEL_CONV_FACTOR);
+    pivot_config.encoder.PositionConversionFactor(ratbot::AlgaeRemoverConfig::Pivot::POS_CONV_FACTOR);
     pivot_config.Inverted(ratbot::AlgaeRemoverConfig::Pivot::INVERTED);
     pivot_config.SetIdleMode(ratbot::AlgaeRemoverConfig::Pivot::IDLE_MODE);
     pivot_config.SmartCurrentLimit(ratbot::AlgaeRemoverConfig::Pivot::CURRENT_LIM); 
@@ -44,8 +43,7 @@ double AlgaeRemover::GetWheelSpeed()
 
 void AlgaeRemover::ProfiledMoveToAngle(double angle)
 {
-    // TODO: change this to std::fabs
-    if (std::abs(angle - m_ProfileStartPos) > 0.0001)
+    if (std::fabs(angle - m_ProfileStartPos) > 0.0001)
     {
         m_algaeRemoverState = 0;
     }
