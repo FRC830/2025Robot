@@ -43,6 +43,15 @@ void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
     controlData.coralInput.setFlywheelToL1Speed = m_pilot.GetAButton();
     controlData.coralInput.setFlywheelToL2Speed = m_pilot.GetBButton();
     controlData.coralInput.disableFlywheels = m_pilot.GetYButton();
+
+    if (m_pilot.GetXButton())
+    {
+        controlData.coralInput.indexerSpeeds = 0.7f;
+    }
+    else
+    {
+        controlData.coralInput.indexerSpeeds = 0.0f;
+    }
 }
 
 void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)
