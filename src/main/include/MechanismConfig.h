@@ -83,6 +83,8 @@ namespace ratbot
         // TODO: tune values on carpet
         const double MAX_TURN_SPEED_DEG_PER_SEC = 120.0f;
         const double TURN_FEED_FORWARD_DEG_PER_SEC = 10.0f;
+        const double MAX_SPEED_M_PER_SEC = 0.0f; // todo: change!!!
+        const double SPEED_FEED_FORWARD_M_PER_SEC = 0.0f; //todo: change!!!!!
     }
 }
 }
