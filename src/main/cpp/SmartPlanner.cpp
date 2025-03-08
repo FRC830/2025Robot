@@ -18,7 +18,7 @@ void SmartPlanner::HandleInput(RobotControlData &data)
         m_moveToPose.reset();
     }
 }
-
+#include <iostream>
 void SmartPlanner::SmartPlan(RobotControlData &data)
 {
     switch (m_state)
@@ -30,6 +30,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
 
             if (estimatedPose.has_value())
             {
+                std::cout << "estimated at: " << estimatedPose.value().estimatedPose.X().value() << ", " << estimatedPose.value().estimatedPose.Y().value() << std::endl; 
                 m_tagId = m_Cam.GetAprilTagID();
                 m_Swerve.UpdatePoseWithVision(estimatedPose.value().estimatedPose, estimatedPose.value().timestamp);
                 m_state++;
@@ -53,8 +54,10 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
 
             m_targetPose = frc::Pose2d{x, y, rot};
 
-
             m_startPose = m_Swerve.GetPose();
+
+
+            m_state++;
             break;
         }
         case 2:
