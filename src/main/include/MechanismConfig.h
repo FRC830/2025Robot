@@ -58,7 +58,7 @@ namespace ratbot
     {
         namespace Pivot
         {
-            const double MAX_PIVOT_ANGLE = 90.0;
+            const double MAX_PIVOT_ANGLE = 106.0;
             const double MIN_PIVOT_ANGLE = 0.0;
             const double TOP_REMOVER_POS = 45.0; //this will probably change later depending on arm design. this is just for default
             const double BOTTOM_REMOVER_POS = 45.0; //this will probably change later depending on arm design. this is just for default
@@ -67,7 +67,7 @@ namespace ratbot
             const double I = 0.0;
             const double D = 0.0;
             const double F = 0.0;
-            const double POS_CONV_FACTOR = 1.0;
+            const double POS_CONV_FACTOR = 139.97;
             const double CURRENT_LIM = 30.0;
             const bool INVERTED = false; 
             rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
