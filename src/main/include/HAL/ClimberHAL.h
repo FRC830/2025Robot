@@ -22,7 +22,7 @@ class Climber
         void SetClimberSpeed(double speed); 
         
     private:
-        rev::spark::SparkMax m_climberMotor{50, rev::spark::SparkMax::MotorType::kBrushless};
+        rev::spark::SparkMax m_climberMotor{30, rev::spark::SparkMax::MotorType::kBrushless};
         rev::spark::SparkClosedLoopController m_climberMotorPID = m_climberMotor.GetClosedLoopController();
         rev::spark::SparkAbsoluteEncoder m_climberMotorAbsEncoder = m_climberMotor.GetAbsoluteEncoder();                      
 };

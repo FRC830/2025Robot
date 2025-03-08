@@ -29,7 +29,7 @@ void ControllerInterface::UpdateClimberInput(RobotControlData &controlData)
     //     controlData.climberInput.Unspool = false;
     //     controlData.climberInput.Respool = false;
     // }
-    if (abs(m_copilot.GetRightY()) > 0.1)
+    if (std::fabs(m_copilot.GetRightY()) > 0.1)
     {
         controlData.climberInput.ClimberSpeed = m_copilot.GetRightY();
     }
