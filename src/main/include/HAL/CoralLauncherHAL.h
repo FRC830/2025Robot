@@ -1,4 +1,5 @@
 #pragma once
+
 #include "RobotControlData.h"
 #include "rev/SparkMax.h"
 #include <frc/Timer.h>
@@ -21,8 +22,8 @@ class CoralLauncher
         rev::spark::SparkMax m_leftMotor{42, rev::spark::SparkMax::MotorType::kBrushless};
         rev::spark::SparkMax m_indexer1{40, rev::spark::SparkMax::MotorType::kBrushless};
         rev::spark::SparkMax m_indexer2{41, rev::spark::SparkMax::MotorType::kBrushless};
-        frc::DigitalInput m_beam_break{0}; //moved from CoralLauncherManager; move back if needed
+        frc::DigitalInput m_beam_break{0};
         double m_desiredRightSpeed;
         double m_desiredLeftSpeed; 
-        const double SMALL_NUM = 0.001; //change variable name accordingly; make a more suitable name                            
+        const double FLYWHEEL_ERROR = 0.001;                          
 };
