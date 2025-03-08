@@ -6,6 +6,7 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
     UpdateSwerveInput(controlData);
     UpdateLauncherInput(controlData);
     UpdateSmartplannerInput(controlData);
+    UpdateClimberInput(controlData);
 
     // TODO: Move vibration code into its own method
     if (m_timer.Get().value()>=m_globalDuration)
@@ -14,6 +15,29 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
         m_pilot.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0.0);
     }
 };
+void ControllerInterface::UpdateClimberInput(RobotControlData &controlData)
+{
+    // if ((m_copilot.GetRightY() > 0.1)||(m_copilot.GetLeftY() > 0.1)){
+    //     controlData.climberInput.Unspool = true;
+    //     controlData.climberInput.Respool = false;
+    // }
+    // else if ((m_copilot.GetRightY() < -0.1)||(m_copilot.GetLeftY() < -0.1)){
+    //     controlData.climberInput.Unspool = false;
+    //     controlData.climberInput.Respool = true;
+    // }
+    // else{
+    //     controlData.climberInput.Unspool = false;
+    //     controlData.climberInput.Respool = false;
+    // }
+    if (std::fabs(m_copilot.GetRightY()) > 0.1)
+    {
+        controlData.climberInput.ClimberSpeed = m_copilot.GetRightY();
+    }
+    else
+    {
+        controlData.climberInput.ClimberSpeed = 0;
+    }
+}
 
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 {  

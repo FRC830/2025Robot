@@ -9,7 +9,6 @@
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
-#include "PhotonVisionCamera.h"
 
 #include "ratpack/swerve/AnalogAbsoluteEncoder.h"
 #include "ratpack/swerve/NavXGyro.h"
@@ -17,11 +16,12 @@
 #include "ratpack/swerve/NeoTurnMotor.h"
 #include "ratpack/swerve/WPISwerveModule.h"
 #include "ratpack/swerve/WPISwerveDrive.h"
-#include "InputManager/CoralLauncherManager.h"
+
 #include "PhotonVisionCamera.h"
 #include "ControllerInterface.h"
 #include "RobotControlData.h"
 #include "MoveToPose.h"
+#include "InputManager/ClimberManager.h"
 #include "InputManager/CoralLauncherManager.h"
 
 class Robot : public frc::TimedRobot {
@@ -66,4 +66,6 @@ class Robot : public frc::TimedRobot {
   frc::SendableChooser<frc2::Command*> m_autoChooser;
   
   std::shared_ptr<PhotonVisionCamera> m_cam;
+
+  ClimberManager m_ClimberManager;
 };
