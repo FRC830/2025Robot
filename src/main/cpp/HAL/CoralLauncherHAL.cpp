@@ -42,8 +42,13 @@ void CoralLauncher::SetWheelSpeeds(double rightSpeed, double leftSpeed)
 {
     m_desiredRightSpeed = rightSpeed;
     m_desiredLeftSpeed = leftSpeed;
-    m_rightMotor.GetClosedLoopController().SetReference(rightSpeed, rev::spark::SparkLowLevel::ControlType::kVelocity);
-    m_leftMotor.GetClosedLoopController().SetReference(leftSpeed, rev::spark::SparkLowLevel::ControlType::kVelocity);
+
+    // Don't use PID to go to 0 to avoid stripping belts
+    auto rightControlType = (std::fabs(rightSpeed) <= 1.0f) ? rev::spark::SparkLowLevel::ControlType::kDutyCycle : rev::spark::SparkLowLevel::ControlType::kVelocity;
+    auto leftControlType = (std::fabs(leftSpeed) <= 1.0f) ? rev::spark::SparkLowLevel::ControlType::kDutyCycle : rev::spark::SparkLowLevel::ControlType::kVelocity;
+
+    m_rightMotor.GetClosedLoopController().SetReference(rightSpeed, rightControlType);
+    m_leftMotor.GetClosedLoopController().SetReference(leftSpeed, leftControlType);
 }
 void CoralLauncher::SetIndexerSpeeds(double indexerSpeed)
 {
@@ -60,7 +65,7 @@ double CoralLauncher::GetLeftWheelSpeed()
 }
 bool CoralLauncher::AreFlywheelsAtDesiredSpeed()
 {
-    return ((fabs(GetRightWheelSpeed() - m_desiredRightSpeed)<=FLYWHEEL_ERROR)&&(fabs(GetLeftWheelSpeed() - m_desiredLeftSpeed)<=FLYWHEEL_ERROR));
+    return ((std::fabs(GetRightWheelSpeed() - m_desiredRightSpeed)<=FLYWHEEL_ERROR)&&(std::fabs(GetLeftWheelSpeed() - m_desiredLeftSpeed)<=FLYWHEEL_ERROR));
 }
 
 bool CoralLauncher::BeamBreakStatus()
