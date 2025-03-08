@@ -30,6 +30,21 @@ namespace ratbot
             rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
         } 
     }
+
+    namespace ClimberConfig
+    {
+        const double MAX_ANGLE = 90.0;
+        const double MIN_ANGLE = 0.0;
+        const double P = 0.00025;
+        const double I = 0.0;
+        const double D = 0.35;
+        const double F = 0.0;
+        const double VEL_CONV_FACTOR = 1.0;
+        const double CURRENT_LIM = 30.0;
+        const bool INVERTED = false;
+        rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kBrake;
+    }
+
     namespace IntakeConfig
     {
         frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{54.0});
