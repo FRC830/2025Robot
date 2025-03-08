@@ -25,6 +25,7 @@
 #include "RobotControlData.h"
 #include "MoveToPose.h"
 #include "InputManager/CoralLauncherManager.h"
+#include "InputManager/AlgaeRemoverManager.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -61,11 +62,14 @@ class Robot : public frc::TimedRobot {
   RobotControlData _robot_control_data;
   MoveToPose m_rotateToFeeder;
   CoralLauncherManager m_coralLauncherManager;
-
+  AlgaeRemoverManager m_algaeRemoverManager;
+  
   int m_state = 0;
   frc2::Command* m_auto;
 
   frc::SendableChooser<frc2::Command*> m_autoChooser;
   
   std::shared_ptr<PhotonVisionCamera> m_cam;
+
+
 };

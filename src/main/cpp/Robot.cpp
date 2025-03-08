@@ -75,6 +75,7 @@ void Robot::AutonomousExit() {}
 
 void Robot::TeleopInit() {
   m_coralLauncherManager.ResetState();
+  m_algaeRemoverManager.ResetState();
 }
 
 void Robot::TeleopPeriodic() {
@@ -118,6 +119,7 @@ void Robot::TeleopPeriodic() {
     _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
   }
   m_coralLauncherManager.HandleInput(_robot_control_data);
+  m_algaeRemoverManager.HandleInput(_robot_control_data);
 }
 
 void Robot::TeleopExit() {}
