@@ -24,7 +24,7 @@ void Climber::SetClimberSpeed(double speed)
     m_climberMotor.Set(speed);
 }
 
-double Climber::GetClimberSpeed()
+double Climber::GetClimberPosition()
 {
-    return m_climberMotor.GetEncoder().GetVelocity();
+    return m_climberMotor.GetEncoder().GetPosition();
 }

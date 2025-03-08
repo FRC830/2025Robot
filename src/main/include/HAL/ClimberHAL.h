@@ -1,6 +1,5 @@
 #pragma once
 #include "RobotControlData.h"
-#include <frc/Timer.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DigitalInput.h>
 #include <rev/SparkMax.h>
@@ -19,13 +18,11 @@ class Climber
     public:
         Climber();
         ~Climber() = default; 
-        double GetClimberSpeed();
+        double GetClimberPosition();
         void SetClimberSpeed(double speed); 
         
     private:
         rev::spark::SparkMax m_climberMotor{50, rev::spark::SparkMax::MotorType::kBrushless};
-        double m_climberSpeed;
         rev::spark::SparkClosedLoopController m_climberMotorPID = m_climberMotor.GetClosedLoopController();
-        rev::spark::SparkAbsoluteEncoder m_climberMotorAbsEncoder = m_climberMotor.GetAbsoluteEncoder();
-        double m_ProfileStartPos;                       
+        rev::spark::SparkAbsoluteEncoder m_climberMotorAbsEncoder = m_climberMotor.GetAbsoluteEncoder();                      
 };
