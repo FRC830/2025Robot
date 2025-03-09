@@ -51,7 +51,7 @@ namespace ratbot
     }
     namespace VisionConfig
     {
-        frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(12_in, 0_in, 23.5_in), frc::Rotation3d(0_rad, 0_rad, 0_rad));
+        frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(12_in, 0_in, 23.5_in), frc::Rotation3d(0_rad, 23_deg, 0_rad));
     }
   
     namespace AlgaeRemoverConfig
