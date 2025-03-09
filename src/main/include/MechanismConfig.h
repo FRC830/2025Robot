@@ -2,6 +2,8 @@
 
 #include <rev/config/SparkMaxConfig.h>
 #include "PhotonVisionCamera.h"
+#include <ctre/phoenix6/TalonFX.hpp>
+#include <ctre/phoenix6/configs/Configs.hpp>
 
 namespace {
 namespace ratbot
@@ -66,11 +68,11 @@ namespace ratbot
             const double P = 0.0;
             const double I = 0.0;
             const double D = 0.0;
-            const double F = 0.0;
-            const double POS_CONV_FACTOR = 139.97;
-            const double CURRENT_LIM = 30.0;
-            const bool INVERTED = false; 
-            rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
+            const double V = 0.0;
+            units::dimensionless::scalar_t POS_CONV_FACTOR = 139.97;
+            units::current::ampere_t CURRENT_LIM = 40_A;
+            ctre::phoenix6::signals::InvertedValue INVERTED = false; 
+            ctre::phoenix6::signals::NeutralModeValue IDLE_MODE = ctre::phoenix6::signals::NeutralModeValue::Brake;
         }
 
         namespace Remover
