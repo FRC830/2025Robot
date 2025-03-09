@@ -71,20 +71,18 @@ void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
 
     if (m_copilot.GetXButton())
     {
-        controlData.coralInput.indexerSpeeds = 0.7f;
+        controlData.coralInput.indexerSpeeds = 1.0f;
     }
     else
     {
-        controlData.coralInput.indexerSpeeds = 0.0f;
+        static constexpr double RATIO = 1.0f;
+        auto indexerSpeed = -m_copilot.GetLeftY() * RATIO;
+        if (std::fabs(indexerSpeed) < 0.05f)
+        {
+            indexerSpeed = 0.0f;
+        }
+        controlData.coralInput.indexerSpeeds = indexerSpeed;
     }
-
-    static constexpr double RATIO = 0.3f;
-    auto indexerSpeed = -m_copilot.GetLeftY() * RATIO;
-    if (std::fabs(indexerSpeed) < 0.05f)
-    {
-        indexerSpeed = 0.0f;
-    }
-    controlData.coralInput.indexerSpeeds = indexerSpeed;
 }
 
 void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)
