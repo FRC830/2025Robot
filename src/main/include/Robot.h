@@ -24,6 +24,7 @@
 #include "InputManager/ClimberManager.h"
 #include "InputManager/CoralLauncherManager.h"
 #include "InputManager/AlgaeRemoverManager.h"
+#include "SmartPlanner.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -68,6 +69,7 @@ class Robot : public frc::TimedRobot {
   frc::SendableChooser<frc2::Command*> m_autoChooser;
   
   std::shared_ptr<PhotonVisionCamera> m_cam;
+  std::shared_ptr<SmartPlanner> m_smartPlanner;
 
   ClimberManager m_ClimberManager;
 };
