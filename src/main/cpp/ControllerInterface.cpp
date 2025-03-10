@@ -8,7 +8,7 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
     UpdateSmartplannerInput(controlData);
     UpdateClimberInput(controlData);
 
-    // code for the VibrateController function
+    // TODO: Move vibration code into its own method
     if (m_timer.Get().value()>=m_globalDuration)
     {
         m_pilot.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 0.0);

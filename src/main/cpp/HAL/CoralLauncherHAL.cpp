@@ -65,11 +65,11 @@ double CoralLauncher::GetLeftWheelSpeed()
 }
 bool CoralLauncher::AreFlywheelsAtDesiredSpeed()
 {
-    return ((std::fabs(GetRightWheelSpeed() - m_desiredRightSpeed)<=SMALL_NUM)&&(std::fabs(GetLeftWheelSpeed() - m_desiredLeftSpeed)<=SMALL_NUM));
+    return ((std::fabs(GetRightWheelSpeed() - m_desiredRightSpeed)<=FLYWHEEL_ERROR)&&(std::fabs(GetLeftWheelSpeed() - m_desiredLeftSpeed)<=FLYWHEEL_ERROR));
 }
 
 bool CoralLauncher::BeamBreakStatus()
 {
-    //todo: implement beam break status code
+    // TODO: Is there any additional code required here?
     return m_beam_break.Get();
 }

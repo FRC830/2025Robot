@@ -1,6 +1,5 @@
 #include "SmartPlanner.h"
 
-
 SmartPlanner::SmartPlanner(PhotonVisionCamera &cam, WPISwerveDrive &swerve)
     : m_Cam(cam)
     , m_Swerve(swerve)

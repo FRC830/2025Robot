@@ -14,8 +14,6 @@
 #include <units/length.h>
 #include <units/velocity.h>
 #include <units/acceleration.h>
-//#include <units/math.h>
-
 
 class MoveToPose
 {
@@ -56,13 +54,5 @@ class MoveToPose
         // Uses swerve odometry to generate the 'initial' pose
         frc::ChassisSpeeds move(frc::Pose2d current, frc::Pose2d desired);
         void reset();
-        bool isDone();
-
-        // TODO: all functions below should be private
-        //       all functions should have (current, desired)... instead of (initial, desired) or (desired, current)
-
-        // Moves robot from initial to desired
-        
-        // TODO: create helper functions as needed
-         
+        bool isDone();         
 };
