@@ -15,6 +15,8 @@ Robot::Robot() {
   m_cam = std::make_shared<PhotonVisionCamera>("FRC_830-CAM", ratbot::VisionConfig::ROBOT_TO_CAMERA);
   
   SwerveInit();
+
+  m_smartPlanner = std::make_shared<SmartPlanner>(*m_cam, _swerve);
   
   m_autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
   frc::SmartDashboard::PutData("Auto Chooser", &m_autoChooser);
@@ -80,7 +82,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 
-  // m_cam->SaveResult();
+  m_cam->SaveResult();
   // frc::SmartDashboard::PutNumber("April Tag ID", m_cam->GetAprilTagID());
   // auto data = m_cam->GetPose();
   // double x = 0.0f;
@@ -97,26 +99,38 @@ void Robot::TeleopPeriodic() {
   // frc::SmartDashboard::PutNumber("Data.y", y);
   _controller_interface.UpdateRobotControlData(_robot_control_data);
 
-  if (_robot_control_data.swerveInput.rotation > GetSwerveDeadZone() || _robot_control_data.swerveInput.rotation < -GetSwerveDeadZone())
+  bool userWantsToSmartPlan = _robot_control_data.plannerInput.Left_L1
+                            || _robot_control_data.plannerInput.Right_L1
+                            || _robot_control_data.plannerInput.Left_L2
+                            || _robot_control_data.plannerInput.Right_L2;
+
+  if (userWantsToSmartPlan)
   {
-    _robot_control_data.swerveInput.targetLeftFeederAngle = false;
-    _robot_control_data.swerveInput.targetRightFeederAngle = false;
-  }
-  if(_robot_control_data.swerveInput.targetLeftFeederAngle)
-  {
-    auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(-ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
-    _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
-  }
-  else if(_robot_control_data.swerveInput.targetRightFeederAngle)
-  {
-    auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
-    _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
-    
+    m_smartPlanner->HandleInput(_robot_control_data);
   }
   else
   {
-    m_rotateToFeeder.reset();
-    _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
+    if (_robot_control_data.swerveInput.rotation > GetSwerveDeadZone() || _robot_control_data.swerveInput.rotation < -GetSwerveDeadZone())
+    {
+      _robot_control_data.swerveInput.targetLeftFeederAngle = false;
+      _robot_control_data.swerveInput.targetRightFeederAngle = false;
+    }
+    if(_robot_control_data.swerveInput.targetLeftFeederAngle)
+    {
+      auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(-ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
+      _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
+    }
+    else if(_robot_control_data.swerveInput.targetRightFeederAngle)
+    {
+      auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
+      _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
+      
+    }
+    else
+    {
+      m_rotateToFeeder.reset();
+      _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
+    }
   }
   
   m_coralLauncherManager.HandleInput(_robot_control_data);  

@@ -65,11 +65,11 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 }
 
 void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
-    controlData.coralInput.setFlywheelToL1Speed = m_pilot.GetAButton();
-    controlData.coralInput.setFlywheelToL2Speed = m_pilot.GetBButton();
-    controlData.coralInput.disableFlywheels = m_pilot.GetYButton();
+    controlData.coralInput.setFlywheelToL1Speed = m_copilot.GetAButton();
+    controlData.coralInput.setFlywheelToL2Speed = m_copilot.GetBButton();
+    controlData.coralInput.disableFlywheels = m_copilot.GetYButton();
 
-    if (m_pilot.GetXButton())
+    if (m_copilot.GetXButton())
     {
         controlData.coralInput.indexerSpeeds = 0.7f;
     }
@@ -77,6 +77,14 @@ void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
     {
         controlData.coralInput.indexerSpeeds = 0.0f;
     }
+
+    static constexpr double RATIO = 0.3f;
+    auto indexerSpeed = m_copilot.GetLeftY() * RATIO;
+    if (std::fabs(indexerSpeed) < 0.05f)
+    {
+        indexerSpeed = 0.0f;
+    }
+    controlData.coralInput.indexerSpeeds = indexerSpeed;
 }
 
 void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)

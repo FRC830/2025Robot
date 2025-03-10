@@ -53,9 +53,9 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
         val = -val;
     }
 
-    if (std::abs(m_turn) <= 2.0f)
+    if (std::fabs(m_turn) <= 2.0f)
     {
-        val = 0.0f;
+        //val = 0.0f;
         m_MoveAngleToState = 3;
     }
 
