@@ -6,6 +6,8 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
     UpdateSwerveInput(controlData);
     UpdateLauncherInput(controlData);
     UpdateSmartplannerInput(controlData);
+    UpdateClimberInput(controlData);
+
     // code for the VibrateController function
     if (m_timer.Get().value()>=m_globalDuration)
     {
@@ -13,6 +15,29 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
         m_pilot.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0.0);
     }
 };
+void ControllerInterface::UpdateClimberInput(RobotControlData &controlData)
+{
+    // if ((m_copilot.GetRightY() > 0.1)||(m_copilot.GetLeftY() > 0.1)){
+    //     controlData.climberInput.Unspool = true;
+    //     controlData.climberInput.Respool = false;
+    // }
+    // else if ((m_copilot.GetRightY() < -0.1)||(m_copilot.GetLeftY() < -0.1)){
+    //     controlData.climberInput.Unspool = false;
+    //     controlData.climberInput.Respool = true;
+    // }
+    // else{
+    //     controlData.climberInput.Unspool = false;
+    //     controlData.climberInput.Respool = false;
+    // }
+    if (std::fabs(m_copilot.GetRightY()) > 0.1)
+    {
+        controlData.climberInput.ClimberSpeed = m_copilot.GetRightY();
+    }
+    else
+    {
+        controlData.climberInput.ClimberSpeed = 0;
+    }
+}
 
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 {  
@@ -40,9 +65,26 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 }
 
 void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
-    controlData.coralInput.setFlywheelToL1Speed = m_pilot.GetAButton();
-    controlData.coralInput.setFlywheelToL2Speed = m_pilot.GetBButton();
-    controlData.coralInput.disableFlywheels = m_pilot.GetYButton();
+    controlData.coralInput.setFlywheelToL1Speed = m_copilot.GetAButton();
+    controlData.coralInput.setFlywheelToL2Speed = m_copilot.GetBButton();
+    controlData.coralInput.disableFlywheels = m_copilot.GetYButton();
+
+    if (m_copilot.GetXButton())
+    {
+        controlData.coralInput.indexerSpeeds = 0.7f;
+    }
+    else
+    {
+        controlData.coralInput.indexerSpeeds = 0.0f;
+    }
+
+    static constexpr double RATIO = 0.3f;
+    auto indexerSpeed = m_copilot.GetLeftY() * RATIO;
+    if (std::fabs(indexerSpeed) < 0.05f)
+    {
+        indexerSpeed = 0.0f;
+    }
+    controlData.coralInput.indexerSpeeds = indexerSpeed;
 }
 
 void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)

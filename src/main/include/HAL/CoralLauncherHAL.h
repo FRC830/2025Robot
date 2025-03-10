@@ -23,7 +23,7 @@ class CoralLauncher
         rev::spark::SparkMax m_leftMotor{CORAL_LAUNCHER_FLYWHEEL_LEFT_CAN_ID, rev::spark::SparkMax::MotorType::kBrushless};
         rev::spark::SparkMax m_indexer1{CORAL_LAUNCHER_INDEXER_RIGHT_CAN_ID, rev::spark::SparkMax::MotorType::kBrushless};
         rev::spark::SparkMax m_indexer2{CORAL_LAUNCHER_INDEXER_LEFT_CAN_ID, rev::spark::SparkMax::MotorType::kBrushless};
-        frc::DigitalInput m_beam_break{CORAL_LAUNCHER_BEAM_BREAK_CAN_ID}; //moved from CoralLauncherManager; move back if needed
+        frc::DigitalInput m_beam_break{0}; //moved from CoralLauncherManager; move back if needed
         double m_desiredRightSpeed;
         double m_desiredLeftSpeed; 
         const double SMALL_NUM = 0.001; //change variable name accordingly; make a more suitable name                            
