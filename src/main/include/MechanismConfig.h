@@ -49,11 +49,11 @@ namespace ratbot
 
     namespace IntakeConfig
     {
-        frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{54.0});
+        frc::Rotation2d ROTATION_TO_FEEDER = frc::Rotation2d(units::degree_t{234.0});
     }
     namespace VisionConfig
     {
-        frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(5_m, 0_m, 0.5_m), frc::Rotation3d(0_rad, 0_rad, 0_rad));
+        frc::Transform3d ROBOT_TO_CAMERA = frc::Transform3d(frc::Translation3d(11_in, 1.625_in, 23.5_in), frc::Rotation3d(0_rad, -23_deg, 0_rad));
     }
   
     namespace AlgaeRemoverConfig
@@ -89,6 +89,8 @@ namespace ratbot
         // TODO: tune values on carpet
         const double MAX_TURN_SPEED_DEG_PER_SEC = 120.0f;
         const double TURN_FEED_FORWARD_DEG_PER_SEC = 10.0f;
+        const double MAX_SPEED_M_PER_SEC = 0.0f; // todo: change!!!
+        const double SPEED_FEED_FORWARD_M_PER_SEC = 0.0f; //todo: change!!!!!
     }
 }
 }

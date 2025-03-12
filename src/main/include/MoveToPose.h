@@ -24,7 +24,7 @@ class MoveToPose
             frc::TrapezoidProfile<units::degrees>::Constraints{180_deg_per_s, 90_deg_per_s_sq}   
         };
         frc::TrapezoidProfile<units::foot> m_ProfileLin{
-            frc::TrapezoidProfile<units::foot>::Constraints{10_fps, 5_fps_sq}   
+            frc::TrapezoidProfile<units::foot>::Constraints{3_fps, 0.25_fps_sq}   
         };  
         int m_MoveAngleToState = 0;
         int m_MoveTranslationToState = 0;

@@ -43,7 +43,7 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 {  
     controlData.swerveInput.xTranslation = m_pilot.GetLeftY();
     controlData.swerveInput.yTranslation = m_pilot.GetLeftX();
-    controlData.swerveInput.rotation = -m_pilot.GetRightX();
+    controlData.swerveInput.rotation = m_pilot.GetRightX();
 
     auto tempTargetLeftFeeder = m_pilot.GetLeftTriggerAxis() > 0.1;
     auto tempTargetRightFeeder = m_pilot.GetRightTriggerAxis() > 0.1;
@@ -71,28 +71,26 @@ void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
 
     if (m_copilot.GetXButton())
     {
-        controlData.coralInput.indexerSpeeds = 0.7f;
+        controlData.coralInput.indexerSpeeds = 1.0f;
     }
     else
     {
-        controlData.coralInput.indexerSpeeds = 0.0f;
+        static constexpr double RATIO = 1.0f;
+        auto indexerSpeed = -m_copilot.GetLeftY() * RATIO;
+        if (std::fabs(indexerSpeed) < 0.05f)
+        {
+            indexerSpeed = 0.0f;
+        }
+        controlData.coralInput.indexerSpeeds = indexerSpeed;
     }
-
-    static constexpr double RATIO = 0.3f;
-    auto indexerSpeed = m_copilot.GetLeftY() * RATIO;
-    if (std::fabs(indexerSpeed) < 0.05f)
-    {
-        indexerSpeed = 0.0f;
-    }
-    controlData.coralInput.indexerSpeeds = indexerSpeed;
 }
 
 void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)
 {
     if (m_copilot.GetLeftTriggerAxis() > 0.1) {controlData.plannerInput.Left_L1 = true;}
     else if (m_copilot.GetRightTriggerAxis() > 0.1) {controlData.plannerInput.Right_L1 = true;}
-    else if (m_copilot.GetLeftBumperButtonPressed()) {controlData.plannerInput.Left_L2 = true;}
-    else if (m_copilot.GetRightBumperButtonPressed()) {controlData.plannerInput.Right_L2 = true;}
+    else if (m_copilot.GetLeftBumper()) {controlData.plannerInput.Left_L2 = true;}
+    else if (m_copilot.GetRightBumper()) {controlData.plannerInput.Right_L2 = true;}
     else 
     {
         controlData.plannerInput.Left_L1 = false;
