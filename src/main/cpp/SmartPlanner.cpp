@@ -1,5 +1,5 @@
 #include "SmartPlanner.h"
-
+#include <iostream>
 
 SmartPlanner::SmartPlanner(PhotonVisionCamera &cam, WPISwerveDrive &swerve)
     : m_Cam(cam)
@@ -18,7 +18,7 @@ void SmartPlanner::HandleInput(RobotControlData &data)
         m_moveToPose.reset();
     }
 }
-#include <iostream>
+
 void SmartPlanner::SmartPlan(RobotControlData &data)
 {
     switch (m_state)
