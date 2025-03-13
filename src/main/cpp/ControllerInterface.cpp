@@ -7,6 +7,7 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
     UpdateLauncherInput(controlData);
     UpdateSmartplannerInput(controlData);
     UpdateClimberInput(controlData);
+    UpdateAlgaeArmInput(controlData);
 
     // code for the VibrateController function
     if (m_timer.Get().value()>=m_globalDuration)
@@ -15,6 +16,7 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
         m_pilot.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0.0);
     }
 };
+
 void ControllerInterface::UpdateClimberInput(RobotControlData &controlData)
 {
     // if ((m_copilot.GetRightY() > 0.1)||(m_copilot.GetLeftY() > 0.1)){

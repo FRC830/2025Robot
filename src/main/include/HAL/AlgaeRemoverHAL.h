@@ -17,6 +17,9 @@
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <ctre/phoenix6/core/CoreTalonFXS.hpp>
 #include <ctre/phoenix6/configs/Configs.hpp>
+#include <rev/config/SparkMaxConfig.h>
+#include "ratpack/SparkMaxDebugMacro.h"
+#include "MechanismConfig.h"
 
 class AlgaeRemover
 {
@@ -32,9 +35,8 @@ class AlgaeRemover
 
     private:
         void SetAngle(double angle);
-        rev::spark::SparkMax m_armMotor{ALGAE_REMOVER_ARM_CAN_ID, rev::spark::SparkMax::MotorType::kBrushless};
+        ctre::phoenix6::hardware::TalonFX m_armMotor{ALGAE_REMOVER_ARM_CAN_ID};
         rev::spark::SparkMax m_removerMotor{ALGAE_REMOVER_WHEEL_CAN_ID, rev::spark::SparkMax::MotorType::kBrushless};
-        double m_removerSpeed;
         frc::Timer m_Timer = frc::Timer(); 
         int m_algaeRemoverState = 0;
         frc::TrapezoidProfile<units::degrees> m_Profile
