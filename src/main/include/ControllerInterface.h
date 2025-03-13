@@ -16,6 +16,7 @@ class ControllerInterface
         void UpdateSmartplannerInput(RobotControlData &controlData);
         void UpdateAlgaeArmInput(RobotControlData &controlData);
         void UpdateClimberInput(RobotControlData &controlData);
+        
 
         frc::XboxController m_pilot{0};
         frc::XboxController m_copilot{1};

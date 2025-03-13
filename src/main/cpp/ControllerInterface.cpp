@@ -68,9 +68,18 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 
 void ControllerInterface::UpdateAlgaeArmInput(RobotControlData &controlData)
 {
-    if (m_copilot.GetLeftBumperButtonPressed()) {controlData.algaeInput.RunRemoverBottom = true; }
-    else if (m_copilot.GetRightBumperButtonPressed()) {controlData.algaeInput.RunRemoverTop = true;}
-    else if (m_copilot.GetStartButtonPressed()) {controlData.algaeInput.RunRemoverStow = true;}
+    if (m_copilot.GetLeftBumperButtonPressed()) 
+    {
+        controlData.algaeInput.RunRemoverBottom = true;
+    }
+    else if (m_copilot.GetRightBumperButtonPressed()) 
+    {
+        controlData.algaeInput.RunRemoverTop = true;
+    }
+    else if (m_copilot.GetStartButtonPressed()) 
+    {
+        controlData.algaeInput.RunRemoverStow = true;
+    }
 }
 
 void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
