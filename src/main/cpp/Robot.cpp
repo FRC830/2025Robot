@@ -35,6 +35,8 @@ void Robot::DisabledExit() {}
 void Robot::AutonomousInit() {
   m_state = 0;
   m_auto = m_autoChooser.GetSelected();
+  _gyro.SetZeroHeading();
+  
 }
 
 void Robot::AutonomousPeriodic() {
