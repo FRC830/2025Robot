@@ -43,6 +43,7 @@ void ControllerInterface::UpdateClimberInput(RobotControlData &controlData)
 
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 {  
+    
     controlData.swerveInput.xTranslation = m_pilot.GetLeftY();
     controlData.swerveInput.yTranslation = m_pilot.GetLeftX();
     controlData.swerveInput.rotation = m_pilot.GetRightX();
@@ -65,7 +66,7 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
     m_prevLeftFeederButtonValue = tempTargetLeftFeeder;
     m_prevRightFeederButtonValue = tempTargetRightFeeder;
 }
-
+#include <iostream>
 void ControllerInterface::UpdateAlgaeArmInput(RobotControlData &controlData)
 {
     if (m_copilot.GetLeftBumperButtonPressed()) 
@@ -76,9 +77,10 @@ void ControllerInterface::UpdateAlgaeArmInput(RobotControlData &controlData)
     {
         controlData.algaeInput.RunRemoverTop = true;
     }
-    else if (m_copilot.GetStartButtonPressed()) 
+    else if (m_copilot.GetRightTriggerAxis() > 0.1) 
     {
-        controlData.algaeInput.RunRemoverStow = true;
+        std::cout << "run remover stow" << std::endl;
+        //controlData.algaeInput.RunRemoverStow = true;
     }
 }
 
@@ -108,7 +110,7 @@ void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)
    // if (m_copilot.GetLeftTriggerAxis() > 0.1) {controlData.plannerInput.Left_L1 = true;}
    // else if (m_copilot.GetRightTriggerAxis() > 0.1) {controlData.plannerInput.Right_L1 = true;}
     if (m_copilot.GetLeftTriggerAxis() > 0.1) {controlData.plannerInput.Left_L2 = true;}
-    else if (m_copilot.GetRightTriggerAxis() > 0.1) {controlData.plannerInput.Right_L2 = true;}
+    //else if (m_copilot.GetRightTriggerAxis() > 0.1) {controlData.plannerInput.Right_L2 = true;}
     else 
     {
         controlData.plannerInput.Left_L1 = false;

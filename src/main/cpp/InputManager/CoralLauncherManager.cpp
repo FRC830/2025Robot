@@ -17,7 +17,7 @@ void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     }
 
     if(m_setFlywheelToL1Speed){
-        m_CoralLauncher.SetWheelSpeeds(300.0, 500.0); //configure speeds
+        m_CoralLauncher.SetWheelSpeeds(500.0, 700.0); //configure speeds
     }
     if(m_setFlywheelToL2Speed){
         m_CoralLauncher.SetWheelSpeeds(1050.0, 1050.0); //config speeds

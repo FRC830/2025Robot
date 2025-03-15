@@ -4,7 +4,7 @@
 void ClimberManager::HandleInput(RobotControlData &robotControlData)
 {
 
-    if(m_matchTimer.HasElapsed(105_s))
+    if(m_matchTimer.HasElapsed(0_s))
     {
         m_Climber.SetClimberSpeed(robotControlData.climberInput.ClimberSpeed);
     }

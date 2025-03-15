@@ -1,15 +1,17 @@
 #include "InputManager/AlgaeRemoverManager.h"
 #include "MechanismConfig.h"
-
+#include <iostream>
 void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
+    
+    
     if(robotControlData.algaeInput.RunRemoverTop){
         m_pivotAngleToTop = true;
         m_pivotAngleToBottom = false;
-        m_pivotAngleToStow = true;
+        m_pivotAngleToStow = false;
     }else if (robotControlData.algaeInput.RunRemoverBottom){
         m_pivotAngleToTop = false;
         m_pivotAngleToBottom = true;
-        m_pivotAngleToStow = true;
+        m_pivotAngleToStow = false;
     }else if (robotControlData.algaeInput.RunRemoverStow){
         m_pivotAngleToTop = false;
         m_pivotAngleToBottom = false;
@@ -17,8 +19,10 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
     }
 
     if(m_pivotAngleToTop){
-        m_AlgaeRemover.ProfiledMoveToAngle(ratbot::AlgaeRemoverConfig::Pivot::TOP_REMOVER_POS); ;
+       // std::cout << "starting move" << std::endl;
+        m_AlgaeRemover.ProfiledMoveToAngle(ratbot::AlgaeRemoverConfig::Pivot::TOP_REMOVER_POS); 
         m_AlgaeRemover.SetRemoverSpeed(ratbot::AlgaeRemoverConfig::Remover::REMOVER_SPEED);
+       // std::cout << "going to the top" << std::endl;
     }
     if(m_pivotAngleToBottom){
         m_AlgaeRemover.ProfiledMoveToAngle(ratbot::AlgaeRemoverConfig::Pivot::BOTTOM_REMOVER_POS);
@@ -38,4 +42,5 @@ void AlgaeRemoverManager::ResetState(){
     m_pivotAngleToBottom = false;
     m_pivotAngleToTop = false;
     m_pivotAngleToStow = true;
+    m_AlgaeRemover.ResetState();
 }

@@ -29,6 +29,7 @@ class AlgaeRemover
 
         void ProfiledMoveToAngle(double angle);
         void SetRemoverSpeed(double speed);
+        void ResetState();
 
         double GetPivotAngle();
         double GetWheelSpeed(); 

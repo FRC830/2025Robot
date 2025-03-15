@@ -30,7 +30,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
 
             if (estimatedPose.has_value())
             {
-                std::cout << "estimated at: " << estimatedPose.value().estimatedPose.X().value() << ", " << estimatedPose.value().estimatedPose.Y().value() << std::endl; 
+                //std::cout << "estimated at: " << estimatedPose.value().estimatedPose.X().value() << ", " << estimatedPose.value().estimatedPose.Y().value() << std::endl; 
                 m_tagId = m_Cam.GetAprilTagID();
                 m_Swerve.UpdatePoseWithVision(estimatedPose.value().estimatedPose, estimatedPose.value().timestamp);
                 m_state++;

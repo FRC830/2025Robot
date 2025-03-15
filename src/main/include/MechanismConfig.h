@@ -78,7 +78,7 @@ namespace ratbot
         {
             const double CURRENT_LIM = 20.0;
             const bool INVERTED = false;
-            const double REMOVER_SPEED = 0.1f;
+            const double REMOVER_SPEED = 1.0f;
             rev::spark::SparkBaseConfig::IdleMode IDLE_MODE = rev::spark::SparkBaseConfig::IdleMode::kCoast;
         }
     }
