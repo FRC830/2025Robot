@@ -46,9 +46,21 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
         m_turn = m_turn + 360.0;
     }
     */
+
+
+   
     auto error = current - desired;
     m_turn = error.Degrees().value();
-
+    /*
+    if (m_turn > 180.0)
+    {
+        m_turn = m_turn - 360.0;
+    }
+    else if (m_turn < -180.0)
+    {
+        m_turn = m_turn + 360.0;
+    }
+    */
     auto val = ((std::abs(m_turn) / 180.0f) * ratbot::MoveToPoseConfig::MAX_TURN_SPEED_DEG_PER_SEC) + ratbot::MoveToPoseConfig::TURN_FEED_FORWARD_DEG_PER_SEC;
     
 
