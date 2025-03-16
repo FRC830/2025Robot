@@ -10,6 +10,7 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
         m_pivotAngleToBottom = false;
         m_pivotAngleToStow = false;
         m_AlgaeRemover.MoveArm(1.0);
+        m_AlgaeRemover.SetRemoverSpeed(1.0);
         //std::cout << "run remover top" << std::endl;
     }
     if (robotControlData.algaeInput.RunRemoverBottom)
@@ -18,6 +19,7 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
         m_pivotAngleToBottom = true;
         m_pivotAngleToStow = false;
         m_AlgaeRemover.MoveArm(-1.0);
+        m_AlgaeRemover.SetRemoverSpeed(1.0);
         //std::cout << "run remover bottom" << std::endl;
     }
     if (robotControlData.algaeInput.RunRemoverStow)
@@ -26,6 +28,7 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
         m_pivotAngleToBottom = false;
         m_pivotAngleToStow = true;
         m_AlgaeRemover.MoveArm(0.0);
+        m_AlgaeRemover.SetRemoverSpeed(0.0);
         //std::cout << "stop arm" << std::endl;
     }
 

@@ -45,17 +45,17 @@ AlgaeRemover::AlgaeRemover()
 void AlgaeRemover::MoveArm(double value) {
     if (value == 1.0)
     {
-        m_armMotor.Set(0.03);
-        std::cout << "set going up" << std::endl;
+        m_armMotor.Set(0.05);
+       // std::cout << "set going up" << std::endl;
     }
     else if (value == -1.0) 
     {
-        m_armMotor.Set(-0.03);
-        std::cout << "set going down" << std::endl;
+        m_armMotor.Set(-0.05);
+       // std::cout << "set going down" << std::endl;
     } else 
     {
         m_armMotor.Set(0.0);
-        std::cout << "stop" << std::endl;
+       // std::cout << "stop" << std::endl;
     }
 }
 
@@ -82,7 +82,7 @@ void AlgaeRemover::ProfiledMoveToAngle(double angle)
     {
      case 0: 
         {
-            std::cout << "case 0" << std::endl;
+           // std::cout << "case 0" << std::endl;
             m_ProfileStartPos = GetPivotAngle();
 
             m_Timer.Stop();
@@ -90,17 +90,17 @@ void AlgaeRemover::ProfiledMoveToAngle(double angle)
             m_Timer.Start();
 
             m_algaeRemoverState++;
-            std::cout << m_algaeRemoverState << std::endl;
+           // std::cout << m_algaeRemoverState << std::endl;
             break;
         }
         case 1:
         {
-            std::cout << "case 1" << std::endl;
+           // std::cout << "case 1" << std::endl;
             auto setPoint = m_Profile.Calculate(m_Timer.Get(),    
             frc::TrapezoidProfile<units::degrees>::State{units::degree_t{m_ProfileStartPos}, 0_deg_per_s},  
             frc::TrapezoidProfile<units::degrees>::State{units::degree_t{angle}, 0_deg_per_s}
             );
-            std::cout << "got to setangle" << std::endl;
+           // std::cout << "got to setangle" << std::endl;
 
             SetAngle(setPoint.position.to<double>());
 
@@ -117,7 +117,7 @@ void AlgaeRemover::ProfiledMoveToAngle(double angle)
         case 2: 
         {
 
-            std::cout << "case 2" << std::endl;
+           // std::cout << "case 2" << std::endl;
             m_Timer.Stop();
 
             m_algaeRemoverState++;
