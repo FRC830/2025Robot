@@ -27,6 +27,7 @@ class AlgaeRemover
         AlgaeRemover(); 
         ~AlgaeRemover() = default;
 
+        void MoveArm(double value);
         void ProfiledMoveToAngle(double angle);
         void SetRemoverSpeed(double speed);
         void ResetState();

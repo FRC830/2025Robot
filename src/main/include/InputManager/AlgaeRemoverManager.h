@@ -27,7 +27,7 @@ public:
     AlgaeRemoverManager() = default;
     ~AlgaeRemoverManager() = default;
 
-    void ResetState();
+    void ResetState(RobotControlData &robotControlData);
     void HandleInput(RobotControlData &robotControlData);
 private:
     AlgaeRemover m_AlgaeRemover;

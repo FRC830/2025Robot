@@ -35,7 +35,7 @@ void CoralLauncherManager::HandleInput(RobotControlData &robotControlData){
     robotControlData.coralOutput.flywheelsAtSpeed = m_CoralLauncher.AreFlywheelsAtDesiredSpeed();
 }
 
-void CoralLauncherManager::ResetState(){
+void CoralLauncherManager:: ResetState(){
     m_setFlywheelToL1Speed = false;
     m_setFlywheelToL2Speed = false;
     m_setFlywheelToZeroSpeed = true;

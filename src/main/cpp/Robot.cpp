@@ -77,7 +77,7 @@ void Robot::AutonomousExit() {}
 
 void Robot::TeleopInit() {
   m_coralLauncherManager.ResetState();
-  m_algaeRemoverManager.ResetState();
+  m_algaeRemoverManager.ResetState(_robot_control_data);
   m_ClimberManager.ResetState();
 }
 

@@ -8,28 +8,13 @@ AlgaeRemover::AlgaeRemover()
         .WithKP(ratbot::AlgaeRemoverConfig::Pivot::P)
         .WithKI(ratbot::AlgaeRemoverConfig::Pivot::I)
         .WithKD(ratbot::AlgaeRemoverConfig::Pivot::D);
-
-    ctre::phoenix6::configs::FeedbackConfigs &arm_feedback_config = arm_config.Feedback
-        .WithSensorToMechanismRatio(ratbot::AlgaeRemoverConfig::Pivot::POS_CONV_FACTOR);
-    
     ctre::phoenix6::configs::MotorOutputConfigs &arm_output_config = arm_config.MotorOutput
         .WithInverted(ratbot::AlgaeRemoverConfig::Pivot::INVERTED)
         .WithNeutralMode(ratbot::AlgaeRemoverConfig::Pivot::IDLE_MODE);
     
-    ctre::phoenix6::configs::CurrentLimitsConfigs &arm_currentlim_config = arm_config.CurrentLimits
-        .WithSupplyCurrentLimit(ratbot::AlgaeRemoverConfig::Pivot::CURRENT_LIM)
-        .WithSupplyCurrentLimitEnable(true);
-        
-    ctre::phoenix6::configs::VoltageConfigs &arm_voltage_config = arm_config.Voltage
-        .WithPeakForwardVoltage(units::volt_t(ratbot::VOLTAGE_COMPENSATION))
-        .WithPeakReverseVoltage(-units::volt_t(ratbot::VOLTAGE_COMPENSATION));
-
     arm_config
         .WithSlot0(slot0Configs)
-        .WithFeedback(arm_feedback_config)
-        .WithMotorOutput(arm_output_config)
-        .WithCurrentLimits(arm_currentlim_config)
-        .WithVoltage(arm_voltage_config);
+        .WithMotorOutput(arm_output_config);
         
     /* Retry config apply up to 5 times, report if failure */
     ctre::phoenix::StatusCode status = ctre::phoenix::StatusCode::StatusCodeNotInitialized;
@@ -54,6 +39,26 @@ AlgaeRemover::AlgaeRemover()
     m_removerMotor.Configure(remover_config, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
     END_RETRYING
 }
+
+#include <iostream>
+
+void AlgaeRemover::MoveArm(double value) {
+    if (value == 1.0)
+    {
+        m_armMotor.Set(0.03);
+        std::cout << "set going up" << std::endl;
+    }
+    else if (value == -1.0) 
+    {
+        m_armMotor.Set(-0.03);
+        std::cout << "set going down" << std::endl;
+    } else 
+    {
+        m_armMotor.Set(0.0);
+        std::cout << "stop" << std::endl;
+    }
+}
+
 
 double AlgaeRemover::GetPivotAngle()
 {    
