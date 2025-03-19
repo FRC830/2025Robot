@@ -9,6 +9,7 @@
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
+#include <frc/Timer.h>
 
 #include "ratpack/swerve/AnalogAbsoluteEncoder.h"
 #include "ratpack/swerve/NavXGyro.h"
@@ -62,6 +63,8 @@ class Robot : public frc::TimedRobot {
   MoveToPose m_rotateToFeeder;
   CoralLauncherManager m_coralLauncherManager;
   AlgaeRemoverManager m_algaeRemoverManager;
+
+  frc::Timer autonTimer;
   
   int m_state = 0;
   frc2::Command* m_auto;

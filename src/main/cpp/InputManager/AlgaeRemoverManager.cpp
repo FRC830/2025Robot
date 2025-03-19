@@ -31,6 +31,7 @@ void AlgaeRemoverManager::HandleInput(RobotControlData &robotControlData){
         m_AlgaeRemover.SetRemoverSpeed(0.0);
         //std::cout << "stop arm" << std::endl;
     }
+    
 
 /*
     if(m_pivotAngleToTop){

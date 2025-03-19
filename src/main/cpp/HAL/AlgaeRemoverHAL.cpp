@@ -42,27 +42,29 @@ AlgaeRemover::AlgaeRemover()
 
 #include <iostream>
 
+double AlgaeRemover::GetPivotAngle()
+{    
+    return m_armMotor.GetPosition().GetValueAsDouble();
+}
 void AlgaeRemover::MoveArm(double value) {
-    if (value == 1.0)
+    // std::cout << GetPivotAngle() << std::endl;
+
+    if (value == 1.0  && (GetPivotAngle() <= 8.28))
     {
         m_armMotor.Set(0.05);
        // std::cout << "set going up" << std::endl;
     }
-    else if (value == -1.0) 
+    else if ((value == -1.0) && (GetPivotAngle() >= -0.301)) 
     {
         m_armMotor.Set(-0.05);
+
+
        // std::cout << "set going down" << std::endl;
     } else 
     {
         m_armMotor.Set(0.0);
        // std::cout << "stop" << std::endl;
     }
-}
-
-
-double AlgaeRemover::GetPivotAngle()
-{    
-    return m_armMotor.GetPosition().GetValueAsDouble();
 }
 
 double AlgaeRemover::GetWheelSpeed()

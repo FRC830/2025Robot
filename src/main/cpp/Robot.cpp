@@ -35,6 +35,10 @@ void Robot::DisabledExit() {}
 void Robot::AutonomousInit() {
   m_state = 0;
   m_auto = m_autoChooser.GetSelected();
+
+  autonTimer.Stop();
+  autonTimer.Reset();
+  autonTimer.Start();
 }
 
 void Robot::AutonomousPeriodic() {
@@ -71,6 +75,9 @@ void Robot::AutonomousPeriodic() {
     default:
       break;
   }
+
+  TeleopPeriodic();
+
 }
 
 void Robot::AutonomousExit() {}
@@ -79,61 +86,75 @@ void Robot::TeleopInit() {
   m_coralLauncherManager.ResetState();
   m_algaeRemoverManager.ResetState(_robot_control_data);
   m_ClimberManager.ResetState();
+
+
 }
 
 void Robot::TeleopPeriodic() {
 
-  m_cam->SaveResult();
-  // frc::SmartDashboard::PutNumber("April Tag ID", m_cam->GetAprilTagID());
-  // auto data = m_cam->GetPose();
-  // double x = 0.0f;
-  // double y = 0.0f;
-
-  // if (data.has_value())
-  // {
-  //   auto pose = data.value().estimatedPose;
-  //   x = pose.X().value();
-  //   y = pose.Y().value();
-  // }
-
-  // frc::SmartDashboard::PutNumber("Data.x", x);
-  // frc::SmartDashboard::PutNumber("Data.y", y);
-  _controller_interface.UpdateRobotControlData(_robot_control_data);
-
-  bool userWantsToSmartPlan = _robot_control_data.plannerInput.Left_L1
-                            || _robot_control_data.plannerInput.Right_L1
-                            || _robot_control_data.plannerInput.Left_L2
-                            || _robot_control_data.plannerInput.Right_L2;
-
-  m_smartPlanner->HandleInput(_robot_control_data);
-  if (!userWantsToSmartPlan)
+  // Start normal teleop
+  if(!IsAutonomous())
   {
-      if (_robot_control_data.swerveInput.rotation > GetSwerveDeadZone() || _robot_control_data.swerveInput.rotation < -GetSwerveDeadZone())
-      {
-        _robot_control_data.swerveInput.targetLeftFeederAngle = false;
-        _robot_control_data.swerveInput.targetRightFeederAngle = false;
-      }
-      if(_robot_control_data.swerveInput.targetLeftFeederAngle)
-      {
-        auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(-ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
-        _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
-      }
-      else if(_robot_control_data.swerveInput.targetRightFeederAngle)
-      {
-        auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
-        _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
-        
-      }
-      else
-      {
-        m_rotateToFeeder.reset();
-        _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
-      }
-   }
+    m_cam->SaveResult();
 
-  m_coralLauncherManager.HandleInput(_robot_control_data);
-  m_algaeRemoverManager.HandleInput(_robot_control_data);
-  m_ClimberManager.HandleInput(_robot_control_data);
+    _controller_interface.UpdateRobotControlData(_robot_control_data);
+
+    bool userWantsToSmartPlan = _robot_control_data.plannerInput.Left_L1
+                              || _robot_control_data.plannerInput.Right_L1
+                              || _robot_control_data.plannerInput.Left_L2
+                              || _robot_control_data.plannerInput.Right_L2;
+
+    m_smartPlanner->HandleInput(_robot_control_data);
+    if (!userWantsToSmartPlan)
+    {
+        if (_robot_control_data.swerveInput.rotation > GetSwerveDeadZone() || _robot_control_data.swerveInput.rotation < -GetSwerveDeadZone())
+        {
+          _robot_control_data.swerveInput.targetLeftFeederAngle = false;
+          _robot_control_data.swerveInput.targetRightFeederAngle = false;
+        }
+        if(_robot_control_data.swerveInput.targetLeftFeederAngle)
+        {
+          auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(-ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
+          _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
+        }
+        else if(_robot_control_data.swerveInput.targetRightFeederAngle)
+        {
+          auto chassisRotateToFeeder =  m_rotateToFeeder.move(_swerve.GetPose(), frc::Pose2d(0.0_m, 0.0_m, frc::Rotation2d(ratbot::IntakeConfig::ROTATION_TO_FEEDER)));
+          _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, chassisRotateToFeeder.omega);
+          
+        }
+        else
+        {
+          m_rotateToFeeder.reset();
+          _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
+        }
+    }
+
+    m_coralLauncherManager.HandleInput(_robot_control_data);
+    m_algaeRemoverManager.HandleInput(_robot_control_data);
+    m_ClimberManager.HandleInput(_robot_control_data);
+  }
+  // End normal Teleop
+
+  else
+  {
+    if (autonTimer.Get().value() <= 2.5)
+    {
+      _robot_control_data.algaeInput.RunRemoverTop = true;
+      _robot_control_data.algaeInput.RunRemoverStow = false;
+      _robot_control_data.algaeInput.RunRemoverBottom = false;
+     m_algaeRemoverManager.HandleInput(_robot_control_data);
+    }
+    else
+    {
+      _robot_control_data.algaeInput.RunRemoverBottom = false;
+      _robot_control_data.algaeInput.RunRemoverStow = true;
+      _robot_control_data.algaeInput.RunRemoverTop = false;
+      m_algaeRemoverManager.HandleInput(_robot_control_data);
+    }
+  }
+  
+
 }
 
 void Robot::TeleopExit() {}
