@@ -10,14 +10,18 @@ PhotonVisionCamera::PhotonVisionCamera(std::string name, frc::Transform3d robotT
 
     m_poseEstimator->SetMultiTagFallbackStrategy(photon::PoseStrategy::LOWEST_AMBIGUITY);
 }
+
+
+#include <iostream>
 std::optional<photon::EstimatedRobotPose> PhotonVisionCamera::GetPose()
 {
-
+    std::cout << "got inside getpose" << std::endl;
     std::optional<photon::EstimatedRobotPose> estimate;
 
-    if (!m_LastResultIsEmpty && GetAprilTagID() != -1)
+    if (!m_LastResultIsEmpty && (GetAprilTagID() != -1))
     {
         estimate = m_poseEstimator->Update(m_lastResult);
+        std::cout << "updated result" << std::endl;
     }
 
     return estimate;

@@ -128,6 +128,11 @@ void Robot::TeleopPeriodic() {
           m_rotateToFeeder.reset();
           _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
         }
+
+        if (_robot_control_data.resetNavx.reset)
+        {
+          //_gyro.SetZeroHeading();
+        }
     }
 
     m_coralLauncherManager.HandleInput(_robot_control_data);
@@ -168,7 +173,7 @@ void Robot::TeleopPeriodic() {
         _robot_control_data.coralInput.setFlywheelToL1Speed = false;
       _robot_control_data.coralInput.indexerSpeeds = 0.0f;
 
-        m_coralLauncherManager.HandleInput(_robot_control_data)
+        m_coralLauncherManager.HandleInput(_robot_control_data);
     }
   }
   

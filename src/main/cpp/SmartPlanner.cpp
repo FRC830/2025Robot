@@ -19,14 +19,17 @@ void SmartPlanner::HandleInput(RobotControlData &data)
     }
 }
 
+#include <iostream>
 void SmartPlanner::SmartPlan(RobotControlData &data)
 {
     switch (m_state)
     {
         case 0:
         {
+            std::cout << "case 0" << std::endl;
             //try reset odometry
             auto estimatedPose = m_Cam.GetPose();
+            std::cout << estimatedPose.has_value() << std::endl;
 
             if (estimatedPose.has_value())
             {
@@ -39,6 +42,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
         }
         case 1:
         {
+            std::cout << "case 1" << std::endl;
             //Get target pose
             enum ScoringLocation loc;
             if (data.plannerInput.Left_L1) {loc = ScoringLocation::L1_LEFT;}
@@ -62,6 +66,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
         }
         case 2:
         {
+            std::cout << "case 2" << std::endl;
             // prespin flywheels
             if (data.plannerInput.Left_L1 || data.plannerInput.Right_L1)
             {
