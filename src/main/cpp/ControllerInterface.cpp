@@ -81,7 +81,7 @@ void ControllerInterface::UpdateAlgaeArmInput(RobotControlData &controlData)
         controlData.algaeInput.RunRemoverBottom = false;
         controlData.algaeInput.RunRemoverStow = false;
     }
-    else if (m_copilot.GetRightTriggerAxis() > 0.1) 
+    else if (m_copilot.GetStartButtonPressed()) 
     {
        // std::cout << "run remover stow" << std::endl;
         controlData.algaeInput.RunRemoverStow = true;
@@ -116,7 +116,7 @@ void ControllerInterface::UpdateSmartplannerInput(RobotControlData &controlData)
    // if (m_copilot.GetLeftTriggerAxis() > 0.1) {controlData.plannerInput.Left_L1 = true;}
    // else if (m_copilot.GetRightTriggerAxis() > 0.1) {controlData.plannerInput.Right_L1 = true;}
     if (m_copilot.GetLeftTriggerAxis() > 0.1) {controlData.plannerInput.Left_L2 = true;}
-    //else if (m_copilot.GetRightTriggerAxis() > 0.1) {controlData.plannerInput.Right_L2 = true;}
+    else if (m_copilot.GetRightTriggerAxis() > 0.1) {controlData.plannerInput.Right_L2 = true;}
     else 
     {
         controlData.plannerInput.Left_L1 = false;
