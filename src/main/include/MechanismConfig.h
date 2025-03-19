@@ -60,11 +60,11 @@ namespace ratbot
     {
         namespace Pivot
         {
-            const double MAX_PIVOT_ANGLE = 106.0;
+            const double MAX_PIVOT_ANGLE = 8.28;
             const double MIN_PIVOT_ANGLE = 0.0;
-            const double TOP_REMOVER_POS = 100.0; // TODO: Tune
-            const double BOTTOM_REMOVER_POS = 45.0; // TODO: Tune
-            const double STOW_REMOVER_POS = 0.0;
+            const double TOP_REMOVER_POS = 7.0; // TODO: Tune
+            const double BOTTOM_REMOVER_POS = 3.0; // TODO: Tune
+            const double STOW_REMOVER_POS = -0.301;
             const double P = 2.4; // TODO: Tune (An error of 1 rotation results in 2.4 V output)
             const double I = 0.0; // TODO: Tune (no output for integrated error)
             const double D = 0.1; // TODO: Tune (A velocity of 1 rps results in 0.1 V output)

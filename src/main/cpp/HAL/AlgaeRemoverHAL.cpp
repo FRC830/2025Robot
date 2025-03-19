@@ -47,7 +47,7 @@ double AlgaeRemover::GetPivotAngle()
     return m_armMotor.GetPosition().GetValueAsDouble();
 }
 void AlgaeRemover::MoveArm(double value) {
-    // std::cout << GetPivotAngle() << std::endl;
+     std::cout << GetPivotAngle() << std::endl;
 
     if (value == 1.0  && (GetPivotAngle() <= 8.28))
     {

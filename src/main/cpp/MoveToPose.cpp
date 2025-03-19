@@ -33,6 +33,7 @@ frc::ChassisSpeeds MoveToPose::move(frc::Pose2d current, frc::Pose2d desired) {
 
 units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current, frc::Rotation2d desired) {    
     /*
+    "Efficient Rotation"
     double start = current.Degrees().value();
     double end = desired.Degrees().value();
 
@@ -51,12 +52,15 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
 
     auto val = ((std::abs(m_turn) / 180.0f) * ratbot::MoveToPoseConfig::MAX_TURN_SPEED_DEG_PER_SEC) + ratbot::MoveToPoseConfig::TURN_FEED_FORWARD_DEG_PER_SEC;
     
-
-    
-    if (m_turn <= 0.0f)
+    if (m_turn > 180.0)
     {
-       // val = -val;
+        m_turn = m_turn - 360.0;
     }
+    else if (m_turn < -180.0)
+    {
+        m_turn = m_turn + 360.0;
+    }
+
 
     if (std::fabs(m_turn) <= 2.0f)
     {
