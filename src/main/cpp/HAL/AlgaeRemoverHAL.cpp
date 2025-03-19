@@ -7,7 +7,8 @@ AlgaeRemover::AlgaeRemover()
     ctre::phoenix6::configs::Slot0Configs &slot0Configs = arm_config.Slot0
         .WithKP(ratbot::AlgaeRemoverConfig::Pivot::P)
         .WithKI(ratbot::AlgaeRemoverConfig::Pivot::I)
-        .WithKD(ratbot::AlgaeRemoverConfig::Pivot::D);
+        .WithKD(ratbot::AlgaeRemoverConfig::Pivot::D)
+        .WithKG(ratbot::AlgaeRemoverConfig::Pivot::F);
     ctre::phoenix6::configs::MotorOutputConfigs &arm_output_config = arm_config.MotorOutput
         .WithInverted(ratbot::AlgaeRemoverConfig::Pivot::INVERTED)
         .WithNeutralMode(ratbot::AlgaeRemoverConfig::Pivot::IDLE_MODE);

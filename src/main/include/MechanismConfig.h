@@ -68,6 +68,7 @@ namespace ratbot
             const double P = 2.4; // TODO: Tune (An error of 1 rotation results in 2.4 V output)
             const double I = 0.0; // TODO: Tune (no output for integrated error)
             const double D = 0.1; // TODO: Tune (A velocity of 1 rps results in 0.1 V output)
+            const double F = 0.5;
             units::dimensionless::scalar_t POS_CONV_FACTOR = 1.0; // TODO: Tune
             units::current::ampere_t CURRENT_LIM = 30_A;
             ctre::phoenix6::signals::InvertedValue INVERTED = false; 
