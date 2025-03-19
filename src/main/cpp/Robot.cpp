@@ -152,6 +152,24 @@ void Robot::TeleopPeriodic() {
       _robot_control_data.algaeInput.RunRemoverTop = false;
       m_algaeRemoverManager.HandleInput(_robot_control_data);
     }
+
+    if (autonTimer.Get().value() >= 3.48 && autonTimer.Get().value() <= 4.5)
+    {
+      _robot_control_data.coralInput.setFlywheelToL2Speed = true;
+      _robot_control_data.coralInput.setFlywheelToL1Speed = false;
+      _robot_control_data.coralInput.disableFlywheels = false;
+      _robot_control_data.coralInput.indexerSpeeds = 1.0f;
+      m_coralLauncherManager.HandleInput(_robot_control_data);
+    }
+    else
+    {
+        _robot_control_data.coralInput.disableFlywheels = true;
+        _robot_control_data.coralInput.setFlywheelToL2Speed = false;
+        _robot_control_data.coralInput.setFlywheelToL1Speed = false;
+      _robot_control_data.coralInput.indexerSpeeds = 0.0f;
+
+        m_coralLauncherManager.HandleInput(_robot_control_data)
+    }
   }
   
 
