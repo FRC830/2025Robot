@@ -100,9 +100,25 @@ void ControllerInterface::UpdateAlgaeArmInput(RobotControlData &controlData)
 }
 
 void ControllerInterface::UpdateLauncherInput(RobotControlData &controlData){
-    controlData.coralInput.setFlywheelToL1Speed = m_copilot.GetAButton();
-    controlData.coralInput.setFlywheelToL2Speed = m_copilot.GetBButton();
-    controlData.coralInput.disableFlywheels = m_copilot.GetYButton();
+    if (m_copilot.GetAButton())
+    {
+        controlData.coralInput.setFlywheelToL1Speed = true;
+        controlData.coralInput.disableFlywheels = false;
+        controlData.coralInput.setFlywheelToL2Speed = false;
+    }
+    else if (m_copilot.GetBButton())
+    {
+        controlData.coralInput.setFlywheelToL2Speed = true;
+        controlData.coralInput.disableFlywheels = false;
+        controlData.coralInput.setFlywheelToL1Speed = false;
+    }
+    else
+    {
+        controlData.coralInput.disableFlywheels = true;
+        controlData.coralInput.setFlywheelToL1Speed = false;
+        controlData.coralInput.setFlywheelToL2Speed = false;
+    }
+    
 
     if (m_copilot.GetXButton())
     {
