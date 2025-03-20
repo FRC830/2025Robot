@@ -140,7 +140,7 @@ std::pair<units::feet_per_second_t, units::feet_per_second_t> MoveToPose::linear
     double y = (desiredy - currenty) * (desiredy - currenty);
     
     m_distance = sqrt(x + y);
-    double theta =  -atan2(desiredy - currenty, desiredx - currentx);
+    double theta =  atan2(desiredy - currenty, desiredx - currentx);
     m_vxCoeff = cos(theta);
     m_vyCoeff = sin(theta);
 
