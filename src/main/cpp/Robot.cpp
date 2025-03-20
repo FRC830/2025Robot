@@ -131,7 +131,7 @@ void Robot::TeleopPeriodic() {
 
         if (_robot_control_data.resetNavx.reset)
         {
-          //_gyro.SetZeroHeading();
+          _gyro.SetZeroHeading(_gyro.GetRawHeading().Degrees().value());
         }
     }
 

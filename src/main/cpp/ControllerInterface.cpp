@@ -8,6 +8,7 @@ void ControllerInterface::UpdateRobotControlData(RobotControlData &controlData)
     UpdateSmartplannerInput(controlData);
     UpdateClimberInput(controlData);
     UpdateAlgaeArmInput(controlData);
+    UpdateNavxInput(controlData);
 
     // code for the VibrateController function
     if (m_timer.Get().value()>=m_globalDuration)
