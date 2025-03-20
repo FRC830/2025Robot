@@ -58,7 +58,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
 
             m_targetPose = frc::Pose2d{x, y, rot};
 
-            m_startPose = m_Swerve.GetPose();
+            //m_startPose = m_Swerve.GetPose();
 
 
             m_state++;
@@ -78,7 +78,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
             }
 
             // move to pose
-            auto speeds = m_moveToPose.move(m_startPose, m_targetPose);
+            auto speeds = m_moveToPose.move(m_Swerve.GetPose(), m_targetPose);
             m_Swerve.Drive(speeds);
             if (m_moveToPose.isDone())
             {
