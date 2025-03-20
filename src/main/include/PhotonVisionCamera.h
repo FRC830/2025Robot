@@ -7,6 +7,8 @@
 #include <frc/apriltag/AprilTagFieldLayout.h>
 #include <frc/geometry/Pose3d.h>
 #include <memory>
+#include <frc/smartdashboard/Field2d.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 class PhotonVisionCamera
 {
@@ -16,6 +18,7 @@ class PhotonVisionCamera
        frc::Transform3d m_robotToCam;
        std::shared_ptr<photon::PhotonPoseEstimator> m_poseEstimator;
        photon::PhotonPipelineResult m_lastResult;
+       frc::Field2d m_field;
        bool m_LastResultIsEmpty;
        PhotonVisionCamera() = default;
 

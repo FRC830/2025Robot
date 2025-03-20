@@ -82,6 +82,8 @@ class WPISwerveDrive : public SwerveDrive
         // false is robot orientated, true is FieldOrientated. 
         double m_deadzone;
 
+        bool m_visionResetOccurred = false;
+
         double ApplyDeadzone(double input);
         std::pair<double, double> ApplyCylindricalDeadzone(double x, double y);
         SwerveGyro *m_gyro;
