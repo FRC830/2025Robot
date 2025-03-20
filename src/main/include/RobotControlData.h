@@ -9,6 +9,11 @@ struct SwerveInput{
     bool targetRightFeederAngle;
 };
 
+struct ResetNavx
+{
+    bool reset;
+};
+
 struct CoralInput{
     double indexerSpeeds;
     bool setFlywheelToL1Speed;
@@ -61,6 +66,7 @@ struct RobotControlData {
     SmartPlannerInput plannerInput;
     AlgaeInput algaeInput;
     AlgaeOutput algaeOutput;
+    ResetNavx resetNavx;
 
 };
 

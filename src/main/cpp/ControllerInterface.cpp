@@ -41,6 +41,18 @@ void ControllerInterface::UpdateClimberInput(RobotControlData &controlData)
     }
 }
 
+void ControllerInterface::UpdateNavxInput(RobotControlData &controlData)
+{
+    if (m_pilot.GetStartButtonPressed())
+    {
+        controlData.resetNavx.reset = true;
+    }
+    else
+    {
+        controlData.resetNavx.reset = false;
+    }
+}
+
 void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 {  
     

@@ -68,7 +68,7 @@ void AlgaeRemover::PivotAngleToStow(){
 
 }
 void AlgaeRemover::MoveArm(double value) {
-     std::cout << GetPivotAngle() << std::endl;
+    // std::cout << GetPivotAngle() << std::endl;
 
     if (value == 1.0  && (GetPivotAngle() <= 8.28))
     {
