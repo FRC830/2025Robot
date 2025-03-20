@@ -79,7 +79,7 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
     m_prevLeftFeederButtonValue = tempTargetLeftFeeder;
     m_prevRightFeederButtonValue = tempTargetRightFeeder;
 
-    controlData.swerveInput.goFieldOriented = m_pilot.GetLeftBumper();
+    controlData.swerveInput.goFieldOriented = m_pilot.GetRightBumper();
 }
 #include <iostream>
 void ControllerInterface::UpdateAlgaeArmInput(RobotControlData &controlData)
