@@ -62,7 +62,7 @@ namespace ratbot
         {
             const double MAX_PIVOT_ANGLE = 8.28;
             const double MIN_PIVOT_ANGLE = 0.0;
-            const double TOP_REMOVER_POS = 8.0; // TODO: Tune
+            const double TOP_REMOVER_POS = 8.27; // TODO: Tune
             const double BOTTOM_REMOVER_POS = 4.9; // TODO: Tune
             const double STOW_REMOVER_POS = -0.301;
             const double P = 2.4; // TODO: Tune (An error of 1 rotation results in 2.4 V output)
