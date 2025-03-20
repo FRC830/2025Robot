@@ -126,7 +126,18 @@ void Robot::TeleopPeriodic() {
         else
         {
           m_rotateToFeeder.reset();
-          _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
+          if(_robot_control_data.swerveInput.goFieldOriented)
+          {
+            _swerve.SetRobotOriented();
+            std::cout << "going robot oriented" << std::endl;
+             _swerve.Drive(0.0f, -_robot_control_data.swerveInput.yTranslation, 0.0f);
+          }
+          else
+          {
+            _swerve.SetFieldOriented();
+             _swerve.Drive(_robot_control_data.swerveInput.xTranslation, _robot_control_data.swerveInput.yTranslation, _robot_control_data.swerveInput.rotation);
+          }
+      
         }
 
         if (_robot_control_data.resetNavx.reset)

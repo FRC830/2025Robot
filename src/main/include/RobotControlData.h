@@ -7,6 +7,7 @@ struct SwerveInput{
 
     bool targetLeftFeederAngle;
     bool targetRightFeederAngle;
+    bool goFieldOriented;
 };
 
 struct ResetNavx

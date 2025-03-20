@@ -10,7 +10,6 @@ frc::ChassisSpeeds MoveToPose::move(frc::Pose2d current, frc::Pose2d desired) {
     switch(m_MoveToState){
         case 0:
         {
-            m_current = current;
             m_MoveToState++;
             m_rotation = 0_deg_per_s;
             m_translation.first = 0_fps;
@@ -19,6 +18,7 @@ frc::ChassisSpeeds MoveToPose::move(frc::Pose2d current, frc::Pose2d desired) {
         }
         case 1:
         {
+            m_current = current;
             m_rotation = angularRotation(current.Rotation(), desired.Rotation());
             m_translation = linearTranslation(desired);
             break;
@@ -50,22 +50,24 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
     auto error = current - desired;
     m_turn = error.Degrees().value();
 
-    auto val = ((std::abs(m_turn) / 180.0f) * ratbot::MoveToPoseConfig::MAX_TURN_SPEED_DEG_PER_SEC) + ratbot::MoveToPoseConfig::TURN_FEED_FORWARD_DEG_PER_SEC;
+    auto val = ((std::fabs(m_turn) / 180.0f) * ratbot::MoveToPoseConfig::MAX_TURN_SPEED_DEG_PER_SEC) + ratbot::MoveToPoseConfig::TURN_FEED_FORWARD_DEG_PER_SEC;
     
-    if (m_turn > 180.0)
+    if (m_turn < 0.0f)
     {
-        m_turn = m_turn - 360.0;
-    }
-    else if (m_turn < -180.0)
-    {
-        m_turn = m_turn + 360.0;
+        val = -val;
     }
 
 
     if (std::fabs(m_turn) <= 2.0f)
     {
-        val = 0.0f;
-        //m_MoveAngleToState = 3;
+        static const double slow_turn_val = 10.0f;
+        val = (m_turn > 0.0) ? slow_turn_val : -slow_turn_val;
+        
+        if (std::fabs(m_turn) <= 0.1f)
+        {
+            val = 0.0f;
+            m_MoveAngleToState = 3;
+        }
     }
 
     return units::angular_velocity::degrees_per_second_t{val};
@@ -140,20 +142,24 @@ std::pair<units::feet_per_second_t, units::feet_per_second_t> MoveToPose::linear
     double y = (desiredy - currenty) * (desiredy - currenty);
     
     m_distance = sqrt(x + y);
-    double theta =  atan2(desiredy - currenty, desiredx - currentx);
+    std::cout << "distance: " << m_distance << std::endl;
+    double theta =  atan2(currenty - desiredy, currentx - desiredx);
     m_vxCoeff = cos(theta);
     m_vyCoeff = sin(theta);
 
-    auto val = ((std::abs(m_distance) / 2.0f) * ratbot::MoveToPoseConfig::MAX_SPEED_M_PER_SEC) + ratbot::MoveToPoseConfig::SPEED_FEED_FORWARD_M_PER_SEC;
+    auto val = ((std::fabs(m_distance) / 2.0f) * ratbot::MoveToPoseConfig::MAX_SPEED_M_PER_SEC) + ratbot::MoveToPoseConfig::SPEED_FEED_FORWARD_M_PER_SEC;
+
+    //m_distance = -m_distance;
 
     if (std::fabs(m_distance) <= 0.08f)
     {
         val = 0.0f;
     }
 
-    auto vx = units::feet_per_second_t{val*m_vxCoeff};
-    auto vy = units::feet_per_second_t{val*m_vyCoeff};
+    auto vx = units::meters_per_second_t{val*m_vxCoeff};
+    auto vy = units::meters_per_second_t{-val*m_vyCoeff};
     std::pair<units::feet_per_second_t, units::feet_per_second_t> velocity = {vx, vy};
+    //std::pair<units::meters_per_second_t, units::meters_per_second_t> velocity = {units::meters_per_second_t{0.0f}, units::meters_per_second_t{0.0f}};
     return velocity; //pair of vx and vy
     
     // switch (m_MoveTranslationToState)
@@ -224,5 +230,10 @@ void MoveToPose::reset()
 
 bool MoveToPose::isDone()
 {
-    return (m_MoveAngleToState > 2 && m_MoveTranslationToState > 2);
+    return ( m_MoveTranslationToState > 2);
+}
+
+bool MoveToPose::turnIsDone()
+{
+    return m_MoveAngleToState == 3;
 }

@@ -68,7 +68,7 @@ namespace ratbot
             const double P = 2.4; // TODO: Tune (An error of 1 rotation results in 2.4 V output)
             const double I = 0.0; // TODO: Tune (no output for integrated error)
             const double D = 0.1; // TODO: Tune (A velocity of 1 rps results in 0.1 V output)
-            const double F = 0.5;
+            const double F = 0.0; //tune feedfoward
             units::dimensionless::scalar_t POS_CONV_FACTOR = 1.0; // TODO: Tune
             units::current::ampere_t CURRENT_LIM = 30_A;
             ctre::phoenix6::signals::InvertedValue INVERTED = false; 
@@ -87,8 +87,8 @@ namespace ratbot
     namespace MoveToPoseConfig
     {
         // TODO: tune values on carpet
-        const double MAX_TURN_SPEED_DEG_PER_SEC = 120.0f;
-        const double TURN_FEED_FORWARD_DEG_PER_SEC = 10.0f;
+        const double MAX_TURN_SPEED_DEG_PER_SEC = 160.0f;
+        const double TURN_FEED_FORWARD_DEG_PER_SEC = 20.0f;
         const double MAX_SPEED_M_PER_SEC = 1.32f; // todo: change!!!
         const double SPEED_FEED_FORWARD_M_PER_SEC = 0.1f; //todo: change!!!!!
     }

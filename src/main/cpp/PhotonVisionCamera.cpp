@@ -25,7 +25,7 @@ std::optional<photon::EstimatedRobotPose> PhotonVisionCamera::GetPose()
         estimate = m_poseEstimator->Update(m_lastResult);
         if (estimate.has_value())
         {
-            m_field.SetRobotPose(estimate.value().estimatedPose);
+            m_field.SetRobotPose(estimate.value().estimatedPose.ToPose2d());
         }
         std::cout << "updated result" << std::endl;
     }
@@ -53,8 +53,20 @@ int PhotonVisionCamera::GetAprilTagID()
     int id = -1;
     if (!m_LastResultIsEmpty && m_lastResult.HasTargets())
     {
-        photon::PhotonTrackedTarget target = m_lastResult.GetBestTarget();
-        id = target.GetFiducialId();
+        auto targets = m_lastResult.GetTargets();
+        double lowestYaw = 360.0f;
+        double targetId = id;
+        for (const auto& target : targets)
+        {
+            if (std::fabs(target.GetYaw()) < lowestYaw)
+            {
+                lowestYaw = std::fabs(target.GetYaw());
+                targetId = target.GetFiducialId();
+            }
+        }
+        id = targetId;
+        // photon::PhotonTrackedTarget target = m_lastResult.GetBestTarget();
+        // id = target.GetFiducialId();
     }
     return id;
 }

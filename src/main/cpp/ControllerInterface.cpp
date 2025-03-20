@@ -78,10 +78,13 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
 
     m_prevLeftFeederButtonValue = tempTargetLeftFeeder;
     m_prevRightFeederButtonValue = tempTargetRightFeeder;
+
+    controlData.swerveInput.goFieldOriented = m_pilot.GetLeftBumper();
 }
 #include <iostream>
 void ControllerInterface::UpdateAlgaeArmInput(RobotControlData &controlData)
 {
+
     if (m_copilot.GetLeftBumperButtonPressed()) 
     {
         controlData.algaeInput.RunRemoverBottom = true;

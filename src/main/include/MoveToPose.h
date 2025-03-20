@@ -58,6 +58,8 @@ class MoveToPose
         void reset();
         bool isDone();
 
+        bool turnIsDone();
+
         // TODO: all functions below should be private
         //       all functions should have (current, desired)... instead of (initial, desired) or (desired, current)
 

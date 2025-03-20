@@ -72,16 +72,18 @@ void WPISwerveDrive::Drive(double x_position, double y_position, units::degrees_
      (units::feet_per_second_t)y_position * m_maxDriveSpeed, 
      omega);
 }
-
+#include <iostream>
 void WPISwerveDrive::Drive(units::feet_per_second_t vx, units::feet_per_second_t vy, units::degrees_per_second_t omega) {
     frc::SmartDashboard::PutNumber("Omega", static_cast<double>(omega));
 
     if (!m_orientation)
     {
+        //std::cout << "robot" << std::endl;
         Drive(frc::ChassisSpeeds{vx, vy, omega});   
     }
     else
     {
+        //std::cout << "field" << std::endl;
         frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(vx, vy, omega, m_gyro->GetRawHeading());
         Drive(speeds);
     }
