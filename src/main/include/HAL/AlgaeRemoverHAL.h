@@ -35,6 +35,10 @@ class AlgaeRemover
         double GetPivotAngle();
         double GetWheelSpeed(); 
 
+        void PivotAngleToTop();
+        void PivotAngleToBottom();
+        void PivotAngleToStow();
+
     private:
         void SetAngle(double angle);
         ctre::phoenix6::hardware::TalonFX m_armMotor{ALGAE_REMOVER_ARM_CAN_ID};

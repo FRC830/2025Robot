@@ -47,6 +47,46 @@ double AlgaeRemover::GetPivotAngle()
 {    
     return m_armMotor.GetPosition().GetValueAsDouble();
 }
+
+void AlgaeRemover::PivotAngleToTop(){
+    if (AlgaeRemover::GetPivotAngle() < ratbot::AlgaeRemoverConfig::Pivot::TOP_REMOVER_POS)
+    {
+        AlgaeRemover::MoveArm(1.0);
+    }
+    else if(AlgaeRemover::GetPivotAngle() > ratbot::AlgaeRemoverConfig::Pivot::TOP_REMOVER_POS)
+    {
+        AlgaeRemover::MoveArm(-1.0);
+    }else
+    {
+        AlgaeRemover::MoveArm(0.0);
+    }
+}
+void AlgaeRemover::PivotAngleToBottom(){
+    if (AlgaeRemover::GetPivotAngle() < ratbot::AlgaeRemoverConfig::Pivot::BOTTOM_REMOVER_POS)
+    {
+        AlgaeRemover::MoveArm(1.0);
+    }
+    else if(AlgaeRemover::GetPivotAngle() > ratbot::AlgaeRemoverConfig::Pivot::BOTTOM_REMOVER_POS)
+    {
+        AlgaeRemover::MoveArm(-1.0);
+    }else
+    {
+        AlgaeRemover::MoveArm(0.0);
+    }
+}
+void AlgaeRemover::PivotAngleToStow(){
+    if (AlgaeRemover::GetPivotAngle() < ratbot::AlgaeRemoverConfig::Pivot::STOW_REMOVER_POS)
+    {
+        AlgaeRemover::MoveArm(1.0);
+    }
+    else if(AlgaeRemover::GetPivotAngle() > ratbot::AlgaeRemoverConfig::Pivot::STOW_REMOVER_POS)
+    {
+        AlgaeRemover::MoveArm(-1.0);
+    }else
+    {
+        AlgaeRemover::MoveArm(0.0);
+    }
+}
 void AlgaeRemover::MoveArm(double value) {
     // std::cout << GetPivotAngle() << std::endl;
 
