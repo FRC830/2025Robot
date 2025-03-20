@@ -56,3 +56,8 @@ void NavXGyro::SetZeroHeading(double zero_heading)
 {
     m_zero_heading = frc::Rotation2d(units::degree_t(zero_heading));
 }
+
+void NavXGyro::Reset()
+{
+    m_gyro->Reset();
+}

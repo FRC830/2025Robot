@@ -22,6 +22,7 @@ class NavXGyro : public SwerveGyro
         virtual bool GetInverted() override;
         virtual void SetInverted(bool inverted) override;
         virtual void SetZeroHeading(double zero_heading) override;
+        void Reset();
     private:
         bool m_is_inverted;
         frc::Rotation2d m_zero_heading; // NavX Gyro should set a zero heading during automatic calibration
