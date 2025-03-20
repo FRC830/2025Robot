@@ -88,6 +88,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
         }
         case 3:
         {
+            m_Swerve.Drive(0.0f, 0.0f, 0.0f);
             // if flywheels at speed run indexer
             if (data.coralOutput.flywheelsAtSpeed)
             {
