@@ -32,7 +32,6 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
     {
         data.coralInput.setFlywheelToL2Speed = true;
     }
-    std::cout << m_state << std::endl;
     switch (m_state)
     {
         case 0:

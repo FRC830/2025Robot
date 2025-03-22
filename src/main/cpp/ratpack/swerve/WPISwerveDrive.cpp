@@ -110,18 +110,21 @@ void WPISwerveDrive::Drive(std::vector<frc::SwerveModuleState> &state) {
 
     if (!m_ebrake)
     {
-        bool lockSwerveModules = true;
-        for (int i = 0; i < state.size(); i++)
+        if (m_shouldSwerveLock)
         {
-            lockSwerveModules = lockSwerveModules && (std::fabs(double(state[i].speed) < 0.01));
-        }
+            bool lockSwerveModules = true;
+            for (int i = 0; i < state.size(); i++)
+            {
+                lockSwerveModules = lockSwerveModules && (std::fabs(double(state[i].speed) < 0.01));
+            }
 
-        if (lockSwerveModules)
-        {
-            state[0].angle = frc::Rotation2d(units::degree_t(315.0));
-            state[1].angle = frc::Rotation2d(units::degree_t(45.0));
-            state[2].angle = frc::Rotation2d(units::degree_t(45.0));
-            state[3].angle = frc::Rotation2d(units::degree_t(315.0));
+            if (lockSwerveModules)
+            {
+                state[0].angle = frc::Rotation2d(units::degree_t(315.0));
+                state[1].angle = frc::Rotation2d(units::degree_t(45.0));
+                state[2].angle = frc::Rotation2d(units::degree_t(45.0));
+                state[3].angle = frc::Rotation2d(units::degree_t(315.0));
+            }
         }
 
         for(int i = 0; i < state.size(); i++){
@@ -225,4 +228,9 @@ std::pair<double, double> WPISwerveDrive::ApplyCylindricalDeadzone(double x, dou
     }
 
     return std::make_pair(x, y);
+}
+
+void WPISwerveDrive::SetShouldSwerveLock(bool shouldLock)
+{
+    m_shouldSwerveLock = shouldLock;
 }

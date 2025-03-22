@@ -54,6 +54,7 @@ class WPISwerveDrive : public SwerveDrive
         virtual void ResetPose(frc::Pose2d pose) override;
         virtual frc::ChassisSpeeds GetRobotRelativeSpeeds() override;
         void UpdatePoseWithVision(frc::Pose3d pose3d, units::second_t timestamp);
+        void SetShouldSwerveLock(bool shouldLock);
 
         inline std::array<SwerveModule*, 4>* GetModules()
         {
@@ -88,4 +89,6 @@ class WPISwerveDrive : public SwerveDrive
         std::pair<double, double> ApplyCylindricalDeadzone(double x, double y);
         SwerveGyro *m_gyro;
         frc::SwerveDrivePoseEstimator<4> *m_estimator;
+
+        bool m_shouldSwerveLock = true;
 };
