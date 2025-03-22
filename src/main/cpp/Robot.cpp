@@ -10,10 +10,21 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DriverStation.h>
 #include "MechanismConfig.h"
+#include <pathplanner/lib/auto/NamedCommands.h>
+
+#include "cmds/ShootCoral.h"
+#include "cmds/LowerArm.h"
+#include "cmds/RaiseArm.h"
+#include "cmds/RaiseArmToBottom.h"
 
 Robot::Robot() {
   m_cam = std::make_shared<PhotonVisionCamera>("Arducam_OV9281_USB_Camera", ratbot::VisionConfig::ROBOT_TO_CAMERA);
   
+  pathplanner::NamedCommands::registerCommand("shoot", std::make_shared<ShootCoral>(_robot_control_data));
+  pathplanner::NamedCommands::registerCommand("raise", std::make_shared<RaiseArm>(_robot_control_data));
+  pathplanner::NamedCommands::registerCommand("lower", std::make_shared<LowerArm>(_robot_control_data));
+  pathplanner::NamedCommands::registerCommand("raiseToBottom", std::make_shared<RaiseArmToBottom>(_robot_control_data));
+
   SwerveInit();
 
   m_smartPlanner = std::make_shared<SmartPlanner>(*m_cam, _swerve);
@@ -93,9 +104,10 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 
   // Start normal teleop
+  m_cam->SaveResult();
+
   if(!IsAutonomous())
   {
-    m_cam->SaveResult();
 
     _controller_interface.UpdateRobotControlData(_robot_control_data);
 
@@ -145,48 +157,48 @@ void Robot::TeleopPeriodic() {
           _gyro.Reset();
         }
     }
-
-    m_coralLauncherManager.HandleInput(_robot_control_data);
-    m_algaeRemoverManager.HandleInput(_robot_control_data);
-    m_ClimberManager.HandleInput(_robot_control_data);
   }
+
+  m_coralLauncherManager.HandleInput(_robot_control_data);
+  m_algaeRemoverManager.HandleInput(_robot_control_data);
+  m_ClimberManager.HandleInput(_robot_control_data);
   // End normal Teleop
 
-  else
-  {
-    if (autonTimer.Get().value() <= 2.5)
-    {
-      _robot_control_data.algaeInput.RunRemoverTop = true;
-      _robot_control_data.algaeInput.RunRemoverStow = false;
-      _robot_control_data.algaeInput.RunRemoverBottom = false;
-     m_algaeRemoverManager.HandleInput(_robot_control_data);
-    }
-    else
-    {
-      _robot_control_data.algaeInput.RunRemoverBottom = false;
-      _robot_control_data.algaeInput.RunRemoverStow = true;
-      _robot_control_data.algaeInput.RunRemoverTop = false;
-      m_algaeRemoverManager.HandleInput(_robot_control_data);
-    }
+  // else
+  // {
+  //   if (autonTimer.Get().value() <= 2.5)
+  //   {
+  //     _robot_control_data.algaeInput.RunRemoverTop = true;
+  //     _robot_control_data.algaeInput.RunRemoverStow = false;
+  //     _robot_control_data.algaeInput.RunRemoverBottom = false;
+  //    m_algaeRemoverManager.HandleInput(_robot_control_data);
+  //   }
+  //   else
+  //   {
+  //     _robot_control_data.algaeInput.RunRemoverBottom = false;
+  //     _robot_control_data.algaeInput.RunRemoverStow = true;
+  //     _robot_control_data .algaeInput.RunRemoverTop = false;
+  //     m_algaeRemoverManager.HandleInput(_robot_control_data);
+  //   }
 
-    if (autonTimer.Get().value() >= 3.48 && autonTimer.Get().value() <= 4.5)
-    {
-      _robot_control_data.coralInput.setFlywheelToL2Speed = true;
-      _robot_control_data.coralInput.setFlywheelToL1Speed = false;
-      _robot_control_data.coralInput.disableFlywheels = false;
-      _robot_control_data.coralInput.indexerSpeeds = 1.0f;
-      m_coralLauncherManager.HandleInput(_robot_control_data);
-    }
-    else
-    {
-        _robot_control_data.coralInput.disableFlywheels = true;
-        _robot_control_data.coralInput.setFlywheelToL2Speed = false;
-        _robot_control_data.coralInput.setFlywheelToL1Speed = false;
-      _robot_control_data.coralInput.indexerSpeeds = 0.0f;
+  //   if (autonTimer.Get().value() >= 3.48 && autonTimer.Get().value() <= 4.5)
+  //   {
+  //     _robot_control_data.coralInput.setFlywheelToL2Speed = true;
+  //     _robot_control_data.coralInput.setFlywheelToL1Speed = false;
+  //     _robot_control_data.coralInput.disableFlywheels = false;
+  //     _robot_control_data.coralInput.indexerSpeeds = 1.0f;
+  //     m_coralLauncherManager.HandleInput(_robot_control_data);
+  //   }
+  //   else
+  //   {
+  //       _robot_control_data.coralInput.disableFlywheels = true;
+  //       _robot_control_data.coralInput.setFlywheelToL2Speed = false;
+  //       _robot_control_data.coralInput.setFlywheelToL1Speed = false;
+  //       _robot_control_data.coralInput.indexerSpeeds = 0.0f;
 
-        m_coralLauncherManager.HandleInput(_robot_control_data);
-    }
-  }
+  //       m_coralLauncherManager.HandleInput(_robot_control_data);
+  //   }
+  // }
   
 
 }

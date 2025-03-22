@@ -5,9 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.5
+            "name": "raiseToBottom"
           }
         },
         {
@@ -17,15 +17,33 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.2
+            "name": "raise"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "ComeBack"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lower"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "backto reef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
           }
         }
       ]

@@ -52,7 +52,7 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
 
     auto val = ((std::fabs(m_turn) / 180.0f) * ratbot::MoveToPoseConfig::MAX_TURN_SPEED_DEG_PER_SEC) + ratbot::MoveToPoseConfig::TURN_FEED_FORWARD_DEG_PER_SEC;
     
-    if (m_turn < 0.0f)
+    if (m_turn > 0.0f)
     {
         val = -val;
     }
@@ -61,7 +61,7 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
     if (std::fabs(m_turn) <= 2.0f)
     {
         static const double slow_turn_val = 10.0f;
-        val = (m_turn > 0.0) ? slow_turn_val : -slow_turn_val;
+        val = (m_turn > 0.0) ? -slow_turn_val : slow_turn_val;
         
         if (std::fabs(m_turn) <= 0.1f)
         {
@@ -69,6 +69,8 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
             m_MoveAngleToState = 3;
         }
     }
+
+
 
     return units::angular_velocity::degrees_per_second_t{val};
     

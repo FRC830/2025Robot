@@ -77,7 +77,7 @@ void AlgaeRemover::PivotAngleToBottom(){
 void AlgaeRemover::PivotAngleToStow(){
     if (AlgaeRemover::GetPivotAngle() < ratbot::AlgaeRemoverConfig::Pivot::STOW_REMOVER_POS)
     {
-        AlgaeRemover::MoveArm(1.0);
+        AlgaeRemover::MoveArm(0.0);
     }
     else if(AlgaeRemover::GetPivotAngle() > ratbot::AlgaeRemoverConfig::Pivot::STOW_REMOVER_POS)
     {

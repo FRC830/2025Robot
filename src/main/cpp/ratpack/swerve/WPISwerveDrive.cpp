@@ -37,7 +37,7 @@ void WPISwerveDrive::Configure(SwerveConfig &config){
             pathplanner::PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
         ),
         pathplanner_config,
-        []() { return false;},
+        []() { return true;},
         {nullptr}
     );
 
