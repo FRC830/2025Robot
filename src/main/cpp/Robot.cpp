@@ -24,6 +24,7 @@ Robot::Robot() {
 
 void Robot::RobotPeriodic() {
   PrintSwerveInfo();
+  m_cam->AddCrossHairs();
 }
 
 void Robot::DisabledInit() {}

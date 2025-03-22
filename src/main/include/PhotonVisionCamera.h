@@ -9,6 +9,9 @@
 #include <memory>
 #include <frc/smartdashboard/Field2d.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <cscore_cv.h>
+#include <opencv2/opencv.hpp>
+#include "cameraserver/CameraServer.h"
 
 class PhotonVisionCamera
 {
@@ -21,11 +24,13 @@ class PhotonVisionCamera
        frc::Field2d m_field;
        bool m_LastResultIsEmpty;
        PhotonVisionCamera() = default;
+        std::string m_camName;
 
     public:    
         PhotonVisionCamera(std::string name, frc::Transform3d robotToCamera);
         std::optional<photon::EstimatedRobotPose> GetPose();
         void SaveResult();
         int GetAprilTagID();
+        void AddCrossHairs();
         
 };

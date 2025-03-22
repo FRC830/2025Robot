@@ -1,9 +1,11 @@
 #include "PhotonVisionCamera.h"
+#include <iostream>
 
 PhotonVisionCamera::PhotonVisionCamera(std::string name, frc::Transform3d robotToCamera)
     : m_robotToCam(robotToCamera)
 {
     m_camera = std::make_shared<photon::PhotonCamera>(name);
+    m_camName = name;
     m_poseEstimator = std::make_shared<photon::PhotonPoseEstimator>(m_aprilTagFieldLayout,
                                                                     photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
                                                                     robotToCamera);
@@ -13,8 +15,6 @@ PhotonVisionCamera::PhotonVisionCamera(std::string name, frc::Transform3d robotT
     frc::SmartDashboard::PutData("vision_pose", &m_field);
 }
 
-
-#include <iostream>
 std::optional<photon::EstimatedRobotPose> PhotonVisionCamera::GetPose()
 {
     std::cout << "got inside getpose" << std::endl;
@@ -71,3 +71,12 @@ int PhotonVisionCamera::GetAprilTagID()
     return id;
 }
 
+void PhotonVisionCamera::AddCrossHairs()
+{
+    cs::CvSink cvSink = frc::CameraServer::GetVideo(m_camName);
+    cv::Mat mat;
+    cvSink.GrabFrame(mat);
+    cs::CvSource outputStreamStd = frc::CameraServer::PutVideo("processed image", 1280, 720);    
+    cv::drawMarker(mat, cv::Point(0, 0), cv::Scalar(0, 0, 0), cv::MARKER_CROSS, 10, 1, cv::LINE_AA); 
+    outputStreamStd.PutFrame(mat);
+}
