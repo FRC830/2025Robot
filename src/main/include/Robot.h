@@ -67,7 +67,7 @@ class Robot : public frc::TimedRobot {
   frc::Timer autonTimer;
   
   int m_state = 0;
-  frc2::Command* m_auto;  
+  frc2::Command* m_auto;
 
   frc::SendableChooser<frc2::Command*> m_autoChooser;
   
