@@ -13,7 +13,10 @@ struct SwerveInput{
 struct ResetNavx
 {
     bool reset;
+    bool toggleXlock;
 };
+
+
 
 struct CoralInput{
     double indexerSpeeds;

@@ -34,7 +34,7 @@ Robot::Robot() {
   m_autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
   frc::SmartDashboard::PutData("Auto Chooser", &m_autoChooser);
 
-  _swerve.SetShouldSwerveLock(false);
+  _swerve.SetShouldSwerveLock(true);
 }
 
 void Robot::RobotPeriodic() {
