@@ -7,7 +7,7 @@
 class ShootCoral : public frc2::CommandHelper<frc2::Command, ShootCoral>
 {
 public:
-    ShootCoral(RobotControlData& data);
+    explicit ShootCoral(RobotControlData& data);
     ~ShootCoral() = default;
 
     void Initialize() override;

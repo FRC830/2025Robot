@@ -6,7 +6,7 @@
 class RaiseArmToBottom : public frc2::CommandHelper<frc2::Command, RaiseArmToBottom>
 {
 public:
-    RaiseArmToBottom(RobotControlData& data);
+    explicit RaiseArmToBottom(RobotControlData& data);
     ~RaiseArmToBottom() = default;
 
     void Initialize() override;

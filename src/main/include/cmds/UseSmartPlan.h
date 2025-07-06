@@ -6,7 +6,7 @@
 class UseSmartPlan : public frc2::CommandHelper<frc2::Command, UseSmartPlan>
 {
 public:
-    UseSmartPlan(RobotControlData& data);
+    explicit UseSmartPlan(RobotControlData& data);
     ~UseSmartPlan() = default;
 
     void Initialize() override;

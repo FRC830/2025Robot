@@ -6,7 +6,7 @@
 class RaiseArm : public frc2::CommandHelper<frc2::Command, RaiseArm>
 {
 public:
-    RaiseArm(RobotControlData& data);
+    explicit RaiseArm(RobotControlData& data);
     ~RaiseArm() = default;
 
     void Initialize() override;

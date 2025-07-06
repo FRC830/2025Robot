@@ -6,7 +6,7 @@
 class LowerArm : public frc2::CommandHelper<frc2::Command, LowerArm>
 {
 public:
-    LowerArm(RobotControlData& data);
+    explicit LowerArm(RobotControlData& data);
     ~LowerArm() = default;
 
     void Initialize() override;
