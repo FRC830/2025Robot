@@ -18,6 +18,9 @@
 #include "cmds/RaiseArmToBottom.h"
 #include "cmds/UseSmartPlan.h"
 
+
+#include <iostream>
+
 Robot::Robot() {
   m_cam = std::make_shared<PhotonVisionCamera>("Arducam_OV9281_USB_Camera", ratbot::VisionConfig::ROBOT_TO_CAMERA);
   
@@ -158,6 +161,8 @@ void Robot::TeleopPeriodic() {
       if (_robot_control_data.resetNavx.reset)
       {
         _gyro.Reset();
+        std::cout << "Raw heading: " <<  _gyro.GetRawHeading().Degrees().value() << std::endl;
+        std::cout << "Heading: " << _gyro.GetHeading().Degrees().value() << std::endl;
       }
   }
 

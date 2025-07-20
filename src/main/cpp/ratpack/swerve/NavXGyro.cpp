@@ -59,5 +59,5 @@ void NavXGyro::SetZeroHeading(double zero_heading)
 
 void NavXGyro::Reset()
 {
-    m_gyro->Reset();
+    m_gyro->ZeroYaw();
 }
