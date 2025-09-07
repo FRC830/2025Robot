@@ -10,14 +10,14 @@
 // #                  Front Left Module                      #
 // ###########################################################
 // --------------------Absolute Encoder-----------------------
-const int FL_ABS_ENC_PORT = 3;
+const int FL_ABS_ENC_PORT = 21;
 const bool FL_ABS_ENC_INVERTED = false;
 const frc::Rotation2d FL_ZERO_HEADING{units::degree_t{268.76f}};
 
 ctre::phoenix6::hardware::CANcoder fl_abs_enc{FL_ABS_ENC_PORT};
 
 // -----------------------Turn Motor--------------------------
-const int FL_TURN_MTR_ID = 15;
+const int FL_TURN_MTR_ID = 60;
 const bool FL_TURN_MTR_INVERTED = true;
 
 rev::spark::SparkMax fl_turn_mtr{FL_TURN_MTR_ID, rev::spark::SparkMax::MotorType::kBrushless};
@@ -25,7 +25,7 @@ rev::spark::SparkRelativeEncoder fl_turn_enc = fl_turn_mtr.GetEncoder();
 rev::spark::SparkClosedLoopController fl_turn_pid = fl_turn_mtr.GetClosedLoopController();
 
 // -----------------------Drive Motor-------------------------
-const int FL_DRIVE_MTR_ID = 18;
+const int FL_DRIVE_MTR_ID = 61;
 const double FL_POSITION_CORRECTION_FACTOR = 1.0;
 
 rev::spark::SparkMax fl_drive_mtr{FL_DRIVE_MTR_ID, rev::spark::SparkMax::MotorType::kBrushless};
