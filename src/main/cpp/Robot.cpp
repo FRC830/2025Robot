@@ -116,20 +116,22 @@ void Robot::TeleopPeriodic() {
 
  // _swerve.Drive(_robot_control_data.swerveInput.xTranslation * 0.5, _robot_control_data.swerveInput.yTranslation * 0.5, _robot_control_data.swerveInput.rotation * 0.5);
 if (_robot_control_data.swerveInput.xTranslation > 0.1 || _robot_control_data.swerveInput.xTranslation < -0.1)
-{  fl_turn_mtr.Set(_robot_control_data.swerveInput.xTranslation);
+{  fl_drive_mtr.Set(_robot_control_data.swerveInput.xTranslation);
 }  
 else
 {
-    fl_turn_mtr.Set(0);
+    fl_drive_mtr.Set(0);
 
 }
 if (_robot_control_data.swerveInput.yTranslation > 0.1 || _robot_control_data.swerveInput.yTranslation < -0.1)
-{  fl_drive_mtr.Set(_robot_control_data.swerveInput.yTranslation);
+{  fl_turn_mtr.Set(_robot_control_data.swerveInput.yTranslation);
 }  
 else
 {
-  fl_drive_mtr.Set(0);
+  fl_turn_mtr.Set(0);
 }
+
+frc::SmartDashboard::PutNumber("Drive Speed", _robot_control_data.swerveInput.xTranslation);
 
 
 //   bool userWantsToSmartPlan = _robot_control_data.plannerInput.Left_L1
