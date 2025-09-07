@@ -4,6 +4,7 @@ struct SwerveInput{
     double xTranslation;
     double yTranslation;
     double rotation;
+    double blah;
 
     bool targetLeftFeederAngle;
     bool targetRightFeederAngle;

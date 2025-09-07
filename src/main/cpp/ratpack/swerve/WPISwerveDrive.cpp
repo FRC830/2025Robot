@@ -79,12 +79,13 @@ void WPISwerveDrive::Drive(units::feet_per_second_t vx, units::feet_per_second_t
     if (!m_orientation)
     {
         //std::cout << "robot" << std::endl;
-        Drive(frc::ChassisSpeeds{vx, vy, omega});   
+        Drive(frc::ChassisSpeeds{vx, vy, -omega});   
     }
     else
     {
         //std::cout << "field" << std::endl;
-        frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(vx, vy, omega, m_gyro->GetRawHeading());
+        frc::Rotation2d temp = 0_deg;
+        frc::ChassisSpeeds speeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(vx, vy, -omega, temp);
         Drive(speeds);
     }
 }   

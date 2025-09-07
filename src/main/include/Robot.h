@@ -17,6 +17,8 @@
 #include "ratpack/swerve/NeoTurnMotor.h"
 #include "ratpack/swerve/WPISwerveModule.h"
 #include "ratpack/swerve/WPISwerveDrive.h"
+#include "rev/SparkMax.h"
+
 
 #include "PhotonVisionCamera.h"
 #include "ControllerInterface.h"
@@ -75,4 +77,8 @@ class Robot : public frc::TimedRobot {
   std::shared_ptr<SmartPlanner> m_smartPlanner;
 
   ClimberManager m_ClimberManager;
+
+  rev::spark::SparkMax fl_turn_mtr{60, rev::spark::SparkMax::MotorType::kBrushless};
+  rev::spark::SparkMax fl_drive_mtr{61, rev::spark::SparkMax::MotorType::kBrushless};
+
 };

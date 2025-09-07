@@ -53,6 +53,7 @@ void ControllerInterface::UpdateSwerveInput(RobotControlData &controlData)
     controlData.swerveInput.xTranslation = -m_pilot.GetLeftY();
     controlData.swerveInput.yTranslation = -m_pilot.GetLeftX();
     controlData.swerveInput.rotation = -m_pilot.GetRightX();
+    controlData.swerveInput.blah = -m_pilot.GetRightY();
 
     auto tempTargetLeftFeeder = m_pilot.GetLeftTriggerAxis() > 0.1;
     auto tempTargetRightFeeder = m_pilot.GetRightTriggerAxis() > 0.1;

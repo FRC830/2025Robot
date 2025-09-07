@@ -17,7 +17,7 @@ const frc::Rotation2d FL_ZERO_HEADING{units::degree_t{268.76f}};
 ctre::phoenix6::hardware::CANcoder fl_abs_enc{FL_ABS_ENC_PORT};
 
 // -----------------------Turn Motor--------------------------
-const int FL_TURN_MTR_ID = 60;
+const int FL_TURN_MTR_ID = 10;
 const bool FL_TURN_MTR_INVERTED = true;
 
 rev::spark::SparkMax fl_turn_mtr{FL_TURN_MTR_ID, rev::spark::SparkMax::MotorType::kBrushless};
@@ -25,7 +25,7 @@ rev::spark::SparkRelativeEncoder fl_turn_enc = fl_turn_mtr.GetEncoder();
 rev::spark::SparkClosedLoopController fl_turn_pid = fl_turn_mtr.GetClosedLoopController();
 
 // -----------------------Drive Motor-------------------------
-const int FL_DRIVE_MTR_ID = 61;
+const int FL_DRIVE_MTR_ID = 11;
 const double FL_POSITION_CORRECTION_FACTOR = 1.0;
 
 rev::spark::SparkMax fl_drive_mtr{FL_DRIVE_MTR_ID, rev::spark::SparkMax::MotorType::kBrushless};
@@ -132,7 +132,7 @@ const double MOTOR_ROT_TO_DEG = 360.0 / TURN_GEAR_RATIO;
 
 const double TURN_P = 0.045;
 const double TURN_I = 0.0;
-const double TURN_D = 0.003;
+const double TURN_D = 0.007;
 const double TURN_FF = 0.0;
 
 // ------------------------Drive Motor------------------------
@@ -151,8 +151,8 @@ const frc::Rotation2d GYRO_ZERO_HEADING{units::degree_t{0.0f}};
 
 // --------------------------Swerve---------------------------
 const double MAX_DRIVE_SPEED_FPS = 18.0;
-const double MAX_ANGULAR_VELOCITY_DEGPS = 540.0;
-const double CONTROLLER_DEADZONE = 0.1;
+const double MAX_ANGULAR_VELOCITY_DEGPS = 180.0;
+const double CONTROLLER_DEADZONE = 0.2;
 const int TURN_MOTOR_CURRENT_LIMIT = 20;
 const int DRIVE_MOTOR_CURRENT_LIMIT = 30;
 const double SWERVE_VOLTAGE_COMPENSATION = 10.5;
