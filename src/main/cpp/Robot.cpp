@@ -124,14 +124,14 @@ else
 
 }
 if (_robot_control_data.swerveInput.yTranslation > 0.1 || _robot_control_data.swerveInput.yTranslation < -0.1)
-{  fl_turn_mtr.Set(_robot_control_data.swerveInput.yTranslation);
+{  fl_turn_mtr.Set(_robot_control_data.swerveInput.yTranslation * 0.5);
 }  
 else
 {
   fl_turn_mtr.Set(0);
 }
 
-frc::SmartDashboard::PutNumber("Drive Speed", _robot_control_data.swerveInput.xTranslation);
+frc::SmartDashboard::PutNumber("Drive Speed", 100 * (_robot_control_data.swerveInput.xTranslation * _robot_control_data.swerveInput.xTranslation));
 
 
 //   bool userWantsToSmartPlan = _robot_control_data.plannerInput.Left_L1
