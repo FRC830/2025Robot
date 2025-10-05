@@ -5,12 +5,12 @@
 #pragma once
 
 #include <optional> 
-
+#include <rev/SparkMax.h>
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
 #include <frc/Timer.h>
-
+#include <frc/XboxController.h>
 
 class Robot : public frc::TimedRobot {
  public:
@@ -30,7 +30,10 @@ class Robot : public frc::TimedRobot {
   void TestExit() override;
   void SwerveInit();
   void PrintSwerveInfo();
-
+    
  private:
-  
+  rev::spark::SparkMax CallumMotor{60, rev::spark::SparkMax::MotorType::kBrushless};
+  rev::spark::SparkMax SenithMotor{61, rev::spark::SparkMax::MotorType::kBrushless};
+  frc::XboxController DaveBox{0};
   };
+

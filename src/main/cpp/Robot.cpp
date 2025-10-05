@@ -27,9 +27,22 @@ void Robot::AutonomousExit() {}
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
-  
+  float slowmode=1;
+if (DaveBox.GetXButton()){
+  slowmode=0.15;
+}
+if (DaveBox.GetRightX() >= 0.15 || DaveBox.GetRightX() <= -0.15) {
+  CallumMotor.Set((slowmode * DaveBox.GetRightX()) -0.15);
+} else {
+  CallumMotor.Set(0);
+}
+if (DaveBox.GetRightY() >= 0.15 || DaveBox.GetRightY() <= -0.15) {
+  SenithMotor.Set(slowmode * DaveBox.GetRightY() -0.15);
+} else {
+  SenithMotor.Set(0);
 }
 
+}
 void Robot::TeleopExit() {}
 
 void Robot::TestInit() {}
