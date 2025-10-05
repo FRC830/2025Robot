@@ -11,6 +11,11 @@
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
 #include <frc/Timer.h>
 
+#include <rev/SparkMax.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/XboxController.h>
+
+
 
 class Robot : public frc::TimedRobot {
  public:
@@ -32,5 +37,8 @@ class Robot : public frc::TimedRobot {
   void PrintSwerveInfo();
 
  private:
-  
+    frc::XboxController m_conchroller{0};
+    rev::spark::SparkMax m_leftRight{60, rev::spark::SparkMax::MotorType::kBrushless};
+    rev::spark::SparkMax m_frontBack{61, rev::spark::SparkMax::MotorType::kBrushless};
+
   };
