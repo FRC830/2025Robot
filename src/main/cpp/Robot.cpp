@@ -28,6 +28,62 @@ void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
   
+if(controller1.GetLeftY()>=0.1||controller1.GetLeftY()<=-0.1){
+  if(controller1.GetLeftY()>=0){
+    if(controller1.GetLeftBumper())
+    {
+       motor1.Set((controller1.GetLeftY()-0.1)*10.0/9.0*0.2);
+    }
+    else
+    {
+        motor1.Set((controller1.GetLeftY()-0.1)*10.0/9.0);
+    }
+  }
+else{
+  motor1.Set(0);
+}
+
+
+if(controller1.GetLeftY()<0){
+ if(controller1.GetLeftBumper()){
+  motor1.Set((controller1.GetLeftY()+0.1)*10.0/9.0*0.2);
+ }
+ else{
+ motor1.Set((controller1.GetLeftY()+0.1)*10.0/9.0);
+ }
+}
+else{
+  motor1.Set(0);
+}
+
+}
+
+
+
+
+
+if(controller1.GetLeftX()>=0.1||controller1.GetLeftX()<=-0.1){
+if(controller1.GetLeftX()>=0){
+ if(controller1.GetLeftBumper()){
+  motor2.Set((controller1.GetLeftX()-0.1)*10.0/9.0*0.2);
+ }
+ else{
+ motor2.Set((controller1.GetLeftX()-0.1)*10.0/9.0);
+ }
+}
+if(controller1.GetLeftX()<0){
+ if(controller1.GetLeftBumper()){
+  motor2.Set((controller1.GetLeftX()+0.1)*10.0/9.0*0.2);
+ }
+ else{
+ motor2.Set((controller1.GetLeftX()+0.1)*10.0/9.0);
+ }
+}
+else{
+  motor2.Set(0);
+}
+
+}
 }
 
 void Robot::TeleopExit() {}
