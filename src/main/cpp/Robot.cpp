@@ -27,6 +27,10 @@ void Robot::AutonomousExit() {}
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
+  if(m_conchroller.GetAButtonPressed()){
+   
+  }
+  
   if((m_conchroller.GetRightX() > 0.1) or (m_conchroller.GetRightX() < -0.1)){
     m_leftRight.Set(m_conchroller.GetRightX());
     } else{
