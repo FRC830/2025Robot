@@ -10,7 +10,8 @@
 #include <frc2/command/CommandPtr.h>
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
 #include <frc/Timer.h>
-
+#include <frc/XboxController.h>
+#include <rev/SparkMax.h>
 
 class Robot : public frc::TimedRobot {
  public:
@@ -32,5 +33,8 @@ class Robot : public frc::TimedRobot {
   void PrintSwerveInfo();
 
  private:
-  
+  frc::XboxController exampleXbox{0}; // 0 is the USB Port to be used as indicated on the Driver Station
+  rev::spark::SparkMax vehicleTranslator{61, rev::spark::SparkMax::MotorType::kBrushless};
+  rev::spark::SparkMax vehicleTurner{60, rev::spark::SparkMax::MotorType::kBrushless};
+
   };
