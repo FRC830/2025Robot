@@ -8,7 +8,9 @@ class ControllerInterface
     public:
         ControllerInterface() = default;
         ~ControllerInterface() = default;
+        void UpdateRobotControlData(RobotControlData & controlData);
 
     private:
-
+        frc::XboxController controller{0};
+        void UpdateLauncherInput(RobotControlData & controlData);
 };
