@@ -13,6 +13,11 @@
 #include <frc/XboxController.h>
 #include <rev/SparkMax.h>
 #include <iostream>
+#include "CanConfig.h"
+#include "ControllerInterface.h"
+#include "CoralLauncherManager.h"
+#include "RobotControlData.h"
+#include "CoralLauncherHAL.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -33,8 +38,8 @@ class Robot : public frc::TimedRobot {
   void SwerveInit();
   void PrintSwerveInfo();
   
- private:  
-    frc::XboxController controller1{0}; 
-    rev::spark::SparkMax motor1{60, rev::spark::SparkMax::MotorType::kBrushless};
-    rev::spark::SparkMax motor2{61, rev::spark::SparkMax::MotorType::kBrushless};
+ private:
+    RobotControlData m_yourname;
+    CoralLauncherManager m_CallumThomson;
+    ControllerInterface m_AlexLi;
   };
