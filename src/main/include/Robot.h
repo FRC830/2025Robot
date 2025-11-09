@@ -14,6 +14,7 @@
 #include <rev/SparkMax.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/XboxController.h>
+#include <frc/Servo.h>
 
 
 
@@ -38,7 +39,8 @@ class Robot : public frc::TimedRobot {
 
  private:
     frc::XboxController m_conchroller{0};
-    rev::spark::SparkMax m_leftRight{60, rev::spark::SparkMax::MotorType::kBrushless};
-    rev::spark::SparkMax m_frontBack{61, rev::spark::SparkMax::MotorType::kBrushless};
-
-  };
+    rev::spark::SparkMax m_motor{2, rev::spark::SparkMax::MotorType::kBrushless};
+    rev::spark::SparkMax m_minimotor{7, rev::spark::SparkMax::MotorType::kBrushless};
+    frc::Servo s_servo{0};
+    double angle = 0.0;
+}; 

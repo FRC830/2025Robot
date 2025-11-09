@@ -27,21 +27,16 @@ void Robot::AutonomousExit() {}
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
-  if(m_conchroller.GetAButtonPressed()){
-   
+  m_motor.Set(0.2*m_conchroller.GetRightY());
+  m_minimotor.Set(0.5*m_conchroller.GetLeftY());
+  if (m_conchroller.GetAButtonPressed()) {
+    angle += 10.0;
+    s_servo.SetAngle(angle);
   }
-  
-  if((m_conchroller.GetRightX() > 0.1) or (m_conchroller.GetRightX() < -0.1)){
-    m_leftRight.Set(m_conchroller.GetRightX());
-    } else{
-      m_leftRight.Set(0);
-    }
-    
-  if((m_conchroller.GetRightY() > 0.1) or (m_conchroller.GetRightY() < -0.1)){
-    m_frontBack.Set(m_conchroller.GetRightY());
-    } else{
-      m_frontBack.Set(0);
-    }
+  if (m_conchroller.GetBButtonPressed()) {
+    angle -= 10.0;
+    s_servo.SetAngle(angle);
+  }
 }
 
 void Robot::TeleopExit() {}
