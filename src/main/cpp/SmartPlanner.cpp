@@ -43,7 +43,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
 
             if (estimatedPose.has_value())
             {
-                //std::cout << "estimated at: " << estimatedPose.value().estimatedPose.X().value() << ", " << estimatedPose.value().estimatedPose.Y().value() << std::endl; 
+                std::cout << "estimated at: " << estimatedPose.value().estimatedPose.X().value() << ", " << estimatedPose.value().estimatedPose.Y().value() << std::endl; 
                 m_tagId = m_Cam.GetAprilTagID();
                 std::cout << "tag id: " << m_tagId << std::endl;
                 m_Swerve.UpdatePoseWithVision(estimatedPose.value().estimatedPose, estimatedPose.value().timestamp);
@@ -68,7 +68,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
 
             m_targetPose = frc::Pose2d{x, y, rot};
 
-            //m_startPose = m_Swerve.GetPose();
+            m_startPose = m_Swerve.GetPose();
 
 
             m_state++;
@@ -87,6 +87,7 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
                 m_path = std::make_unique<frc2::CommandPtr>(pathplanner::AutoBuilder::pathfindToPose(m_targetPose, m_constraints, 0.0_mps));
                 m_state++;
             }
+            //m_Swerve.Drive(speeds.vx, speeds.vy, 0);
             break;
         }
         case 3:
@@ -107,11 +108,8 @@ void SmartPlanner::SmartPlan(RobotControlData &data)
             // if flywheels at speed run indexer
             if (data.coralOutput.flywheelsAtSpeed)
             {
-                data.coralInput.indexerSpeeds = 1.0;
-                if(!data.coralOutput.isBeamBroken)
-                {
-                    m_state++;
-                }
+              data.coralInput.indexerSpeeds = 1.0;
+              m_state++;  
             }
             break;
         }

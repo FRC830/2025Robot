@@ -19,7 +19,7 @@
 #include "cmds/UseSmartPlan.h"
 
 Robot::Robot() {
-  m_cam = std::make_shared<PhotonVisionCamera>("Arducam_OV9281_USB_Camera", ratbot::VisionConfig::ROBOT_TO_CAMERA);
+  m_cam = std::make_shared<PhotonVisionCamera>("Climber cam", ratbot::VisionConfig::ROBOT_TO_CAMERA);
   
   pathplanner::NamedCommands::registerCommand("shoot", std::make_shared<ShootCoral>(_robot_control_data));
   pathplanner::NamedCommands::registerCommand("raise", std::make_shared<RaiseArm>(_robot_control_data));

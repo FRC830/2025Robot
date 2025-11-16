@@ -47,12 +47,12 @@ units::degrees_per_second_t MoveToPose::angularRotation(frc::Rotation2d current,
         m_turn = m_turn + 360.0;
     }
     */
-    auto error = current - desired;
+    auto error = desired-current;
     m_turn = error.Degrees().value();
 
     auto val = ((std::fabs(m_turn) / 180.0f) * ratbot::MoveToPoseConfig::MAX_TURN_SPEED_DEG_PER_SEC) + ratbot::MoveToPoseConfig::TURN_FEED_FORWARD_DEG_PER_SEC;
     
-    if (m_turn > 0.0f)
+    if (m_turn < 0.0f)
     {
         val = -val;
     }
@@ -145,7 +145,8 @@ std::pair<units::feet_per_second_t, units::feet_per_second_t> MoveToPose::linear
     
     m_distance = sqrt(x + y);
     std::cout << "distance: " << m_distance << std::endl;
-    double theta =  atan2(currenty - desiredy, currentx - desiredx);
+    double theta =  atan2(desiredy-currenty ,  desiredx - currentx);
+
     m_vxCoeff = cos(theta);
     m_vyCoeff = sin(theta);
 
@@ -159,7 +160,9 @@ std::pair<units::feet_per_second_t, units::feet_per_second_t> MoveToPose::linear
     }
 
     auto vx = units::meters_per_second_t{val*m_vxCoeff};
-    auto vy = units::meters_per_second_t{-val*m_vyCoeff};
+    auto vy = units::meters_per_second_t{val*m_vyCoeff};
+
+
     std::pair<units::feet_per_second_t, units::feet_per_second_t> velocity = {vx, vy};
     //std::pair<units::meters_per_second_t, units::meters_per_second_t> velocity = {units::meters_per_second_t{0.0f}, units::meters_per_second_t{0.0f}};
     return velocity; //pair of vx and vy
